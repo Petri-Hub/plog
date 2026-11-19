@@ -1,0 +1,18 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/shared/Header.astro";
+import Main from "../components/shared/Main.astro";
+
+type Props = {
+  name: string
+}
+
+const { name } = Astro.props
+---
+
+<BaseLayout title={`PLOG | ${name}`}>
+  <Header />
+  <Main>
+    <slot />
+  </Main>
+</BaseLayout>

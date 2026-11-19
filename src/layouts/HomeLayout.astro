@@ -1,0 +1,12 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/shared/Header.astro";
+import Main from "../components/shared/Main.astro"
+---
+
+<BaseLayout title="PLOG | Início">
+  <Header />
+  <Main>
+    <slot />
+  </Main>
+</BaseLayout>

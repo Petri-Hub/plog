@@ -1,0 +1,37 @@
+---
+import { describe } from "astro:schema";
+import HomeLayout from "../../layouts/HomeLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection('posts')
+
+---
+
+<HomeLayout title="PLOG | Início">
+  <section>
+    <h2>
+      Bem vindo ao meu blog
+    </h2>
+    <p>
+      Assuntos de tecnologia e coisas por aí
+    </p>
+  </section>
+  <section>
+    <h3>Destaques</h3>
+    <ul>
+      {
+        posts.map(({id, data: { title, description, tags, date} }) => (
+          <li>
+            <a href={`./posts/${id}`}>
+            <article>
+              <p>{date} - {tags}</p>
+              <h4>{title}</h4>
+              <p>{description}</p>
+            </article>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</HomeLayout>

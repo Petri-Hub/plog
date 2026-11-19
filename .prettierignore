@@ -1,0 +1,9 @@
+# Cache.
+.vercel
+.astro
+
+# Configuration files.
+.vscode
+
+# Distribuiton.
+dist

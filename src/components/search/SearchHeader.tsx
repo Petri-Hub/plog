@@ -33,6 +33,7 @@ export const SearchHeader = ({
   return (
     <div>
       <input
+        autoFocus
         type="text"
         value={search}
         onInput={handleInput}

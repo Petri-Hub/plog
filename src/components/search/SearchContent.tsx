@@ -1,4 +1,7 @@
+import { createUrlFromPostId } from '../../utils/post.utilts'
+
 type Item = {
+  id: string
   title: string
   description: string
   date: Date
@@ -13,11 +16,13 @@ type Props = {
 export const SearchContent = ({ items }: Props) => {
   return (
     <ul>
-      {items.map(({ title, description, date }) => (
+      {items.map(({ id, title, description, date }) => (
         <li key={title}>
-          <p>{date.toLocaleDateString()}</p>
-          <h4>{title}</h4>
-          <p>{description}</p>
+          <a href={createUrlFromPostId(id)}>
+            <p>{date.toLocaleDateString()}</p>
+            <h4>{title}</h4>
+            <p>{description}</p>
+          </a>
         </li>
       ))}
     </ul>

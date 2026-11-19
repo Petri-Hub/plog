@@ -1,20 +1,42 @@
 import { SearchHeader } from './SearchHeader'
 import { SearchContent } from './SearchContent'
-import type { Post, PostWithLanguage } from '../../types/content.types'
-import { useState, type FocusEvent, type InputEvent } from 'react'
-import { getLocaleOrFallbackTo } from '../../utils/locale.utils'
+import type { Post } from '../../types/content.types'
+import { useEffect, useState, type FocusEvent, type InputEvent } from 'react'
+import { getLocale, getLocaleOrFallbackTo } from '../../utils/locale.utils'
 import type { Language } from '../../types/language.types'
 import { normalizeText } from '../../utils/text.utils'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 type Props = {
   posts: Post[]
+  enabled: boolean
 }
 
-export const SearchMenu = ({ posts }: Props) => {
+export const SearchMenu = ({ posts, enabled }: Props) => {
   const locale = getLocaleOrFallbackTo('pt-br')
 
   const [search, setSearch] = useState<string>('')
   const [language, setLanguage] = useState<Language | 'all'>(locale)
+  const [isEnabled, setIsEnabled] = useState<boolean>(enabled)
+
+  useHotkeys(
+    'mod+k',
+    (event) => {
+      event.preventDefault()
+
+      setIsEnabled(!isEnabled)
+      setSearch('')
+    },
+    {
+      enabled: true,
+      enableOnFormTags: true,
+      enableOnContentEditable: true,
+    },
+  )
+
+  if (!isEnabled) {
+    return null
+  }
 
   const handleInput = ({
     currentTarget,
@@ -43,13 +65,16 @@ export const SearchMenu = ({ posts }: Props) => {
   }
 
   const getPostsAsResults = () => {
-    return getFilteredPosts().map(({ data }) => ({
-      title: data.title,
-      description: data.description,
-      tags: data.tags,
-      highlighted: data.highlighted,
-      date: data.date,
-    }))
+    return getFilteredPosts().map(
+      ({ id, data: { title, description, tags, highlighted, date } }) => ({
+        id,
+        title,
+        description,
+        tags,
+        highlighted,
+        date,
+      }),
+    )
   }
 
   const isPostMatchingLanguage = (post: Post): boolean => {

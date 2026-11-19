@@ -17,7 +17,7 @@ const posts = await getAllPosts()
 <BaseLayout alternates={alternates} title="Plog | Início">
   <Header alternates={alternates}/>
   <Main>
-    <SearchMenu client:only posts={posts} />
+    <SearchMenu client:only posts={posts} enabled={false}/>
 
     <slot />
   </Main>

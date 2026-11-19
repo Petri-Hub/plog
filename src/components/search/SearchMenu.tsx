@@ -1,12 +1,11 @@
-import type { FC } from "react";
-import { SearchHeader } from "./SearchHeader";
-import { SearchContent } from "./SearchContent";
+import { SearchHeader } from './SearchHeader'
+import { SearchContent } from './SearchContent'
 
 export const SearchMenu = () => {
   return (
     <div>
       <SearchHeader />
-      <SearchContent items={[]}/>
+      <SearchContent items={[]} />
     </div>
   )
 }

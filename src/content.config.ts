@@ -1,6 +1,6 @@
-import { defineCollection, reference } from "astro:content";
-import { glob } from "astro/loaders"
-import { z } from "astro/zod" 
+import { defineCollection, reference } from 'astro:content'
+import { glob } from 'astro/loaders'
+import { z } from 'astro/zod'
 
 const posts = defineCollection({
   loader: glob({
@@ -13,10 +13,10 @@ const posts = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string().lowercase()),
     highlighted: z.boolean(),
-    alternates: z.array(reference('posts')).default([])
+    alternates: z.array(reference('posts')).default([]),
   }),
 })
 
-export const collections = { 
-  posts 
-};
+export const collections = {
+  posts,
+}

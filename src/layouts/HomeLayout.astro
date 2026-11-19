@@ -2,20 +2,23 @@
 import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/shared/Header.astro";
 import Main from "../components/shared/Main.astro"
+import { getAllPosts } from '../contents/services/post.service'
 import { SearchMenu } from "../components/search/SearchMenu";
 import type { AlternateLanguageLinks } from "../types/language.types";
 
 const alternates: AlternateLanguageLinks = {
-    'pt-br': '/pt-br/',
-    'en-us': '/en-us/'
-  }
+  'pt-br': '/pt-br/',
+  'en-us': '/en-us/'
+}
 
+const posts = await getAllPosts()
 ---
 
 <BaseLayout alternates={alternates} title="Plog | Início">
   <Header alternates={alternates}/>
   <Main>
-    <SearchMenu />
+    <SearchMenu client:only posts={posts} />
+
     <slot />
   </Main>
 </BaseLayout>

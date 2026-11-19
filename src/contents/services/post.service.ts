@@ -1,8 +1,13 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
+import type { PostWithLanguage } from '../../types/content.types'
 
 type Post = CollectionEntry<'posts'>
 
 type Language = 'pt-br' | 'en-us'
+
+export const getAllPosts = async (): Promise<Post[]> => {
+  return await getCollection('posts')
+}
 
 export const getPosts = async (language: Language): Promise<Post[]> => {
   return await getCollection('posts', (post) => {

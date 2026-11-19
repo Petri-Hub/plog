@@ -2,11 +2,14 @@
 import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/shared/Header.astro";
 import Main from "../components/shared/Main.astro"
+import { SearchMenu } from "../components/search/SearchMenu";
+
 ---
 
-<BaseLayout title="PLOG | Início">
+<BaseLayout title="Plog | Início">
   <Header />
   <Main>
+    <SearchMenu />
     <slot />
   </Main>
 </BaseLayout>

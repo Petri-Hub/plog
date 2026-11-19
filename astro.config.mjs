@@ -5,9 +5,22 @@ import mdx from '@astrojs/mdx'
 
 import vercel from '@astrojs/vercel'
 
+import react from '@astrojs/react';
+
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx()],
+  site: 'https://blog.petri.zip',
+  integrations: [mdx(), react(), sitemap({
+    i18n: {
+      defaultLocale: 'pt-br',
+      locales: {
+        'pt-br': 'pt-br',
+        'en': 'en-US'
+      }
+    }
+  })],
   i18n: {
     locales: ['pt-br', 'en'],
     defaultLocale: 'pt-br',
@@ -16,13 +29,14 @@ export default defineConfig({
       redirectToDefaultLocale: true,
     },
   },
-  devToolbar: {
-    enabled: true,
-    placement: 'bottom-right',
-  },
+  
   adapter: vercel({
     webAnalytics: {
       enabled: true,
     },
   }),
+  devToolbar: {
+    enabled: true,
+    placement: 'bottom-right',
+  },
 })

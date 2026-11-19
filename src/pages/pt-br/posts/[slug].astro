@@ -1,20 +1,21 @@
 ---
-import { render } from 'astro:content'
 import PostLayout from '../../../layouts/PostLayout.astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getPostById, getPosts } from '../../../contents/services/PostService'
+import { toIdWithoutLanguage } from '../../../utils/id.utils'
+import { render } from 'astro:content'
 
 export async function getStaticPaths() {
-  return await getCollection('posts').then((posts) =>
+  return await getPosts('pt-br').then((posts) =>
     posts.map((post) => ({
       params: {
-        slug: post.id,
+        slug: toIdWithoutLanguage(post.id),
       },
     })),
   )
 }
 
 const { slug } = Astro.params
-const post = await getEntry('posts', slug)
+const post = await getPostById('pt-br', slug)
 
 if(!post){
   throw new Error("teste")

@@ -5,14 +5,15 @@ import { z } from "astro/zod"
 const posts = defineCollection({
   loader: glob({
     base: './src/contents/posts',
-    pattern: '**/index.md'
+    pattern: '**/index.md',
   }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    tags: z.array(z.string())
-  })
+    tags: z.array(z.string().lowercase()),
+    highlighted: z.boolean()
+  }),
 })
 
 export const collections = { 

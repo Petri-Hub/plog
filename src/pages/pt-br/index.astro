@@ -1,9 +1,12 @@
 ---
-import { describe } from "astro:schema";
+import { getHighlightedPosts, getPostsOrderedByDate } from "../../contents/services/PostService";
+import { toIdWithoutLanguage } from '../../utils/id.utils'
 import HomeLayout from "../../layouts/HomeLayout.astro";
-import { getCollection } from "astro:content";
 
-const posts = await getCollection('posts')
+const highlights = await getHighlightedPosts('pt-br')
+const recents = await getPostsOrderedByDate('pt-br')
+
+console.log(toIdWithoutLanguage("en/teste123"))
 
 ---
 
@@ -20,9 +23,27 @@ const posts = await getCollection('posts')
     <h3>Destaques</h3>
     <ul>
       {
-        posts.map(({id, data: { title, description, tags, date} }) => (
+        highlights.filter(post => post.data.highlighted).map(({id, data: { title, description, tags, date} }) => (
           <li>
-            <a href={`./posts/${id}`}>
+            <a href={`./posts/${toIdWithoutLanguage(id)}`}>
+            <article>
+              <p>{date} - {tags}</p>
+              <h4>{title}</h4>
+              <p>{description}</p>
+            </article>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+   <section>
+    <h3>Recentes</h3>
+    <ul>
+      {
+        recents.map(({id, data: { title, description, tags, date} }) => (
+          <li>
+            <a href={`./posts/${toIdWithoutLanguage(id)}`}>
             <article>
               <p>{date} - {tags}</p>
               <h4>{title}</h4>

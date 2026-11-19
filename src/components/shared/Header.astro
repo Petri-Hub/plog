@@ -1,9 +1,23 @@
+---
+import type { AlternateLanguageLinks } from '../../types/language.types'
+
+type Props = {
+  alternates: AlternateLanguageLinks
+}
+
+const { alternates } = Astro.props
+---  
+
 <header>
   <h1>PLOG</h1>
   <nav>
     <ul>
-      <li><a href="/">Blog</a></li>
-      <li><a href="/about">Sobre</a></li>
+      <li><a href="/pt-br/">Blog</a></li>
+      <li><a href="/pt-br/sobre">Sobre</a></li>
     </ul>
   </nav>
+  <div>
+    <a href={alternates['pt-br']}>PT</a>
+    <a href={alternates['en-us']}>EN</a>
+  </div>
 </header>

@@ -5,13 +5,17 @@ import Main from "../components/shared/Main.astro";
 
 type Props = {
   name: string
+  alternates: {
+    'pt-br': string,
+    'en-us': string
+  }
 }
 
-const { name } = Astro.props
+const { name, alternates } = Astro.props
 ---
 
-<BaseLayout title={`Plog | ${name}`}>
-  <Header />
+<BaseLayout alternates={alternates} title={`Plog | ${name}`}>
+  <Header alternates={alternates}/>
   <Main>
     <slot />
   </Main>

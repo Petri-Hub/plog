@@ -1,0 +1,32 @@
+---
+import PostLayout from '../../../layouts/PostLayout.astro'
+import { getPostById, getPosts } from '../../../contents/services/PostService'
+import { toIdWithoutLanguage } from '../../../utils/id.utils'
+import { render } from 'astro:content'
+import { toAlternateMap } from '../../../utils/alternates.utils'
+
+export async function getStaticPaths() {
+  return await getPosts('en-us').then((posts) =>
+    posts.map((post) => ({
+      params: {
+        slug: toIdWithoutLanguage(post.id),
+      },
+    })),
+  )
+}
+
+const { slug } = Astro.params
+const post = await getPostById('en-us', slug)
+
+if(!post){
+  throw new Error("teste")
+}
+
+const alternates = toAlternateMap(post.data.alternates)
+
+console.log(alternates)
+
+const { Content } = await render(post)
+---
+
+<PostLayout name="teste" alternates={alternates}> <Content /></PostLayout>

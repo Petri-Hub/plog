@@ -3,6 +3,7 @@ import PostLayout from '../../../layouts/PostLayout.astro'
 import { getPostById, getPosts } from '../../../contents/services/PostService'
 import { toIdWithoutLanguage } from '../../../utils/id.utils'
 import { render } from 'astro:content'
+import { toAlternateMap } from '../../../utils/alternates.utils'
 
 export async function getStaticPaths() {
   return await getPosts('pt-br').then((posts) =>
@@ -21,7 +22,9 @@ if(!post){
   throw new Error("teste")
 }
 
+const alternates = toAlternateMap(post.data.alternates)
+
 const { Content } = await render(post)
 ---
 
-<PostLayout name="teste"> <Content /></PostLayout>
+<PostLayout name="teste", alternates={alternates}> <Content /></PostLayout>

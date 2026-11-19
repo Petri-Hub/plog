@@ -6,8 +6,6 @@ import HomeLayout from "../../layouts/HomeLayout.astro";
 const highlights = await getHighlightedPosts('pt-br')
 const recents = await getPostsOrderedByDate('pt-br')
 
-console.log(toIdWithoutLanguage("en/teste123"))
-
 ---
 
 <HomeLayout title="PLOG | Início">
@@ -25,7 +23,7 @@ console.log(toIdWithoutLanguage("en/teste123"))
       {
         highlights.filter(post => post.data.highlighted).map(({id, data: { title, description, tags, date} }) => (
           <li>
-            <a href={`./posts/${toIdWithoutLanguage(id)}`}>
+            <a href={`/pt-br/posts/${toIdWithoutLanguage(id)}`}>
             <article>
               <p>{date} - {tags}</p>
               <h4>{title}</h4>
@@ -43,7 +41,7 @@ console.log(toIdWithoutLanguage("en/teste123"))
       {
         recents.map(({id, data: { title, description, tags, date} }) => (
           <li>
-            <a href={`./posts/${toIdWithoutLanguage(id)}`}>
+            <a href={`/pt-br/posts/${toIdWithoutLanguage(id)}`}>
             <article>
               <p>{date} - {tags}</p>
               <h4>{title}</h4>

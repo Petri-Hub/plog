@@ -9,6 +9,6 @@ alternates:
   - 'pt-br/post-13-test'
 ---
 
-# Conteúdo em português
+## Conteúdo em português
 
 Este é o conteúdo de teste do post 13, escrito em português do Brasil.

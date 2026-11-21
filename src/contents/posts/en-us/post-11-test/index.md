@@ -9,6 +9,6 @@ alternates:
   - 'pt-br/post-11-test'
 ---
 
-# English content
+## English content
 
 This is the test content of post 11, written in English.

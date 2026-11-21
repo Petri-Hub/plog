@@ -149,11 +149,11 @@ pnpm dev
 - ✅ Vercel Web Analytics
 - ✅ Prettier on every staged file before each commit, through Husky
 - ✅ Type checking with `astro check` on every build
+- ✅ Rules that teach coding agents the architecture and its conventions
 - ✅ Every piece of interface text in both languages
 
 ### Open
 
-- ⬜ Rules that teach coding agents the architecture and its conventions
 - ⬜ A quality gate in CI that holds SEO and accessibility at 100
 - ⬜ 100 in every Lighthouse category
 - ⬜ The visual design: blueprints, diagrams and dithering, with an elegant serif

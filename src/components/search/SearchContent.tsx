@@ -20,7 +20,7 @@ export const SearchContent = ({ items, language }: Props) => {
   return (
     <ul>
       {items.map(({ id, title, description, date }) => (
-        <li key={title}>
+        <li key={id}>
           <a href={createUrlFromPostId(id)}>
             <p>{toLocalizedDate(date, language)}</p>
             <h4>{title}</h4>

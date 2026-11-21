@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions'
 import type { AlternateLanguageLinks } from '../types/language.types'
+import { Font } from 'astro:assets'
 
 type Props = {
   title: string
@@ -30,8 +31,18 @@ const { title, alternates } = Astro.props
     )
   }
 
+  <Font cssVariable='--font-accent' preload />
+  <Font cssVariable='--font-decorative' preload />
+  <Font cssVariable='--font-text' preload />
+
   <ClientRouter />
-</head>
+
+  <style is:global>
+    * {
+      font-family: var(--font-decorative);
+    }
+  </style>
+</head> 
 <body>
   <slot />
 </body>

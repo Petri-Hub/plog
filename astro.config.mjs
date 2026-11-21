@@ -1,17 +1,29 @@
 // @ts-check
-import { defineConfig } from 'astro/config'
-
+import { defineConfig, fontProviders } from 'astro/config'
 import mdx from '@astrojs/mdx'
-
 import vercel from '@astrojs/vercel'
-
 import react from '@astrojs/react'
-
 import sitemap from '@astrojs/sitemap'
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://blog.petri.zip',
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Cormorant Garamond',
+      cssVariable: '--font-accent',
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Shantell Sans',
+      cssVariable: '--font-decorative',
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Google Sans',
+      cssVariable: '--font-text',
+    },
+  ],
   integrations: [
     mdx(),
     react(),

@@ -2,3 +2,7 @@ minimumReleaseAgeExclude:
   - '@astrojs/runtime@0.1.2'
   - astro@7.4.13
   - '@astrojs/sitemap@3.7.6'
+
+overrides:
+  # https://github.com/advisories/GHSA-9wv6-86v2-598j, until @vercel/routing-utils stops pinning 6.1.0
+  path-to-regexp@<6.3.0: 6.3.0

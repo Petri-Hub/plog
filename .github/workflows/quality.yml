@@ -1,0 +1,46 @@
+name: Quality
+
+on:
+  pull_request:
+    branches: [production]
+  push:
+    branches: [production]
+
+jobs:
+  quality:
+    name: Format, type check, build and Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 12
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm exec prettier --check .
+
+      - name: Type-check and build
+        run: pnpm build
+
+      - name: Stand in for the Vercel analytics script, which only Vercel serves
+        run: mkdir -p dist/_vercel/insights && touch dist/_vercel/insights/script.js
+
+      - name: Run Lighthouse
+        run: pnpm dlx @lhci/cli@0.16.1 autorun
+
+      - name: Keep the Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/reports
+          if-no-files-found: ignore

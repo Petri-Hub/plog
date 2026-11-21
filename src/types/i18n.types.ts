@@ -11,6 +11,7 @@ export type Strings = {
   }
   home: {
     title: string
+    description: string
     heading: string
     subheading: string
     highlights: string

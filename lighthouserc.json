@@ -1,0 +1,26 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "url": [
+        "http://localhost/pt-br/",
+        "http://localhost/en-us/",
+        "http://localhost/pt-br/posts/post-1-test/",
+        "http://localhost/en-us/posts/post-1-test/",
+        "http://localhost/en-us/404/"
+      ]
+    },
+    "assert": {
+      "assertions": {
+        "categories:accessibility": ["error", { "minScore": 1 }],
+        "categories:best-practices": ["error", { "minScore": 1 }],
+        "categories:seo": ["error", { "minScore": 1 }],
+        "categories:performance": ["warn", { "minScore": 1 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci/reports"
+    }
+  }
+}

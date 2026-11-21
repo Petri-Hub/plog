@@ -36,7 +36,7 @@ This is a blog, not a complex system. I'd rather have less code than handle case
 Everything is TypeScript in strict mode, and the code explains itself through names and types. A comment shows up only when the code can't say something on its own.
 
 **Readable by everyone, findable by search.**  
-A blog people can't read or find has failed at its one job. The target is 100 for SEO and accessibility in Lighthouse, and a quality gate in CI will hold every change to it.
+A blog people can't read or find has failed at its one job. The target is 100 for SEO and accessibility in Lighthouse, and a quality gate in CI holds every change to it.
 
 **Writing a post is just writing.**  
 Posts are plain Markdown. Interactive demos with MDX will come when a post really needs one.
@@ -88,7 +88,8 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 ## What's inside
 
 ```sh
-├── .husky               # the pre-commit hook that formats the repository
+├── .github              # the quality gate: formatting, types, build and Lighthouse
+├── .husky               # the pre-commit hook that formats staged files
 ├── docs
 │   ├── design.md        # the visual direction, fonts and wireframes
 │   ├── decisions        # why the project is built the way it is, one decision per file
@@ -106,6 +107,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 │   ├── utils            # small helpers
 │   └── content.config.ts  # the schemas posts are validated against
 ├── astro.config.ts      # Astro, i18n, the sitemap, fonts and the Vercel adapter
+├── lighthouserc.json    # the pages Lighthouse audits and the scores they need
 └── AGENTS.md            # the conventions for working in this repository
 ```
 
@@ -150,11 +152,11 @@ pnpm dev
 - ✅ Prettier on every staged file before each commit, through Husky
 - ✅ Type checking with `astro check` on every build
 - ✅ Rules that teach coding agents the architecture and its conventions
+- ✅ A quality gate in CI that holds SEO, accessibility and best practices at 100
 - ✅ Every piece of interface text in both languages
 
 ### Open
 
-- ⬜ A quality gate in CI that holds SEO and accessibility at 100
 - ⬜ 100 in every Lighthouse category
 - ⬜ The visual design: blueprints, diagrams and dithering, with an elegant serif
 - ⬜ Light and dark modes for reading at night

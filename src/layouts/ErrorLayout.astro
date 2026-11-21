@@ -20,7 +20,11 @@ const alternates: AlternateLanguageLinks = {
 }
 ---
 
-<BaseLayout title={strings.errors[status].title} alternates={alternates}>
+<BaseLayout
+  title={strings.errors[status].title}
+  description={strings.errors[status].description}
+  alternates={alternates}
+>
   <h1>{strings.errors[status].heading}</h1>
   <p>{strings.errors[status].description}</p>
   <a href={alternates[language]}>{strings.errors[status].back}</a>

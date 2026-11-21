@@ -9,10 +9,11 @@ import { getLanguageDetails, languages, toLanguage } from '@/utils/locale.utils'
 
 type Props = {
   title: string
+  description: string
   alternates: AlternateLanguageLinks
 }
 
-const { title, alternates } = Astro.props
+const { title, description, alternates } = Astro.props
 
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
@@ -25,6 +26,7 @@ const strings = getStrings(language)
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
 
     {languages.map((alternate) => (
       <link
@@ -49,6 +51,12 @@ const strings = getStrings(language)
     <style is:global>
       * {
         font-family: var(--font-decorative);
+      }
+
+      header nav a {
+        display: inline-block;
+        min-width: 24px;
+        min-height: 24px;
       }
     </style>
   </head>

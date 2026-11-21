@@ -25,7 +25,11 @@ const alternates: AlternateLanguageLinks = {
 }
 ---
 
-<BaseLayout title={strings.home.title} alternates={alternates}>
+<BaseLayout
+  title={strings.home.title}
+  description={strings.home.description}
+  alternates={alternates}
+>
   <SearchMenu
     client:only="react"
     posts={posts}

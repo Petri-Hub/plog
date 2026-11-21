@@ -6,6 +6,7 @@ export const enUs: Strings = {
   },
   home: {
     title: 'Home',
+    description: 'My technical blog, in Portuguese and English, written as I learn.',
     heading: 'Welcome to my blog',
     subheading: 'Tech things here and there',
     highlights: 'Highlights',

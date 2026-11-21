@@ -1,4 +1,4 @@
-<h1 align="center">🪵 plog</h1>
+<h1 align="center">🖋️ plog</h1>
 
 <br>
 

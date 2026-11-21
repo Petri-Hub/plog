@@ -5,11 +5,11 @@ const details: Record<Language, LanguageDetails> = {
   'en-us': { tag: 'en-US', name: 'English', label: 'EN' },
 }
 
-export const languages: Language[] = ['pt-br', 'en-us']
-
 const isLanguage = (value: string | undefined): value is Language => {
-  return languages.some((language) => language === value)
+  return value !== undefined && Object.hasOwn(details, value)
 }
+
+export const languages: Language[] = Object.keys(details).filter(isLanguage)
 
 export const toLanguage = (locale: string | undefined): Language => {
   if (!isLanguage(locale)) {

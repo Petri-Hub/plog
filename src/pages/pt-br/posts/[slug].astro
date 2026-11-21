@@ -1,30 +1,26 @@
 ---
 import PostLayout from '../../../layouts/PostLayout.astro'
-import { getPostById, getPosts } from '../../../contents/services/post.service'
-import { toIdWithoutLanguage } from '../../../utils/id.utils'
-import { render } from 'astro:content'
-import { toAlternateMap } from '../../../utils/alternates.utils'
+import { getPostContent, getPosts } from '../../../contents/services/post.service'
+import type { Post } from '../../../types/content.types'
+import { toAlternateMap, toPostSlug } from '../../../utils/post.utils'
 
 export async function getStaticPaths() {
-  return await getPosts('pt-br').then((posts) =>
-    posts.map((post) => ({
-      params: {
-        slug: toIdWithoutLanguage(post.id),
-      },
-    })),
-  )
+  const posts = await getPosts('pt-br')
+
+  return posts.map((post) => ({
+    params: { slug: toPostSlug(post.id) },
+    props: { post },
+  }))
 }
 
-const { slug } = Astro.params
-const post = await getPostById('pt-br', slug)
-
-if (!post) {
-  throw new Error(`Post "pt-br/${slug}" was not found`)
+type Props = {
+  post: Post
 }
 
-const alternates = toAlternateMap(post.data.alternates)
+const { post } = Astro.props
 
-const { Content } = await render(post)
+const { Content } = await getPostContent(post)
+const alternates = toAlternateMap(post)
 ---
 
 <PostLayout title={post.data.title} alternates={alternates}>

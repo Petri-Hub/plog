@@ -15,4 +15,4 @@ Only services in `src/contents/services/<domain>.service.ts` call the collection
 
 - Each retrieval rule lives in one place, and every caller gets the same answer.
 - A new collection, such as notices, gets its own service next to `post.service.ts`.
-- Whether `render()` belongs in the service or the page is still open.
+- Services also call `render()`: `getPostContent(post)` returns the rendered `Content`, so no page imports `astro:content`. Post pages receive their entry as a `getStaticPaths` prop instead of looking it up by slug.

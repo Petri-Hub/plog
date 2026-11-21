@@ -1,0 +1,189 @@
+# PLOG Foundation Roadmap
+
+> **Draft, uncommitted.** This is the working document for making the repository AI-friendly before the style work starts. As each phase lands, README.md, AGENTS.md, `docs/` and `.claude/rules/` replace a part of it. Once Phase 3 merges, it gets deleted.
+
+## 1. What PLOG is
+
+PLOG ("Petri's Log") is a bilingual (pt-BR / en-US) technical blog built with Astro 7 and deployed on Vercel. It exists for three reasons:
+
+- **Learning by teaching.** Explaining what is being studied is the most effective way to retain it, so posts are a log of concepts as they are learned.
+- **A human, public record.** GitHub activity can now be mass-produced. A written body of work shows what the author studies, how he reasons and where he stands, and over time builds reputation and authority.
+- **International reach.** Every post also exists in English. That is a requirement, aimed at future international work.
+
+Astro was a deliberate choice to break the habit of reaching for Next.js for everything. A content-first static site is exactly what Astro is built for, and the choice itself is planned as a post.
+
+## 2. Principles
+
+### Stated
+
+| #   | Principle                                                                                                                                                       | Lands in                                 |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| 1   | Comments only when the code cannot speak for itself. This is a blog, not a complex system.                                                                      | `foundation/code-quality.md`             |
+| 2   | TypeScript everywhere, with typing treated as mandatory. JS only where Astro leaves no alternative.                                                             | `foundation/code-quality.md`             |
+| 3   | Minimalism. A human should be able to understand the whole repository, so no speculative edge cases.                                                            | `foundation/code-quality.md`, AGENTS.md  |
+| 4   | Code is written and reviewed with the `style` (Kent Beck simple design) and `simplify` skills.                                                                  | AGENTS.md                                |
+| 5   | SEO and accessibility at 100, enforced by CI (Lighthouse + Astro checks).                                                                                       | `concerns/seo-accessibility.md`, Phase 5 |
+| 6   | Everything that exists in pt-BR exists in en-US: posts, screens, UI text. Not optional.                                                                         | `concerns/i18n.md`, AGENTS.md            |
+| 7   | No direct commits to `production`. Every change (code, post, tweak) goes through a PR approved by Petri, and pushes happen only when he explicitly allows them. | AGENTS.md                                |
+| 8   | Any new pattern (folder, file kind, data shape) is discussed before it is introduced.                                                                           | AGENTS.md, `foundation/architecture.md`  |
+| 9   | Documentation before claims. Astro 7 is recent and model memory gets it wrong, so check the Astro docs or MCP first.                                            | AGENTS.md                                |
+
+### Inferred
+
+These are conventions deduced from the stated ones and from the code. Each also states where it stops being possible, so no rule demands something Astro cannot do.
+
+| Convention                                                                                                                                                 | Limit, verified against the Astro docs                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/pages/` holds `.astro` files.                                                                                                                         | **Except endpoints:** non-HTML routes (llms.txt, RSS, JSON) are `.ts` files in `src/pages` ("add a `.js` or `.ts` file to the `/pages` directory"). llms.txt is on the backlog, so the rule allows `.ts` endpoints.                                                                                                                                                                                                                                                       |
+| `src/layouts/` holds `.astro` files only.                                                                                                                  | They own `<html>`, `<head>`, `<Font />` and `<ClientRouter />`, which are Astro-only.                                                                                                                                                                                                                                                                                                                                                                                     |
+| Components are `.tsx` by default.                                                                                                                          | **Except when an Astro-only capability is needed.** `.astro` components cannot be imported into React; `<Image />` and `<Picture />` "are unavailable inside UI framework components"; `transition:*` directives are documented on elements in `.astro` files (`transition:persist` also works on hydrated islands). View transitions and images are on the backlog, so some components will stay `.astro`, and the capability they need is what justifies the exception. |
+| React components render to static HTML unless they have a `client:*` directive.                                                                            | Server-only React ships no component JS, so using React for layout pieces is free. A `client:*` directive is the exception and needs a reason, because it costs Lighthouse score.                                                                                                                                                                                                                                                                                         |
+| Data flows down. Only services call the `astro:content` query APIs; pages call services and pass the results as props. Layouts and components never query. | (Open decision 4: whether `render()` belongs in the service or the page.)                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Layouts and components never hard-code translatable text. It reaches them as a typed `strings` prop from the page.                                         | Typing `strings` per layout makes a missing English string a type error, so the compiler enforces bilingual parity.                                                                                                                                                                                                                                                                                                                                                       |
+| Locale codes: `pt-br` and `en-us` in folders, ids, URLs and code; `pt-BR` and `en-US` only in `lang` and `hreflang` attributes.                            | The locale list needs one source of truth. Today it is repeated in `astro.config.mjs` (twice), `language.types.ts` and `locale.utils.ts`.                                                                                                                                                                                                                                                                                                                                 |
+| A post's identity is `<locale>/<slug>`. The slug folder name is in English, is the same in every locale, and the URL is `/<locale>/posts/<slug>`.          | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Every post frontmatter field is required, with no schema defaults. `alternates` lists every locale version, itself included.                               | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| File names: `<domain>.service.ts`, `<domain>.utils.ts` and `<domain>.types.ts` with a singular domain; PascalCase components; named exports from `.tsx`.   | `.astro` components are default-exported by nature.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Config is TypeScript where Astro allows it.                                                                                                                | `astro.config.ts` is supported ("or `.ts` if you want to write TypeScript in your config file").                                                                                                                                                                                                                                                                                                                                                                          |
+| The site URL comes from config (`Astro.site`), never a hard-coded string. Dates are formatted for the page locale.                                         | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Code, comments, docs and commits are in English. Posts are in both languages.                                                                              | —                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+
+## 3. Where the code diverges today
+
+forge-mdcs requires rules to match reality. Where the code differs from the rules, the rule states the target and a refactor PR (Phase 4) brings the code in line.
+
+**Tooling**
+
+- Prettier cannot parse `.astro` files because `prettier-plugin-astro` is not installed. `prettier --check src/layouts/HomeLayout.astro` fails with "No parser could be inferred", so `.astro` files are never formatted (HomeLayout uses double quotes and semicolons).
+- `.husky/pre-commit` runs `git add -u`, which stages every modified tracked file. A partial commit silently picks up unrelated work.
+- Nothing type-checks the code: `typescript` and `@astrojs/check` are not installed, there is no `check` script and there is no CI.
+- `astro.config.mjs` is JavaScript, and `@types/react` and `@types/react-dom` are listed under `dependencies`.
+
+**i18n and SEO**
+
+- `BaseLayout.astro` hard-codes `<html lang="en">` for both locales.
+- `Header.astro` hard-codes its nav links to `/pt-br/`, and its "Sobre" link points to a page that does not exist.
+- The buttons in `SearchHeader.tsx` are in Portuguese only.
+- `HomeLayout.astro` declares no props, so it ignores the `title` that pages pass and always uses "Plog | Início". The en-us 404 page gets a Portuguese title.
+- The root `404.astro` and `500.astro` are in Portuguese only, and the root `index.astro` is empty.
+- `BaseLayout.astro` hard-codes `https://blog.petri.zip`.
+
+**Content layer**
+
+- `getPostsOrderedByDate` sorts oldest first, so "Recentes / Recents" lists the oldest posts.
+- `getPostById` matches with `endsWith`, so it can return a post whose slug merely ends with the requested one (`my-post-1-test` for `post-1-test`).
+- `post.service.ts` declares its own `Post` and `Language` types instead of importing them from `src/types/`.
+- Three helpers strip the locale from an id: `toIdWithoutLanguage` in `id.utils.ts`, `getPathFromPostId` in `post.utilts.ts`, and inline code in `alternates.utils.ts`. Also, `post.utilts.ts` is misspelled.
+
+**Pages**
+
+- Both `[slug].astro` files contain placeholders: `throw new Error("teste")`, `name="teste"`, a `console.log` (en-us), and a stray comma in the props (pt-br).
+- Both `index.astro` files import `toIdWithoutLanguage` without using it, filter highlighted posts a second time, and render dates and tags raw. Their bodies are duplicated between locales, which the strings-prop layout fixes.
+- `Header.astro` and `Main.astro` are `.astro` files but use no Astro-only capability, so they convert to `.tsx`.
+
+**Docs**
+
+- README.md is the Astro starter, and AGENTS.md is the file Astro generated.
+
+## 4. Rule system brief (forge-mdcs, adapted)
+
+### Adaptations
+
+| forge-mdcs                                        | PLOG                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CLAUDE.md is generated and holds no rule content. | **AGENTS.md is the entry point for every harness:** an Intro, the core principles that are not tied to files (workflow, docs first, new patterns, bilingual), the "Read when you are…" trigger table, the dev server command and the Astro docs links. **CLAUDE.md contains only `@AGENTS.md`.** Claude Code reads AGENTS.md only when no CLAUDE.md exists, and its docs recommend exactly this import. |
+| Rules live in `.claude/rules/`.                   | Same location. Claude Code does not load anything under `.agents/`, and path-scoped loading works only from `.claude/rules/`. Other harnesses load nothing automatically, so AGENTS.md tells them which rules to read and when (see §7).                                                                                                                                                                |
+| `components/<layer>/`                             | Same structure, with the layers named after PLOG's own areas: `routing`, `presentation`, `content`, `shared`.                                                                                                                                                                                                                                                                                           |
+| Examples taken from the target codebase           | Examples in TS, TSX and Astro, grounded in this repository.                                                                                                                                                                                                                                                                                                                                             |
+
+### Files
+
+**Foundation** (always applied)
+
+| Rule                         | Covers                                                                                                                                                                                                                                                   |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `foundation/architecture.md` | The folder map, the file kind each folder holds, the dependency direction (pages → layouts → components; pages → services → `astro:content`; utils and types are leaves), where new files go, and that a new folder or file kind needs discussion first. |
+| `foundation/nomenclature.md` | File names, exports, locale codes, slugs.                                                                                                                                                                                                                |
+| `foundation/code-quality.md` | Strict TypeScript, comments only when needed, minimalism, simple design, formatting.                                                                                                                                                                     |
+
+**Concerns**
+
+| Rule                            | Loading                                                                                                                 | Covers                                                                     |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `concerns/i18n.md`              | Always applied, because it is non-optional and touches pages, layouts, components, content and config                   | Locale twins, `strings` props, locale codes, alternates, `lang`/`hreflang` |
+| `concerns/seo-accessibility.md` | `src/pages/**`, `src/layouts/**`, `src/components/**`, `src/contents/**/*.md`, plus a trigger row for changing `<head>` | Meta tags, heading hierarchy, alt text, landmarks, the hydration budget    |
+
+**Components** (path-scoped)
+
+| Rule                        | `paths`                                               | Trigger row                                                   |
+| --------------------------- | ----------------------------------------------------- | ------------------------------------------------------------- |
+| `routing/page.md`           | `src/pages/**/*.astro`                                | Adding a page, which means creating both locales              |
+| `routing/endpoint.md`       | `src/pages/**/*.ts`                                   | Deferred until the first endpoint (llms.txt or RSS)           |
+| `presentation/layout.md`    | `src/layouts/**/*.astro`                              | —                                                             |
+| `presentation/component.md` | `src/components/**/*.{tsx,astro}`                     | — (includes the `.astro` exception and the `client:*` policy) |
+| `content/collection.md`     | `src/content.config.ts`, `src/types/content.types.ts` | Adding a content collection (for example, notices)            |
+| `content/service.md`        | `src/contents/services/**/*.ts`                       | —                                                             |
+| `content/post.md`           | `src/contents/posts/**/*.md`                          | Writing or translating a post                                 |
+| `shared/utils.md`           | `src/utils/**/*.ts`                                   | —                                                             |
+| `shared/types.md`           | `src/types/**/*.ts`                                   | —                                                             |
+
+**Not yet written:** styling (in the design phase, together with the first CSS) and testing (depends on open decision 8).
+
+**Total:** 3 foundation, 2 concerns and 9 components, one of them deferred, plus AGENTS.md and CLAUDE.md.
+
+## 5. Docs plan
+
+| Path                             | Content                                                                                                                                                                                                                                                    |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `README.md`                      | Product documentation: what PLOG is and why, features, stack, project structure, commands, how to write a post, deployment. Personal circumstances stay out of it.                                                                                         |
+| `docs/design.md`                 | Visual direction, the fonts chosen so far, and the wireframes.                                                                                                                                                                                             |
+| `docs/wireframes/`               | `home.png` and `post.png`, already copied here from `/tmp` so they survive a reboot.                                                                                                                                                                       |
+| `docs/decisions/NNNN-<title>.md` | Short ADRs (Context / Decision / Consequences) for choices already made: Astro over Next.js, locale-prefixed routing with pt-br as default, React for components, strings-prop i18n, Markdown-only posts, services owning content queries, Vercel hosting. |
+
+## 6. Roadmap
+
+Each phase is one branch and one PR that Petri reviews before merge. The phases are kept small so each review is short.
+
+| Phase | Branch                        | Delivers                                                                                                                                        | After                     |
+| ----- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| 0     | —                             | This draft. Petri settles the open decisions (§7).                                                                                              | —                         |
+| 1     | `docs/foundation`             | README.md (with the roadmap), `docs/` (design, wireframes, decisions)                                                                           | 0                         |
+| 2     | `docs/agent-rules-foundation` | AGENTS.md, CLAUDE.md, the foundation tier                                                                                                       | 1                         |
+| 3     | `docs/agent-rules-components` | The concerns and components tiers                                                                                                               | 2                         |
+| 4a    | `chore/tooling`               | `prettier-plugin-astro`, the husky staging fix, `typescript` + `@astrojs/check` + a `check` script, `astro.config.ts`, the devDependencies move | 0 (can run alongside 1–3) |
+| 4b    | `refactor/content-layer`      | Service, utils and types cleanup, the sort fix, exact id lookup, one locale source of truth                                                     | 3                         |
+| 4c    | `refactor/i18n-layouts`       | Strings-prop layouts, per-locale `lang`, Header and Main as TSX, translated search, site URL from config, dates per locale, placeholder cleanup | 4b                        |
+| 5     | `ci/quality-gate`             | `.github/workflows/quality.yml`: format check, `astro check`, build, and Lighthouse CI asserting SEO, accessibility and best practices at 100   | 4a, 4c                    |
+| 6     | `feat/design-system`          | Tokens, fonts, light and dark modes, the first CSS from the wireframes, and the styling rule                                                    | 5                         |
+| 7+    | `feat/*`                      | Backlog items one at a time                                                                                                                     | 6                         |
+
+## 7. Decisions
+
+### Settled
+
+| Decision                      | Outcome                                                                                                                                                                                                                                                                                                                                   |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rules location                | `.claude/rules/`, with AGENTS.md as the entry point and CLAUDE.md as `@AGENTS.md`. AGENTS.md tells non-Claude agents explicitly that nothing loads automatically for them: read every foundation rule and the always-applied concerns at the start, and read each path-scoped rule before touching a file that matches its `paths` globs. |
+| UI translations               | Typed props passed from pages to layouts. Petri's direction, chosen over Astro's `ui.ts` dictionary recipe. The prop is named `strings`.                                                                                                                                                                                                  |
+| ADRs                          | Approved: `docs/decisions/NNNN-<title>.md`.                                                                                                                                                                                                                                                                                               |
+| Uncommitted work and `master` | Committed as three conventional commits and pushed to `production`. The local `master` was deleted (it held nothing that wasn't already on `production`). Work continues on `docs/foundation`.                                                                                                                                            |
+
+### Open
+
+1. **Post route:** one `[slug].astro` per locale folder (current; matches "every pt-BR page has an en-US twin"), or a single dynamic route for both locales (the original "single `[post].astro`" note). Before choosing, check the docs for how a `[locale]` param interacts with Astro's i18n routing.
+2. **`render(post)`:** called in the service or in the page?
+3. **Path alias** (`@/utils/...` instead of `../../../`): this is a new pattern; propose it in 4b?
+4. **`@astrojs/mdx`** is installed, but posts are `.md` only: keep it for future demos, or remove it until needed?
+5. **Tests:** there are none today. Add some (for example, Vitest for services), or treat CI (check, build, Lighthouse) as the whole gate?
+
+## 8. Original draft (preserved)
+
+**Goals:** a clean blog that mixes dithering, pixel art, ASCII, blueprints, diagrams and Excalidraw. Posts as Markdown, so writing stays easy. 100% in every Lighthouse category and good Google results. Free deployment on Vercel, with SSR only if needed. Analytics that show real progress week over week. A quality gate that blocks anything below (almost) 100% SEO. Light and dark modes. llms.txt with every post in Markdown. pt-BR and en-US. A friendly greeting message for visitors. View transitions between posts. A newsletter email for new posts. Developer-friendly comments. A multilingual sitemap.xml and robots.txt. Pages for 404, 500 and every other fallback, including error boundaries.
+
+**Side goals:** a LinkedIn bio pointing to the blog. A first post about who Petri is. Evaluate Cloudflare captcha for bot filtering. A possible metrics dashboard or back office.
+
+**Next steps from the draft:** find design references (diagrammed, blueprint, Excalidraw-like, elegant serif). Scaffold on GitHub and deploy on Vercel (done). Look into bot vs. human traffic detection. Wireframe the design (done, see `docs/wireframes/`). Evaluate a "hot places" (heatmap) integration. Choose the fonts: reading, serif and Excalidraw-like.
+
+**Design direction:** blueprint, technical diagrams, high-impact elegant serif, and a pixelated/dithered look, all combined. A beige background (similar to Fábio Akita's), dark red/raspberry for impact type, probably blueprint blue as an accent. Dark mode in graphite, keeping the red and blue. Fonts in config so far: Cormorant Garamond (accent), Shantell Sans (decorative), Google Sans (text).
+
+**Planned tree:** feature-sliced `components/` (home, highlights, posts, comments, shared). Content collections where each post folder could hold its own components and demonstrations next to `index.mdx`. That is deferred: posts are `.md` only for now. Locale-prefixed pages with 404 and 500 at each level. `.husky/` with pre-commit and pre-push hooks. `.github/workflows/quality.yml`.

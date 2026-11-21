@@ -10,8 +10,9 @@ type Props = {
 }
 
 const { status } = Astro.props
+
 const language = toLanguage(Astro.currentLocale)
-const { title, heading, description, back } = getStrings(language).errors[status]
+const strings = getStrings(language)
 
 const alternates: AlternateLanguageLinks = {
   'pt-br': getRelativeLocaleUrl('pt-br'),
@@ -19,8 +20,8 @@ const alternates: AlternateLanguageLinks = {
 }
 ---
 
-<BaseLayout title={title} alternates={alternates}>
-  <h1>{heading}</h1>
-  <p>{description}</p>
-  <a href={alternates[language]}>{back}</a>
+<BaseLayout title={strings.errors[status].title} alternates={alternates}>
+  <h1>{strings.errors[status].heading}</h1>
+  <p>{strings.errors[status].description}</p>
+  <a href={alternates[language]}>{strings.errors[status].back}</a>
 </BaseLayout>

@@ -15,8 +15,9 @@ type Props = {
 }
 
 const { highlights, recents, posts } = Astro.props
+
 const language = toLanguage(Astro.currentLocale)
-const { home, search } = getStrings(language)
+const strings = getStrings(language)
 
 const alternates: AlternateLanguageLinks = {
   'pt-br': getRelativeLocaleUrl('pt-br'),
@@ -24,18 +25,18 @@ const alternates: AlternateLanguageLinks = {
 }
 ---
 
-<BaseLayout title={home.title} alternates={alternates}>
-  <SearchMenu client:only="react" posts={posts} enabled={false} language={language} strings={search} />
+<BaseLayout title={strings.home.title} alternates={alternates}>
+  <SearchMenu client:only="react" posts={posts} enabled={false} language={language} strings={strings.search} />
   <section>
-    <h1>{home.heading}</h1>
-    <p>{home.subheading}</p>
+    <h1>{strings.home.heading}</h1>
+    <p>{strings.home.subheading}</p>
   </section>
   <section>
-    <h2>{home.highlights}</h2>
+    <h2>{strings.home.highlights}</h2>
     <HomePostList posts={highlights} language={language} />
   </section>
   <section>
-    <h2>{home.recents}</h2>
+    <h2>{strings.home.recents}</h2>
     <HomePostList posts={recents} language={language} />
   </section>
 </BaseLayout>

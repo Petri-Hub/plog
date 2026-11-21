@@ -13,8 +13,9 @@ type Props = {
 }
 
 const { title, alternates } = Astro.props
+
 const language = toLanguage(Astro.currentLocale)
-const { header } = getStrings(language)
+const strings = getStrings(language)
 ---
 
 <!DOCTYPE html>
@@ -46,7 +47,7 @@ const { header } = getStrings(language)
   </style>
 </head>
 <body>
-  <Header language={language} homeUrl={getRelativeLocaleUrl(language)} alternates={alternates} strings={header} />
+  <Header language={language} homeUrl={getRelativeLocaleUrl(language)} alternates={alternates} strings={strings.header} />
   <main>
     <slot />
   </main>

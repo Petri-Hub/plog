@@ -13,7 +13,7 @@ const posts = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string().lowercase()),
     highlighted: z.boolean(),
-    alternates: z.array(reference('posts')).default([]),
+    alternates: z.array(reference('posts')).min(2),
   }),
 })
 

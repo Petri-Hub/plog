@@ -105,7 +105,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 │   ├── types            # types shared across the code
 │   ├── utils            # small helpers
 │   └── content.config.ts  # the schemas posts are validated against
-├── astro.config.mjs     # Astro, i18n, the sitemap, fonts and the Vercel adapter
+├── astro.config.ts      # Astro, i18n, the sitemap, fonts and the Vercel adapter
 └── AGENTS.md            # the conventions for working in this repository
 ```
 
@@ -128,12 +128,12 @@ pnpm dev
 
 ### Commands
 
-| Command        | Description                         |
-| -------------- | ----------------------------------- |
-| `pnpm dev`     | Start the dev server                |
-| `pnpm build`   | Build the site for Vercel           |
-| `pnpm preview` | Serve the last build locally        |
-| `pnpm format`  | Format the repository with Prettier |
+| Command        | Description                                |
+| -------------- | ------------------------------------------ |
+| `pnpm dev`     | Start the dev server                       |
+| `pnpm build`   | Type-check, then build the site for Vercel |
+| `pnpm preview` | Serve the last build locally               |
+| `pnpm format`  | Format the repository with Prettier        |
 
 ## Roadmap
 
@@ -147,7 +147,8 @@ pnpm dev
 - ✅ Search across both languages with <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>K</kbd>
 - ✅ Fonts loaded through Astro's fonts API
 - ✅ Vercel Web Analytics
-- ✅ Prettier before every commit, through Husky
+- ✅ Prettier on every staged file before each commit, through Husky
+- ✅ Type checking with `astro check` on every build
 - ✅ Every piece of interface text in both languages
 
 ### Open

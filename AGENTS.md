@@ -31,10 +31,10 @@ pnpm astro dev --background
 
 Manage it with `pnpm astro dev status`, `pnpm astro dev logs` and `pnpm astro dev stop`.
 
-| Command       | Use                                                                   |
-| ------------- | --------------------------------------------------------------------- |
-| `pnpm build`  | Build the site; it must pass before you hand work back                |
-| `pnpm format` | Format the repository with Prettier; the pre-commit hook also runs it |
+| Command       | Use                                                                               |
+| ------------- | --------------------------------------------------------------------------------- |
+| `pnpm build`  | Type-check with `astro check`, then build; it must pass before you hand work back |
+| `pnpm format` | Format the repository with Prettier; the pre-commit hook also runs it             |
 
 ## Astro documentation
 

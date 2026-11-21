@@ -1,5 +1,5 @@
 import { SearchHeader } from './SearchHeader'
-import { PostList } from '../posts/PostList'
+import { SearchContent } from './SearchContent'
 import type { Post } from '../../types/content.types'
 import { useState, type FocusEvent, type InputEvent } from 'react'
 import type { Strings } from '../../types/i18n.types'
@@ -66,6 +66,19 @@ export const SearchMenu = ({ posts, enabled, language, strings }: Props) => {
     })
   }
 
+  const getPostsAsResults = () => {
+    return getFilteredPosts().map(
+      ({ id, data: { title, description, tags, highlighted, date } }) => ({
+        id,
+        title,
+        description,
+        tags,
+        highlighted,
+        date,
+      }),
+    )
+  }
+
   const isPostMatchingLanguage = (post: Post): boolean => {
     return selectedLanguage === 'all' || post.id.startsWith(selectedLanguage)
   }
@@ -94,7 +107,7 @@ export const SearchMenu = ({ posts, enabled, language, strings }: Props) => {
         onBlur={handleBlur}
         onLanguageChange={handleLanguageChange}
       />
-      <PostList posts={getFilteredPosts()} language={language} />
+      <SearchContent items={getPostsAsResults()} language={language} />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
-import { PostList } from '../components/posts/PostList'
+import { HomePostList } from '../components/home/HomePostList'
 import { SearchMenu } from '../components/search/SearchMenu'
 import { getStrings } from '../i18n/strings'
 import type { Post } from '../types/content.types'
@@ -32,10 +32,10 @@ const alternates: AlternateLanguageLinks = {
   </section>
   <section>
     <h2>{home.highlights}</h2>
-    <PostList posts={highlights} language={language} />
+    <HomePostList posts={highlights} language={language} />
   </section>
   <section>
     <h2>{home.recents}</h2>
-    <PostList posts={recents} language={language} />
+    <HomePostList posts={recents} language={language} />
   </section>
 </BaseLayout>

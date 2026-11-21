@@ -8,7 +8,7 @@ type Props = {
   language: Language
 }
 
-export const PostList = ({ posts, language }: Props) => {
+export const HomePostList = ({ posts, language }: Props) => {
   return (
     <ul>
       {posts.map(({ id, data: { title, description, date, tags } }) => (

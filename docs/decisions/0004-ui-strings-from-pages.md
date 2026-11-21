@@ -1,6 +1,6 @@
 # 0004. UI strings come from pages
 
-- **Status:** Accepted
+- **Status:** Superseded by [0008](0008-ui-strings-from-locale-dictionaries.md)
 - **Date:** 2026-11-20
 
 ## Context

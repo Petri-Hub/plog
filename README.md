@@ -158,7 +158,8 @@ pnpm dev
 ### Open
 
 - ⬜ 100 in every Lighthouse category
-- ⬜ The visual design: blueprints, diagrams and dithering, with an elegant serif
+- ⬜ The visual design: blueprints, diagrams, Excalidraw-like sketches, dithering, pixel art and ASCII, with an elegant serif, plus a styling rule for coding agents
+- ⬜ The search as an accessible dialog, with its result headings in order
 - ⬜ Light and dark modes for reading at night
 - ⬜ View transitions between posts
 - ⬜ Fallback pages in both languages, including 500 and error boundaries
@@ -169,6 +170,7 @@ pnpm dev
 - ⬜ Analytics that show how the blog grows week over week
 - ⬜ A first post about who I am and what I do
 - ⬜ Decide whether a Cloudflare captcha is worth it for filtering bots
+- ⬜ Decide whether a heatmap of where readers click is worth adding
 - ⬜ A dashboard for the blog's metrics
 
 ## References

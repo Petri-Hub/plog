@@ -8,16 +8,17 @@
 
 ### ✅ Do
 
-| Rule                                                | Directive                                                                                                                                                                                                                                                       |
-| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Name files by their kind**                        | Use the patterns in the Reference table, such as `post.service.ts`, `text.utils.ts` and `language.types.ts` — path-scoped rules match on these suffixes, so the right rule loads only when the name follows the pattern.                                        |
-| **Use a singular domain**                           | Name the domain in the singular: `post.service.ts`, not `posts.service.ts` — one form means the name of the next file is predictable instead of a guess.                                                                                                        |
-| **Export by name**                                  | Export functions, components and types by name, and name a component file after its export: `SearchMenu.tsx` exports `SearchMenu` — every import then uses the same name, which keeps search and refactoring reliable.                                          |
-| **Start functions with a verb from the vocabulary** | Begin function names with `get`, `is`, `to`, `create`, `normalize` or `handle` as the Reference describes — the prefix tells the reader whether the result is a query, a boolean or a conversion without opening the body.                                      |
-| **Declare types one way**                           | Declare types with `type` in PascalCase, and name a component's props type `Props` — Astro reads `Props` to type `Astro.props`, and one declaration style keeps every component looking the same.                                                               |
-| **Pair callback props with handlers**               | Name callback props `on<Event>` and the functions that implement them `handle<Event>` — the prefix shows at a glance which side of the callback you are reading.                                                                                                |
-| **Write lowercase locale codes**                    | Use `pt-br` and `en-us` in folders, ids, URLs, code and the `Language` type, and write `pt-BR` and `en-US` only as `lang` and `hreflang` attribute values — URLs and ids are compared as plain strings, so one casing everywhere else avoids lookups that miss. |
-| **Name slugs in English**                           | Write post slugs in English kebab-case, identical in every locale: `en-us/computer-networks-part-i` and `pt-br/computer-networks-part-i` — the slug is shared by both URLs, and the alternates link translations by that shared folder name.                    |
+| Rule                                                | Directive                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Name files by their kind**                        | Use the patterns in the Reference table, such as `post.service.ts`, `text.utils.ts` and `language.types.ts` — path-scoped rules match on these suffixes, so the right rule loads only when the name follows the pattern.                                                                                                                                       |
+| **Use a singular domain**                           | Name the domain in the singular: `post.service.ts`, not `posts.service.ts` — one form means the name of the next file is predictable instead of a guess.                                                                                                                                                                                                       |
+| **Export by name**                                  | Export functions, components and types by name, and name a component file after its export: `SearchMenu.tsx` exports `SearchMenu` — every import then uses the same name, which keeps search and refactoring reliable.                                                                                                                                         |
+| **Prefix components with their feature**            | Put a component in the folder of the feature that renders it and start its name with that feature, as `search/SearchContent.tsx` and `home/HomePostList.tsx` do, leaving only `shared/` components unprefixed — a generic name such as `PostList` invites reuse in features it wasn't built for, while `SearchContent` says it belongs inside the Ctrl+K menu. |
+| **Start functions with a verb from the vocabulary** | Begin function names with `get`, `is`, `to`, `create`, `normalize` or `handle` as the Reference describes — the prefix tells the reader whether the result is a query, a boolean or a conversion without opening the body.                                                                                                                                     |
+| **Declare types one way**                           | Declare types with `type` in PascalCase, and name a component's props type `Props` — Astro reads `Props` to type `Astro.props`, and one declaration style keeps every component looking the same.                                                                                                                                                              |
+| **Pair callback props with handlers**               | Name callback props `on<Event>` and the functions that implement them `handle<Event>` — the prefix shows at a glance which side of the callback you are reading.                                                                                                                                                                                               |
+| **Write lowercase locale codes**                    | Use `pt-br` and `en-us` in folders, ids, URLs, code and the `Language` type, and write `pt-BR` and `en-US` only as the language tags that `getLanguageDetails` returns for `lang`, `hreflang` and `Intl` — URLs and ids are compared as plain strings, so one casing everywhere else avoids lookups that miss.                                                 |
+| **Name slugs in English**                           | Write post slugs in English kebab-case, identical in every locale: `en-us/computer-networks-part-i` and `pt-br/computer-networks-part-i` — the slug is shared by both URLs, and the alternates link translations by that shared folder name.                                                                                                                   |
 
 ### 🚫 Don't
 
@@ -37,23 +38,24 @@
 | Utils            | `<domain>.utils.ts`                                     | `locale.utils.ts`, `text.utils.ts`         |
 | Types            | `<domain>.types.ts`                                     | `content.types.ts`, `language.types.ts`    |
 | React component  | `PascalCase.tsx`, named after its export                | `SearchMenu.tsx`                           |
-| Astro component  | `PascalCase.astro`                                      | `Header.astro`                             |
+| Astro component  | `PascalCase.astro`                                      | `PostImage.astro`                          |
 | Layout           | `PascalCase` ending in `Layout.astro`                   | `BaseLayout.astro`, `PostLayout.astro`     |
+| Dictionary       | `<locale>.ts` in `src/i18n/`                            | `pt-br.ts`, `en-us.ts`                     |
 | Page             | lowercase route segment; dynamic parameters in brackets | `index.astro`, `404.astro`, `[slug].astro` |
-| Component folder | lowercase feature name                                  | `search/`, `shared/`                       |
+| Component folder | lowercase name of the feature that renders it           | `search/`, `home/`, `shared/`              |
 | Post             | `<locale>/<slug>/index.md`                              | `en-us/post-1-test/index.md`               |
 | ADR              | `NNNN-<kebab-title>.md`                                 | `0004-ui-strings-from-pages.md`            |
 
 ### Function prefixes
 
-| Prefix      | Returns                                                             | Example                                        |
-| ----------- | ------------------------------------------------------------------- | ---------------------------------------------- |
-| `get`       | Data that is looked up, either queried or read from the environment | `getPosts`, `getHighlightedPosts`, `getLocale` |
-| `is`        | A boolean                                                           | `isPortuguesePath`                             |
-| `to`        | The input converted to another shape                                | `toAlternateMap`                               |
-| `create`    | A new value built from parts                                        | `createUrlFromPostId`                          |
-| `normalize` | The same kind of value, in canonical form                           | `normalizeText`                                |
-| `handle`    | Nothing; it reacts to an event                                      | `handleInput`, `handleLanguageChange`          |
+| Prefix      | Returns                                                             | Example                                         |
+| ----------- | ------------------------------------------------------------------- | ----------------------------------------------- |
+| `get`       | Data that is looked up, either queried or read from the environment | `getPosts`, `getHighlightedPosts`, `getStrings` |
+| `is`        | A boolean                                                           | `isLanguage`                                    |
+| `to`        | The input converted to another shape                                | `toAlternateMap`                                |
+| `create`    | A new value built from parts                                        | `createUrlFromPostId`                           |
+| `normalize` | The same kind of value, in canonical form                           | `normalizeText`                                 |
+| `handle`    | Nothing; it reacts to an event                                      | `handleInput`, `handleLanguageChange`           |
 
 ### Identifiers
 

@@ -18,15 +18,15 @@ export async function getStaticPaths() {
 const { slug } = Astro.params
 const post = await getPostById('en-us', slug)
 
-if(!post){
-  throw new Error("teste")
+if (!post) {
+  throw new Error(`Post "en-us/${slug}" was not found`)
 }
 
 const alternates = toAlternateMap(post.data.alternates)
 
-console.log(alternates)
-
 const { Content } = await render(post)
 ---
 
-<PostLayout name="teste" alternates={alternates}> <Content /></PostLayout>
+<PostLayout title={post.data.title} alternates={alternates}>
+  <Content />
+</PostLayout>

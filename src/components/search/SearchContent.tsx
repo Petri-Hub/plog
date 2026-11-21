@@ -1,3 +1,5 @@
+import type { Language } from '../../types/language.types'
+import { toLocalizedDate } from '../../utils/date.utils'
 import { createUrlFromPostId } from '../../utils/post.utilts'
 
 type Item = {
@@ -11,15 +13,16 @@ type Item = {
 
 type Props = {
   items: Item[]
+  language: Language
 }
 
-export const SearchContent = ({ items }: Props) => {
+export const SearchContent = ({ items, language }: Props) => {
   return (
     <ul>
       {items.map(({ id, title, description, date }) => (
         <li key={title}>
           <a href={createUrlFromPostId(id)}>
-            <p>{date.toLocaleDateString()}</p>
+            <p>{toLocalizedDate(date, language)}</p>
             <h4>{title}</h4>
             <p>{description}</p>
           </a>

@@ -1,7 +1,11 @@
 ---
-import { ClientRouter } from 'astro:transitions'
-import type { AlternateLanguageLinks } from '../types/language.types'
 import { Font } from 'astro:assets'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { ClientRouter } from 'astro:transitions'
+import { Header } from '../components/shared/Header'
+import { getStrings } from '../i18n/strings'
+import type { AlternateLanguageLinks } from '../types/language.types'
+import { getLanguageDetails, languages, toLanguage } from '../utils/locale.utils'
 
 type Props = {
   title: string
@@ -9,41 +13,54 @@ type Props = {
 }
 
 const { title, alternates } = Astro.props
+
+const language = toLanguage(Astro.currentLocale)
+const strings = getStrings(language)
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>{title}</title>
+<!doctype html>
+<html lang={getLanguageDetails(language).tag}>
+  <head>
+    <title>{`PLOG | ${title}`}</title>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  {
-    Object.entries(alternates).map(([language, link]) => (
-      <link rel="alternate" hreflang={language} href={`https://blog.petri.zip${link}`} />
-    ))
-  }
+    {languages.map((alternate) => (
+      <link
+        rel="alternate"
+        hreflang={getLanguageDetails(alternate).tag}
+        href={new URL(alternates[alternate], Astro.site).href}
+      />
+    ))}
 
-  {
-    alternates['pt-br'] && (
-      <link rel="alternate" hreflang="x-default" href={`https://blog.petri.zip${alternates['pt-br']}`} />
-    )
-  }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(alternates['pt-br'], Astro.site).href}
+    />
 
-  <Font cssVariable='--font-accent' preload />
-  <Font cssVariable='--font-decorative' preload />
-  <Font cssVariable='--font-text' preload />
+    <Font cssVariable="--font-accent" preload />
+    <Font cssVariable="--font-decorative" preload />
+    <Font cssVariable="--font-text" preload />
 
-  <ClientRouter />
+    <ClientRouter />
 
-  <style is:global>
-    * {
-      font-family: var(--font-decorative);
-    }
-  </style>
-</head> 
-<body>
-  <slot />
-</body>
+    <style is:global>
+      * {
+        font-family: var(--font-decorative);
+      }
+    </style>
+  </head>
+  <body>
+    <Header
+      language={language}
+      homeUrl={getRelativeLocaleUrl(language)}
+      alternates={alternates}
+      strings={strings.header}
+    />
+    <main>
+      <slot />
+    </main>
+  </body>
 </html>

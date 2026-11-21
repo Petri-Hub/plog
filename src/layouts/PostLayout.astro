@@ -1,22 +1,18 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import Header from "../components/shared/Header.astro";
-import Main from "../components/shared/Main.astro";
+import BaseLayout from './BaseLayout.astro'
+import type { AlternateLanguageLinks } from '../types/language.types'
 
 type Props = {
-  name: string
-  alternates: {
-    'pt-br': string,
-    'en-us': string
-  }
+  title: string
+  alternates: AlternateLanguageLinks
 }
 
-const { name, alternates } = Astro.props
+const { title, alternates } = Astro.props
 ---
 
-<BaseLayout alternates={alternates} title={`Plog | ${name}`}>
-  <Header alternates={alternates}/>
-  <Main>
+<BaseLayout title={title} alternates={alternates}>
+  <article>
+    <h1>{title}</h1>
     <slot />
-  </Main>
+  </article>
 </BaseLayout>

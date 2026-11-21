@@ -16,7 +16,7 @@
 | **Let names and types explain the code**         | Extract a well-named helper or type instead of explaining a block with a comment, as `SearchMenu` does with `isPostMatchingLanguage` — names are checked by the compiler and stay true, while comments drift from the code they describe.                                                        |
 | **Narrow instead of asserting**                  | Handle `null` and `undefined` with a check that narrows the type, such as `if (!post)` followed by a `throw` — the check proves the value exists, so the compiler keeps protecting every line after it.                                                                                          |
 | **Fail the build with a clear message**          | When data that must exist is missing, throw an `Error` whose message names what is missing and where, such as the post id and locale — the site is static, so a thrown error stops a broken page from being deployed and the message says what to fix.                                           |
-| **Format with the repository's Prettier config** | Write single quotes, no semicolons and Prettier's defaults in every file, `.astro` included, and run `pnpm format` — the pre-commit hook rewrites unformatted files, and formatting churn hides the real change in review.                                                                       |
+| **Format with the repository's Prettier config** | Write single quotes, no semicolons and lines up to 100 columns in every file, `.astro` included through `prettier-plugin-astro`, and run `pnpm format` — the pre-commit hook rewrites unformatted files, and formatting churn hides the real change in review.                                   |
 
 ### 🚫 Don't
 
@@ -33,10 +33,7 @@
 ### ✅ Correct
 
 ```ts
-export const getPostById = async (
-  language: Language,
-  slug: string,
-): Promise<Post | null> => {
+export const getPostById = async (language: Language, slug: string): Promise<Post | null> => {
   const posts = await getPosts(language)
   const target = posts.find((post) => post.id === `${language}/${slug}`)
 

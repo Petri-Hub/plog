@@ -1,56 +1,14 @@
 ---
-import { getHighlightedPosts, getPostsOrderedByDate } from "../../contents/services/post.service";
-import { toIdWithoutLanguage } from '../../utils/id.utils'
-import HomeLayout from "../../layouts/HomeLayout.astro";
-import { createUrlFromPostId } from "../../utils/post.utilts";
+import HomeLayout from '../../layouts/HomeLayout.astro'
+import {
+  getAllPosts,
+  getHighlightedPosts,
+  getPostsOrderedByDate,
+} from '../../contents/services/post.service'
 
 const highlights = await getHighlightedPosts('en-us')
 const recents = await getPostsOrderedByDate('en-us')
+const posts = await getAllPosts()
 ---
 
-<HomeLayout title="PLOG | Start">
-  <section>
-    <h2>
-      Welcome to my blog
-    </h2>
-    <p>
-      Tech things here and there
-    </p>
-  </section>
-  <section>
-    <h3>Hihglights</h3>
-    <ul>
-      {
-        highlights.filter(post => post.data.highlighted).map(({id, data: { title, description, tags, date} }) => (
-          <li>
-            <a href={createUrlFromPostId(id)}>
-            <article>
-              <p>{date} - {tags}</p>
-              <h4>{title}</h4>
-              <p>{description}</p>
-            </article>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-   <section>
-    <h3>Recents</h3>
-    <ul>
-      {
-        recents.map(({id, data: { title, description, tags, date} }) => (
-          <li>
-            <a href={createUrlFromPostId(id)}>
-            <article>
-              <p>{date} - {tags}</p>
-              <h4>{title}</h4>
-              <p>{description}</p>
-            </article>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-</HomeLayout>
+<HomeLayout highlights={highlights} recents={recents} posts={posts} />

@@ -1,8 +1,8 @@
 import { SearchHeader } from './SearchHeader'
 import { SearchContent } from './SearchContent'
 import type { Post } from '../../types/content.types'
-import { useEffect, useState, type FocusEvent, type InputEvent } from 'react'
-import { getLocale, getLocaleOrFallbackTo } from '../../utils/locale.utils'
+import { useState, type FocusEvent, type InputEvent } from 'react'
+import type { Strings } from '../../types/i18n.types'
 import type { Language } from '../../types/language.types'
 import { normalizeText } from '../../utils/text.utils'
 import { useHotkeys } from 'react-hotkeys-hook'
@@ -10,13 +10,13 @@ import { useHotkeys } from 'react-hotkeys-hook'
 type Props = {
   posts: Post[]
   enabled: boolean
+  language: Language
+  strings: Strings['search']
 }
 
-export const SearchMenu = ({ posts, enabled }: Props) => {
-  const locale = getLocaleOrFallbackTo('pt-br')
-
+export const SearchMenu = ({ posts, enabled, language, strings }: Props) => {
   const [search, setSearch] = useState<string>('')
-  const [language, setLanguage] = useState<Language | 'all'>(locale)
+  const [selectedLanguage, setSelectedLanguage] = useState<Language | 'all'>(language)
   const [isEnabled, setIsEnabled] = useState<boolean>(enabled)
 
   useHotkeys(
@@ -38,20 +38,16 @@ export const SearchMenu = ({ posts, enabled }: Props) => {
     return null
   }
 
-  const handleInput = ({
-    currentTarget,
-  }: InputEvent<HTMLInputElement>): void => {
+  const handleInput = ({ currentTarget }: InputEvent<HTMLInputElement>): void => {
     setSearch(currentTarget.value)
   }
 
-  const handleBlur = ({
-    currentTarget,
-  }: FocusEvent<HTMLInputElement>): void => {
+  const handleBlur = ({ currentTarget }: FocusEvent<HTMLInputElement>): void => {
     setSearch(currentTarget.value)
   }
 
-  const handleLanguageChange = (language: Language | 'all'): void => {
-    setLanguage(language)
+  const handleLanguageChange = (selection: Language | 'all'): void => {
+    setSelectedLanguage(selection)
   }
 
   const getSearchNormalized = (): string => {
@@ -78,7 +74,7 @@ export const SearchMenu = ({ posts, enabled }: Props) => {
   }
 
   const isPostMatchingLanguage = (post: Post): boolean => {
-    return language === 'all' || post.id.startsWith(language)
+    return selectedLanguage === 'all' || post.id.startsWith(selectedLanguage)
   }
 
   const isPostMatchingSearch = (post: Post): boolean => {
@@ -90,9 +86,7 @@ export const SearchMenu = ({ posts, enabled }: Props) => {
 
   const getPostContentNormalized = ({ id, body, data }: Post): string => {
     return normalizeText(
-      [id, body, data.title, data.description, data.date, ...data.tags].join(
-        ' ',
-      ),
+      [id, body, data.title, data.description, data.date, ...data.tags].join(' '),
     )
   }
 
@@ -100,11 +94,12 @@ export const SearchMenu = ({ posts, enabled }: Props) => {
     <div>
       <SearchHeader
         search={search}
+        strings={strings}
         onInput={handleInput}
         onBlur={handleBlur}
         onLanguageChange={handleLanguageChange}
       />
-      <SearchContent items={getPostsAsResults()} />
+      <SearchContent items={getPostsAsResults()} language={language} />
     </div>
   )
 }

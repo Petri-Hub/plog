@@ -1,19 +1,17 @@
 import type { FocusEvent, InputEvent } from 'react'
+import type { Strings } from '../../types/i18n.types'
 import type { Language } from '../../types/language.types'
+import { getLanguageDetails, languages } from '../../utils/locale.utils'
 
 type Props = {
   search: string
+  strings: Strings['search']
   onInput: (event: InputEvent<HTMLInputElement>) => void
   onBlur: (event: FocusEvent<HTMLInputElement>) => void
   onLanguageChange: (language: Language | 'all') => void
 }
 
-export const SearchHeader = ({
-  search,
-  onInput,
-  onBlur,
-  onLanguageChange,
-}: Props) => {
+export const SearchHeader = ({ search, strings, onInput, onBlur, onLanguageChange }: Props) => {
   const handleInput = (event: InputEvent<HTMLInputElement>): void => {
     onInput(event)
   }
@@ -22,9 +20,7 @@ export const SearchHeader = ({
     onBlur(event)
   }
 
-  const handleLanguageSelection = (
-    language: Language | 'all',
-  ): VoidFunction => {
+  const handleLanguageSelection = (language: Language | 'all'): VoidFunction => {
     return (): void => {
       onLanguageChange(language)
     }
@@ -34,14 +30,18 @@ export const SearchHeader = ({
     <div>
       <input
         autoFocus
-        type="text"
+        type="search"
+        aria-label={strings.label}
         value={search}
         onInput={handleInput}
         onBlur={handleBlur}
       />
-      <button onClick={handleLanguageSelection('all')}>Tudo</button>
-      <button onClick={handleLanguageSelection('en-us')}>Inglês</button>
-      <button onClick={handleLanguageSelection('pt-br')}>Português</button>
+      <button onClick={handleLanguageSelection('all')}>{strings.all}</button>
+      {languages.map((language) => (
+        <button key={language} onClick={handleLanguageSelection(language)}>
+          {getLanguageDetails(language).name}
+        </button>
+      ))}
     </div>
   )
 }

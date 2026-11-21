@@ -29,24 +29,27 @@
 
 ### Folder map
 
-| Folder                                       | Holds                                                                                                   | File kind                                                    | May import                                    |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------------------------- |
-| `src/pages/<locale>/`                        | Routes, one set per locale with identical paths                                                         | `.astro` pages; `.ts` endpoints for non-HTML routes          | layouts, components, services, utils, types   |
-| `src/pages/` (root)                          | Locale-independent fallbacks only: `index.astro` (redirected to `/pt-br/`), `404.astro` and `500.astro` | `.astro`                                                     | layouts, components, utils, types             |
-| `src/layouts/`                               | Page shells: `<html>`, `<head>`, fonts, `<ClientRouter />`                                              | `.astro`                                                     | components, utils, types                      |
-| `src/components/<feature>/`                  | UI pieces grouped by feature, such as `search/` or `shared/`                                            | `.tsx`; `.astro` only when it needs an Astro-only capability | components, utils, types                      |
-| `src/contents/services/`                     | The only collection queries                                                                             | `<domain>.service.ts`                                        | `astro:content`, utils, types                 |
-| `src/contents/<collection>/<locale>/<slug>/` | Content entries                                                                                         | `index.md`                                                   | —                                             |
-| `src/content.config.ts`                      | Collection schemas                                                                                      | `.ts`                                                        | `astro:content`, `astro/loaders`, `astro/zod` |
-| `src/types/`                                 | Types shared by more than one file                                                                      | `<domain>.types.ts`                                          | types; `astro:content` as type-only           |
-| `src/utils/`                                 | Small pure helpers                                                                                      | `<domain>.utils.ts`                                          | utils, types                                  |
-| `public/`                                    | Files served as they are, such as `robots.txt` and the favicon                                          | any                                                          | —                                             |
-| `docs/`                                      | Design notes and ADRs                                                                                   | `.md`                                                        | —                                             |
+| Folder                                       | Holds                                                                                                                       | File kind                                                    | May import                                    |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------------------------- |
+| `src/pages/<locale>/`                        | Routes, one set per locale with identical paths                                                                             | `.astro` pages; `.ts` endpoints for non-HTML routes          | layouts, components, services, utils, types   |
+| `src/pages/` (root)                          | Locale-independent fallbacks only: `index.astro` (redirected to `/pt-br/`), `404.astro` and `500.astro`                     | `.astro`                                                     | layouts, components, utils, types             |
+| `src/layouts/`                               | Page shells: `<html>`, `<head>`, fonts, `<ClientRouter />`                                                                  | `.astro`                                                     | components, i18n, utils, types                |
+| `src/components/<feature>/`                  | UI pieces grouped by the feature that renders them, such as `search/` or `home/`; `shared/` holds pieces every page renders | `.tsx`; `.astro` only when it needs an Astro-only capability | components, utils, types                      |
+| `src/contents/services/`                     | The only collection queries                                                                                                 | `<domain>.service.ts`                                        | `astro:content`, utils, types                 |
+| `src/contents/<collection>/<locale>/<slug>/` | Content entries                                                                                                             | `index.md`                                                   | —                                             |
+| `src/content.config.ts`                      | Collection schemas                                                                                                          | `.ts`                                                        | `astro:content`, `astro/loaders`, `astro/zod` |
+| `src/i18n/`                                  | Interface text, one dictionary per locale, and `getStrings` to look one up                                                  | `<locale>.ts`, `strings.ts`                                  | types                                         |
+| `src/types/`                                 | Types shared by more than one file                                                                                          | `<domain>.types.ts`                                          | types; `astro:content` as type-only           |
+| `src/utils/`                                 | Small pure helpers                                                                                                          | `<domain>.utils.ts`                                          | utils, types                                  |
+| `public/`                                    | Files served as they are, such as `robots.txt` and the favicon                                                              | any                                                          | —                                             |
+| `docs/`                                      | Design notes and ADRs                                                                                                       | `.md`                                                        | —                                             |
 
 ### Dependency direction
 
 ```text
 pages ──► layouts ──► components
+  │          │
+  │          └──► i18n
   │
   └────► services ──► astro:content
 
@@ -61,9 +64,10 @@ utils, types ◄── imported by every layer above
 ---
 const highlights = await getHighlightedPosts('pt-br')
 const recents = await getPostsOrderedByDate('pt-br')
+const posts = await getAllPosts()
 ---
 
-<HomeLayout highlights={highlights} recents={recents} />
+<HomeLayout highlights={highlights} recents={recents} posts={posts} />
 ```
 
 ### 🚫 Wrong

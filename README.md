@@ -99,6 +99,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 │   ├── contents
 │   │   ├── posts        # one folder per post and language: <locale>/<slug>/index.md
 │   │   └── services     # the only code that queries the content collections
+│   ├── i18n             # the interface text, one dictionary per language
 │   ├── layouts          # the page shells that pages render into
 │   ├── pages            # the routes, under /pt-br and /en-us
 │   ├── types            # types shared across the code
@@ -147,13 +148,13 @@ pnpm dev
 - ✅ Fonts loaded through Astro's fonts API
 - ✅ Vercel Web Analytics
 - ✅ Prettier before every commit, through Husky
+- ✅ Every piece of interface text in both languages
 
 ### Open
 
 - ⬜ Rules that teach coding agents the architecture and its conventions
 - ⬜ A quality gate in CI that holds SEO and accessibility at 100
 - ⬜ 100 in every Lighthouse category
-- ⬜ Every piece of interface text in both languages
 - ⬜ The visual design: blueprints, diagrams and dithering, with an elegant serif
 - ⬜ Light and dark modes for reading at night
 - ⬜ View transitions between posts

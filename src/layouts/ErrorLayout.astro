@@ -1,0 +1,27 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import BaseLayout from './BaseLayout.astro'
+import { getStrings } from '../i18n/strings'
+import type { AlternateLanguageLinks } from '../types/language.types'
+import { toLanguage } from '../utils/locale.utils'
+
+type Props = {
+  status: 404 | 500
+}
+
+const { status } = Astro.props
+
+const language = toLanguage(Astro.currentLocale)
+const strings = getStrings(language)
+
+const alternates: AlternateLanguageLinks = {
+  'pt-br': getRelativeLocaleUrl('pt-br'),
+  'en-us': getRelativeLocaleUrl('en-us'),
+}
+---
+
+<BaseLayout title={strings.errors[status].title} alternates={alternates}>
+  <h1>{strings.errors[status].heading}</h1>
+  <p>{strings.errors[status].description}</p>
+  <a href={alternates[language]}>{strings.errors[status].back}</a>
+</BaseLayout>

@@ -1,28 +1,24 @@
-import type { Language } from '../types/language.types'
+import type { Language, LanguageDetails } from '../types/language.types'
 
-export const isPortuguesePath = (pathname: string): boolean => {
-  return pathname.startsWith('/pt-br/') || pathname.startsWith('pt-br/')
+const details: Record<Language, LanguageDetails> = {
+  'pt-br': { tag: 'pt-BR', name: 'Português', label: 'PT' },
+  'en-us': { tag: 'en-US', name: 'English', label: 'EN' },
 }
 
-export const isEnglishPath = (pathname: string): boolean => {
-  return pathname.startsWith('/en-us/') || pathname.startsWith('en-us/')
+export const languages: Language[] = ['pt-br', 'en-us']
+
+const isLanguage = (value: string | undefined): value is Language => {
+  return languages.some((language) => language === value)
 }
 
-export const getLocale = (): Language | null => {
-  if (!window) {
-    return null
+export const toLanguage = (locale: string | undefined): Language => {
+  if (!isLanguage(locale)) {
+    throw new Error(`Locale "${locale}" is not a supported language`)
   }
 
-  const location = window.location
-  const pathname = location.pathname
-
-  if (isPortuguesePath(pathname)) return 'pt-br'
-
-  if (isEnglishPath(pathname)) return 'en-us'
-
-  return null
+  return locale
 }
 
-export const getLocaleOrFallbackTo = (language: Language): Language => {
-  return getLocale() ?? language
+export const getLanguageDetails = (language: Language): LanguageDetails => {
+  return details[language]
 }

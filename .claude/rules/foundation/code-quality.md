@@ -24,7 +24,7 @@
 | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **No escape hatches**               | Don't use `any`, non-null assertions (`!`) or `as` casts to quiet the compiler; narrow with a check or fix the type instead — each one turns a compile-time error into a runtime one exactly where types were supposed to protect you.                      |
 | **No comments that restate code**   | Don't add comments, commented-out code or TODOs; write a comment only for what the code can't say, such as a workaround with a link to its cause, and put open work in the README roadmap — git history already keeps old code, and stale comments mislead. |
-| **No duplicate helpers**            | Don't write a helper before checking `src/utils/` for one that does the same job; extend or reuse it instead — two implementations of one rule drift apart, as `toIdWithoutLanguage` and `getPathFromPostId` already have.                                  |
+| **No duplicate helpers**            | Don't write a helper before checking `src/utils/` for one that does the same job; extend or reuse it instead — two implementations of one rule drift apart, so a fix lands in one copy while the other keeps the bug.                                       |
 | **No debug leftovers**              | Don't leave `console.log` calls, placeholder text or placeholder errors such as `throw new Error('teste')`; use the real message or remove the line — placeholders ship in the build and make a real failure impossible to diagnose.                        |
 | **No abstractions with one caller** | Don't add factories, generic wrappers or config objects for a single use; write the direct code instead — indirection with one caller costs every reader an extra hop and saves nothing.                                                                    |
 
@@ -33,35 +33,36 @@
 ### ✅ Correct
 
 ```ts
-export const getPostById = async (language: Language, slug: string): Promise<Post | null> => {
-  const posts = await getPosts(language)
-  const target = posts.find((post) => post.id === `${language}/${slug}`)
+export const toAlternateMap = ({ id, data }: Post): AlternateLanguageLinks => {
+  const getAlternateUrl = (language: Language): string => {
+    const alternate = data.alternates.find((alternate) => {
+      return toPostLanguage(alternate.id) === language
+    })
 
-  return target ?? null
+    if (!alternate) {
+      throw new Error(`Post "${id}" has no "${language}" alternate`)
+    }
+
+    return createUrlFromPostId(alternate.id)
+  }
+
+  return {
+    'pt-br': getAlternateUrl('pt-br'),
+    'en-us': getAlternateUrl('en-us'),
+  }
 }
-```
-
-```astro
----
-const post = await getPostById('en-us', slug)
-
-if (!post) {
-  throw new Error(`Post "en-us/${slug}" was not found`)
-}
----
 ```
 
 ### 🚫 Wrong
 
-```astro
----
-const post = (await getPostById('en-us', slug))!
-console.log(post)
----
+```ts
+export const toAlternateMap = (post: any): AlternateLanguageLinks => {
+  console.log(post)
 
-<PostLayout name="teste" alternates={toAlternateMap(post.data.alternates as any)}>
-  <Content />
-</PostLayout>
+  return Object.fromEntries(
+    post.data.alternates.map(({ id }) => [id.split('/')[0], createUrlFromPostId(id)]),
+  ) as AlternateLanguageLinks
+}
 ```
 
-> The `!` and `as any` silence the compiler instead of handling a missing post, so a bad slug crashes later with an unrelated `TypeError`. The `console.log` and the placeholder `name` ship in the build and look like real behavior to the next reader.
+> The `any` hides that the argument is a `Post`, and the `as` cast claims every language is present when `Object.fromEntries` only promises some string keys, so a post without an English alternate builds a page whose English link is `undefined`. The inline `split` repeats what `toPostLanguage` already does, and the `console.log` ships in the build and prints every post into the build log.

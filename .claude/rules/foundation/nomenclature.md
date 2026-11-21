@@ -61,7 +61,7 @@
 
 | Kind                        | Case                                  | Example                                          |
 | --------------------------- | ------------------------------------- | ------------------------------------------------ |
-| Functions and variables     | camelCase                             | `getPostsOrderedByDate`, `recents`               |
+| Functions and variables     | camelCase                             | `getRecentPosts`, `recents`                      |
 | Types and components        | PascalCase                            | `Post`, `AlternateLanguageLinks`, `SearchHeader` |
 | Boolean variables and state | camelCase starting with `is` or `has` | `isEnabled`                                      |
 | Callback props              | `on<Event>`                           | `onInput`, `onLanguageChange`                    |

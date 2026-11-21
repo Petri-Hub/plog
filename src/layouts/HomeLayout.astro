@@ -1,24 +1,41 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import Header from "../components/shared/Header.astro";
-import Main from "../components/shared/Main.astro"
-import { getAllPosts } from '../contents/services/post.service'
-import { SearchMenu } from "../components/search/SearchMenu";
-import type { AlternateLanguageLinks } from "../types/language.types";
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import BaseLayout from './BaseLayout.astro'
+import { PostList } from '../components/posts/PostList'
+import { SearchMenu } from '../components/search/SearchMenu'
+import { getStrings } from '../i18n/strings'
+import type { Post } from '../types/content.types'
+import type { AlternateLanguageLinks } from '../types/language.types'
+import { toLanguage } from '../utils/locale.utils'
 
-const alternates: AlternateLanguageLinks = {
-  'pt-br': '/pt-br/',
-  'en-us': '/en-us/'
+type Props = {
+  highlights: Post[]
+  recents: Post[]
+  posts: Post[]
 }
 
-const posts = await getAllPosts()
+const { highlights, recents, posts } = Astro.props
+const language = toLanguage(Astro.currentLocale)
+const { home, search } = getStrings(language)
+
+const alternates: AlternateLanguageLinks = {
+  'pt-br': getRelativeLocaleUrl('pt-br'),
+  'en-us': getRelativeLocaleUrl('en-us'),
+}
 ---
 
-<BaseLayout alternates={alternates} title="Plog | Início">
-  <Header alternates={alternates}/>
-  <Main>
-    <SearchMenu client:only posts={posts} enabled={false}/>
-
-    <slot />
-  </Main>
+<BaseLayout title={home.title} alternates={alternates}>
+  <SearchMenu client:only="react" posts={posts} enabled={false} language={language} strings={search} />
+  <section>
+    <h1>{home.heading}</h1>
+    <p>{home.subheading}</p>
+  </section>
+  <section>
+    <h2>{home.highlights}</h2>
+    <PostList posts={highlights} language={language} />
+  </section>
+  <section>
+    <h2>{home.recents}</h2>
+    <PostList posts={recents} language={language} />
+  </section>
 </BaseLayout>

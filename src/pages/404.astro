@@ -1,11 +1,5 @@
 ---
-import HomeLayout from '../layouts/HomeLayout.astro'
+import ErrorLayout from '../layouts/ErrorLayout.astro'
 ---
 
-<HomeLayout>
-  <div>
-    <h2>Parece que essa lingua não está disponível ainda, foi mal</h2>
-    <p>Vamos voltar para a página anterior</p>
-    <a href="/">Voltar</a>
-  </div>
-</HomeLayout>
+<ErrorLayout status={404} />

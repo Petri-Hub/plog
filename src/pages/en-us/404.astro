@@ -1,11 +1,5 @@
 ---
-import HomeLayout from '../../layouts/HomeLayout.astro'
+import ErrorLayout from '../../layouts/ErrorLayout.astro'
 ---
 
-<HomeLayout>
-  <div>
-    <h2>Seems this page doesn't exist</h2>
-    <p>Let's go back to the previous page</p>
-    <a href="/">Go back</a>
-  </div>
-</HomeLayout>
+<ErrorLayout status={404} />

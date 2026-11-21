@@ -1,5 +1,4 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-import type { PostWithLanguage } from '../../types/content.types'
 
 type Post = CollectionEntry<'posts'>
 

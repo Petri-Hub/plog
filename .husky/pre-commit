@@ -1,1 +1,6 @@
-pnpm format && git add -u
+files=$(git diff --cached --name-only --diff-filter=ACMR)
+
+if [ -n "$files" ]; then
+  printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 pnpm exec prettier --write --ignore-unknown
+  printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 git add
+fi

@@ -18,38 +18,49 @@ const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang={getLanguageDetails(language).tag}>
-<head>
-  <title>{`PLOG | ${title}`}</title>
+  <head>
+    <title>{`PLOG | ${title}`}</title>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  {
-    languages.map((alternate) => (
-      <link rel="alternate" hreflang={getLanguageDetails(alternate).tag} href={new URL(alternates[alternate], Astro.site).href} />
-    ))
-  }
+    {languages.map((alternate) => (
+      <link
+        rel="alternate"
+        hreflang={getLanguageDetails(alternate).tag}
+        href={new URL(alternates[alternate], Astro.site).href}
+      />
+    ))}
 
-  <link rel="alternate" hreflang="x-default" href={new URL(alternates['pt-br'], Astro.site).href} />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(alternates['pt-br'], Astro.site).href}
+    />
 
-  <Font cssVariable='--font-accent' preload />
-  <Font cssVariable='--font-decorative' preload />
-  <Font cssVariable='--font-text' preload />
+    <Font cssVariable="--font-accent" preload />
+    <Font cssVariable="--font-decorative" preload />
+    <Font cssVariable="--font-text" preload />
 
-  <ClientRouter />
+    <ClientRouter />
 
-  <style is:global>
-    * {
-      font-family: var(--font-decorative);
-    }
-  </style>
-</head>
-<body>
-  <Header language={language} homeUrl={getRelativeLocaleUrl(language)} alternates={alternates} strings={strings.header} />
-  <main>
-    <slot />
-  </main>
-</body>
+    <style is:global>
+      * {
+        font-family: var(--font-decorative);
+      }
+    </style>
+  </head>
+  <body>
+    <Header
+      language={language}
+      homeUrl={getRelativeLocaleUrl(language)}
+      alternates={alternates}
+      strings={strings.header}
+    />
+    <main>
+      <slot />
+    </main>
+  </body>
 </html>

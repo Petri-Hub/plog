@@ -33,10 +33,7 @@
 ### ✅ Correct
 
 ```ts
-export const getPostById = async (
-  language: Language,
-  slug: string,
-): Promise<Post | null> => {
+export const getPostById = async (language: Language, slug: string): Promise<Post | null> => {
   const posts = await getPosts(language)
   const target = posts.find((post) => post.id === `${language}/${slug}`)
 

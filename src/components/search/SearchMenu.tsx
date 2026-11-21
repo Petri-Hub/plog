@@ -16,9 +16,7 @@ type Props = {
 
 export const SearchMenu = ({ posts, enabled, language, strings }: Props) => {
   const [search, setSearch] = useState<string>('')
-  const [selectedLanguage, setSelectedLanguage] = useState<Language | 'all'>(
-    language,
-  )
+  const [selectedLanguage, setSelectedLanguage] = useState<Language | 'all'>(language)
   const [isEnabled, setIsEnabled] = useState<boolean>(enabled)
 
   useHotkeys(
@@ -40,15 +38,11 @@ export const SearchMenu = ({ posts, enabled, language, strings }: Props) => {
     return null
   }
 
-  const handleInput = ({
-    currentTarget,
-  }: InputEvent<HTMLInputElement>): void => {
+  const handleInput = ({ currentTarget }: InputEvent<HTMLInputElement>): void => {
     setSearch(currentTarget.value)
   }
 
-  const handleBlur = ({
-    currentTarget,
-  }: FocusEvent<HTMLInputElement>): void => {
+  const handleBlur = ({ currentTarget }: FocusEvent<HTMLInputElement>): void => {
     setSearch(currentTarget.value)
   }
 
@@ -92,9 +86,7 @@ export const SearchMenu = ({ posts, enabled, language, strings }: Props) => {
 
   const getPostContentNormalized = ({ id, body, data }: Post): string => {
     return normalizeText(
-      [id, body, data.title, data.description, data.date, ...data.tags].join(
-        ' ',
-      ),
+      [id, body, data.title, data.description, data.date, ...data.tags].join(' '),
     )
   }
 

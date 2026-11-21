@@ -11,13 +11,7 @@ type Props = {
   onLanguageChange: (language: Language | 'all') => void
 }
 
-export const SearchHeader = ({
-  search,
-  strings,
-  onInput,
-  onBlur,
-  onLanguageChange,
-}: Props) => {
+export const SearchHeader = ({ search, strings, onInput, onBlur, onLanguageChange }: Props) => {
   const handleInput = (event: InputEvent<HTMLInputElement>): void => {
     onInput(event)
   }
@@ -26,9 +20,7 @@ export const SearchHeader = ({
     onBlur(event)
   }
 
-  const handleLanguageSelection = (
-    language: Language | 'all',
-  ): VoidFunction => {
+  const handleLanguageSelection = (language: Language | 'all'): VoidFunction => {
     return (): void => {
       onLanguageChange(language)
     }

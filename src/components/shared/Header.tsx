@@ -1,8 +1,5 @@
 import type { Strings } from '../../types/i18n.types'
-import type {
-  AlternateLanguageLinks,
-  Language,
-} from '../../types/language.types'
+import type { AlternateLanguageLinks, Language } from '../../types/language.types'
 import { getLanguageDetails, languages } from '../../utils/locale.utils'
 
 type Props = {

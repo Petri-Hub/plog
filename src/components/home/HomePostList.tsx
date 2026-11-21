@@ -16,9 +16,7 @@ export const HomePostList = ({ posts, language }: Props) => {
           <a href={createUrlFromPostId(id)}>
             <article>
               <p>
-                <time dateTime={date.toISOString()}>
-                  {toLocalizedDate(date, language)}
-                </time>{' '}
+                <time dateTime={date.toISOString()}>{toLocalizedDate(date, language)}</time>{' '}
                 {tags.map((tag) => `#${tag}`).join(' ')}
               </p>
               <h3>{title}</h3>

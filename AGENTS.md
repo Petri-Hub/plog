@@ -1,14 +1,42 @@
+# PLOG
+
+## Intro
+
+PLOG is Petri's technical blog, published in Brazilian Portuguese and English. It is a static Astro 7 site with React components, TypeScript in strict mode and Markdown posts in content collections, deployed on Vercel. Every route exists under `/pt-br` and `/en-us`, and the code is kept small enough for one person to read in full. The README explains what the blog is and why it exists, and `docs/decisions/` records why it is built this way.
+
+## Core principles
+
+These apply to every task, whatever the files involved.
+
+1. **Both languages, always.** Anything a reader sees exists in Portuguese and in English: posts, pages and interface text. A change that adds or edits one locale and leaves the other behind is unfinished, because the international audience is the point of the blog.
+2. **Docs before memory.** Astro 7 is recent, and model memory of its APIs is often wrong. Check the Astro documentation below, or an Astro docs MCP server when your harness has one, before using or describing an Astro API, and say so when you could not verify something.
+3. **New patterns are proposed, not introduced.** A new folder, file kind, dependency or data shape is Petri's decision. Propose it with the reason, wait for agreement, then record it as the next ADR in `docs/decisions/`.
+4. **Simple design.** Write code by Kent Beck's rules of simple design, and review it for simplification before committing. Use the `style` and `simplify` skills when your harness has them.
+5. **Every change arrives as a pull request.** Branch from `production`, write Conventional Commits in English, and open one pull request per phase or feature for Petri to approve. Commit or push to `production` only when Petri explicitly allows it for that change, because `production` is what Vercel deploys.
+
+## Rules
+
+Coding conventions live in `.claude/rules/`, one concern per file. A rule without `paths` frontmatter applies to every task. A rule with `paths` applies to the files its globs match.
+
+- **Claude Code** loads them automatically: rules without `paths` at the start of a session, path-scoped rules when a matching file is read.
+- **Other agents** load nothing automatically. Before starting a task, read every rule in `.claude/rules/` that has no `paths` frontmatter. Before reading or editing a file, read every rule whose `paths` globs match it.
+
 ## Development
 
-When starting the dev server, use background mode:
+Start the dev server in the background, so it doesn't block your session:
 
+```sh
+pnpm astro dev --background
 ```
-astro dev --background
-```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+Manage it with `pnpm astro dev status`, `pnpm astro dev logs` and `pnpm astro dev stop`.
 
-## Documentation
+| Command       | Use                                                                   |
+| ------------- | --------------------------------------------------------------------- |
+| `pnpm build`  | Build the site; it must pass before you hand work back                |
+| `pnpm format` | Format the repository with Prettier; the pre-commit hook also runs it |
+
+## Astro documentation
 
 Full documentation: https://docs.astro.build
 

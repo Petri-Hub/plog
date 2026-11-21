@@ -1,12 +1,13 @@
-// @ts-check
 import { defineConfig, fontProviders } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import vercel from '@astrojs/vercel'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 
+const site = 'https://blog.petri.zip'
+
 export default defineConfig({
-  site: 'https://blog.petri.zip',
+  site,
   fonts: [
     {
       provider: fontProviders.google(),
@@ -29,7 +30,7 @@ export default defineConfig({
     react(),
     sitemap({
       filter: (page) => {
-        return page !== 'https://blog.petri.zip/'
+        return page !== `${site}/`
       },
       serialize: (page) => {
         if (!page.links) {

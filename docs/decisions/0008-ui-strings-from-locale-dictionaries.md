@@ -24,3 +24,4 @@ This supersedes ADR 0004.
 - `toLanguage` throws when `Astro.currentLocale` isn't a supported language, so a misconfigured locale fails the build instead of rendering the wrong text.
 - Routes without a locale prefix, such as the root `404` and `500` pages, get the default locale, Portuguese.
 - Text reaches a React component in one hop, from the `.astro` file that renders it.
+- `astro.config.ts` keeps its own copy of the locale list for routing and the sitemap. The config is the source for routing, and a locale it has that `Language` lacks fails the build through `toLanguage`.

@@ -12,7 +12,7 @@ These apply to every task, whatever the files involved.
 2. **Docs before memory.** Astro 7 is recent, and model memory of its APIs is often wrong. Check the Astro documentation below, or an Astro docs MCP server when your harness has one, before using or describing an Astro API, and say so when you could not verify something.
 3. **New patterns are proposed, not introduced.** A new folder, file kind, dependency or data shape is Petri's decision. Propose it with the reason, wait for agreement, then record it as the next ADR in `docs/decisions/`.
 4. **Simple design.** Write code by Kent Beck's rules of simple design, and review it for simplification before committing. Use the `style` and `simplify` skills when your harness has them.
-5. **Every change arrives as a pull request.** Branch from `production`, write Conventional Commits in English, and open one pull request per phase or feature for Petri to approve. Commit or push to `production` only when Petri explicitly allows it for that change, because `production` is what Vercel deploys.
+5. **Every change arrives as a pull request.** Branch from `production`, write Conventional Commits in English, and open one pull request per phase or feature for Petri to approve. A ruleset on `production` enforces this: changes merge only through a pull request whose quality check passes, and no one can push to it directly, because `production` is what Vercel deploys.
 
 ## Rules
 

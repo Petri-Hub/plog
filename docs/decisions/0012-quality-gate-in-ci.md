@@ -20,4 +20,5 @@ The README promises 100 for SEO and accessibility in Lighthouse, and until now n
 
 - A change that drops SEO, accessibility or best practices below 100 on an audited page can't pass its pull request.
 - The audited pages include `post-1-test`, a test post. The list in `lighthouserc.json` has to change when real posts replace the test ones.
+- There is no test runner. The build already runs every service and util on every post, so the gate stands in for unit tests until there is logic the build never runs, starting with the search filtering.
 - The first run caught a real failure: the language links were smaller than the 24 pixel touch target that Lighthouse's `target-size` audit asks for.

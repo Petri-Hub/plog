@@ -1,8 +1,7 @@
-import { getCollection, type CollectionEntry } from 'astro:content'
-
-type Post = CollectionEntry<'posts'>
-
-type Language = 'pt-br' | 'en-us'
+import { getCollection, render, type RenderResult } from 'astro:content'
+import type { Post } from '../../types/content.types'
+import type { Language } from '../../types/language.types'
+import { toPostLanguage } from '../../utils/post.utils'
 
 export const getAllPosts = async (): Promise<Post[]> => {
   return await getCollection('posts')
@@ -10,7 +9,7 @@ export const getAllPosts = async (): Promise<Post[]> => {
 
 export const getPosts = async (language: Language): Promise<Post[]> => {
   return await getCollection('posts', (post) => {
-    return post.id.startsWith(language + '/')
+    return toPostLanguage(post.id) === language
   })
 }
 
@@ -21,13 +20,6 @@ export const getHighlightedPosts = async (language: Language): Promise<Post[]> =
   return highlighted
 }
 
-export const getPostById = async (language: Language, id: string): Promise<Post | null> => {
-  const posts = await getPosts(language)
-  const target = posts.find((post) => post.id.endsWith(id))
-
-  return target ?? null
-}
-
 export const getRecentPosts = async (language: Language): Promise<Post[]> => {
   const posts = await getPosts(language)
   const recents = posts.toSorted((postA, postB) => {
@@ -35,4 +27,8 @@ export const getRecentPosts = async (language: Language): Promise<Post[]> => {
   })
 
   return recents
+}
+
+export const getPostContent = async (post: Post): Promise<RenderResult> => {
+  return await render(post)
 }

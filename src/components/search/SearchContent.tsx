@@ -1,6 +1,6 @@
 import type { Language } from '../../types/language.types'
 import { toLocalizedDate } from '../../utils/date.utils'
-import { createUrlFromPostId } from '../../utils/post.utilts'
+import { createUrlFromPostId } from '../../utils/post.utils'
 
 type Item = {
   id: string

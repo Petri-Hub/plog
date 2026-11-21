@@ -5,4 +5,4 @@ minimumReleaseAgeExclude:
 
 overrides:
   # https://github.com/advisories/GHSA-9wv6-86v2-598j, until @vercel/routing-utils stops pinning 6.1.0
-  path-to-regexp@<6.3.0: 6.3.0
+  'path-to-regexp@>=6.0.0 <6.3.0': 6.3.0

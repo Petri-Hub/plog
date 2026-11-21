@@ -1,4 +1,4 @@
-import type { Strings } from '../types/i18n.types'
+import type { Strings } from '@/types/i18n.types'
 
 export const enUs: Strings = {
   header: {

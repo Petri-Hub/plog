@@ -1,10 +1,10 @@
 import { SearchHeader } from './SearchHeader'
 import { SearchContent } from './SearchContent'
-import type { Post } from '../../types/content.types'
+import type { Post } from '@/types/content.types'
 import { useState, type FocusEvent, type InputEvent } from 'react'
-import type { Strings } from '../../types/i18n.types'
-import type { Language } from '../../types/language.types'
-import { normalizeText } from '../../utils/text.utils'
+import type { Strings } from '@/types/i18n.types'
+import type { Language } from '@/types/language.types'
+import { normalizeText } from '@/utils/text.utils'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type Props = {

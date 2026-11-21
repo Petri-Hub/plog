@@ -1,5 +1,5 @@
-import type { Post } from '../types/content.types'
-import type { AlternateLanguageLinks, Language } from '../types/language.types'
+import type { Post } from '@/types/content.types'
+import type { AlternateLanguageLinks, Language } from '@/types/language.types'
 import { toLanguage } from './locale.utils'
 
 export const toPostLanguage = (id: string): Language => {

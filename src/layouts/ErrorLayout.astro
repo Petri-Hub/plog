@@ -1,9 +1,9 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
-import { getStrings } from '../i18n/strings'
-import type { AlternateLanguageLinks } from '../types/language.types'
-import { toLanguage } from '../utils/locale.utils'
+import { getStrings } from '@/i18n/strings'
+import type { AlternateLanguageLinks } from '@/types/language.types'
+import { toLanguage } from '@/utils/locale.utils'
 
 type Props = {
   status: 404 | 500

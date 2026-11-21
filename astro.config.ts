@@ -1,5 +1,4 @@
 import { defineConfig, fontProviders } from 'astro/config'
-import mdx from '@astrojs/mdx'
 import vercel from '@astrojs/vercel'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -26,7 +25,6 @@ export default defineConfig({
     },
   ],
   integrations: [
-    mdx(),
     react(),
     sitemap({
       filter: (page) => {

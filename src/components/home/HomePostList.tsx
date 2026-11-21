@@ -1,7 +1,7 @@
-import type { Post } from '../../types/content.types'
-import type { Language } from '../../types/language.types'
-import { toLocalizedDate } from '../../utils/date.utils'
-import { createUrlFromPostId } from '../../utils/post.utils'
+import type { Post } from '@/types/content.types'
+import type { Language } from '@/types/language.types'
+import { toLocalizedDate } from '@/utils/date.utils'
+import { createUrlFromPostId } from '@/utils/post.utils'
 
 type Props = {
   posts: Post[]

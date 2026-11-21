@@ -19,4 +19,4 @@ Most posts are structured text: headings, links, images, tables and code. MDX wo
 
 - Writing a post requires nothing beyond Markdown.
 - A post missing its translation fails schema validation, because `alternates` requires at least two entries.
-- `@astrojs/mdx` is installed but unused for now.
+- `@astrojs/mdx` was removed on 2026-11-21, because nothing used it. It comes back with the first post that needs a demo.

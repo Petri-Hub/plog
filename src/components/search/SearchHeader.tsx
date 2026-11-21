@@ -1,7 +1,7 @@
 import type { FocusEvent, InputEvent } from 'react'
-import type { Strings } from '../../types/i18n.types'
-import type { Language } from '../../types/language.types'
-import { getLanguageDetails, languages } from '../../utils/locale.utils'
+import type { Strings } from '@/types/i18n.types'
+import type { Language } from '@/types/language.types'
+import { getLanguageDetails, languages } from '@/utils/locale.utils'
 
 type Props = {
   search: string

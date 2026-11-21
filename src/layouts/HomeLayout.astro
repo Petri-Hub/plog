@@ -1,12 +1,12 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
-import { HomePostList } from '../components/home/HomePostList'
-import { SearchMenu } from '../components/search/SearchMenu'
-import { getStrings } from '../i18n/strings'
-import type { Post } from '../types/content.types'
-import type { AlternateLanguageLinks } from '../types/language.types'
-import { toLanguage } from '../utils/locale.utils'
+import { HomePostList } from '@/components/home/HomePostList'
+import { SearchMenu } from '@/components/search/SearchMenu'
+import { getStrings } from '@/i18n/strings'
+import type { Post } from '@/types/content.types'
+import type { AlternateLanguageLinks } from '@/types/language.types'
+import { toLanguage } from '@/utils/locale.utils'
 
 type Props = {
   highlights: Post[]

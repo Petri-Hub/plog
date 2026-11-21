@@ -3,11 +3,11 @@ import HomeLayout from '../../layouts/HomeLayout.astro'
 import {
   getAllPosts,
   getHighlightedPosts,
-  getPostsOrderedByDate,
+  getRecentPosts,
 } from '../../contents/services/post.service'
 
 const highlights = await getHighlightedPosts('pt-br')
-const recents = await getPostsOrderedByDate('pt-br')
+const recents = await getRecentPosts('pt-br')
 const posts = await getAllPosts()
 ---
 

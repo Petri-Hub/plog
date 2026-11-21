@@ -28,9 +28,11 @@ export const getPostById = async (language: Language, id: string): Promise<Post 
   return target ?? null
 }
 
-export const getPostsOrderedByDate = async (language: Language): Promise<Post[]> => {
+export const getRecentPosts = async (language: Language): Promise<Post[]> => {
   const posts = await getPosts(language)
-  const sorted = posts.sort((postA, postB) => postA.data.date.getTime() - postB.data.date.getTime())
+  const recents = posts.toSorted((postA, postB) => {
+    return postB.data.date.getTime() - postA.data.date.getTime()
+  })
 
-  return sorted
+  return recents
 }

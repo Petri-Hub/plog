@@ -21,6 +21,17 @@ Coding conventions live in `.claude/rules/`, one concern per file. A rule withou
 - **Claude Code** loads them automatically: rules without `paths` at the start of a session, path-scoped rules when a matching file is read.
 - **Other agents** load nothing automatically. Before starting a task, read every rule in `.claude/rules/` that has no `paths` frontmatter. Before reading or editing a file, read every rule whose `paths` globs match it.
 
+### Read when you are…
+
+Some tasks need a rule before any matching file is open. Read these while planning.
+
+| Task                                                      | Rule                                             |
+| --------------------------------------------------------- | ------------------------------------------------ |
+| Adding a page, which means adding it in both locales      | `.claude/rules/components/routing/page.md`       |
+| Writing or translating a post                             | `.claude/rules/components/content/post.md`       |
+| Adding a content collection, such as notices              | `.claude/rules/components/content/collection.md` |
+| Changing page titles, the `<head>` or the heading outline | `.claude/rules/concerns/seo-accessibility.md`    |
+
 ## Development
 
 Start the dev server in the background, so it doesn't block your session:

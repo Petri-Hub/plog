@@ -6,6 +6,7 @@ export const ptBr: Strings = {
   },
   home: {
     title: 'Início',
+    description: 'Meu blog técnico, em português e inglês, escrito enquanto aprendo.',
     heading: 'Bem-vindo ao meu blog',
     subheading: 'Assuntos de tecnologia e coisas por aí',
     highlights: 'Destaques',

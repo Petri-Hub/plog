@@ -4,13 +4,14 @@ import type { AlternateLanguageLinks } from '@/types/language.types'
 
 type Props = {
   title: string
+  description: string
   alternates: AlternateLanguageLinks
 }
 
-const { title, alternates } = Astro.props
+const { title, description, alternates } = Astro.props
 ---
 
-<BaseLayout title={title} alternates={alternates}>
+<BaseLayout title={title} description={description} alternates={alternates}>
   <article>
     <h1>{title}</h1>
     <slot />

@@ -19,7 +19,7 @@ Dark mode changes the base colors and keeps the red and blue.
 
 ## Typography
 
-Three roles, each loaded through Astro's fonts API in `astro.config.mjs`:
+Three roles, each loaded through Astro's fonts API in `astro.config.ts`:
 
 | Role                                | Font               | CSS variable        |
 | ----------------------------------- | ------------------ | ------------------- |

@@ -5,5 +5,8 @@
 # Configuration files.
 .vscode
 
-# Distribuiton.
+# Distribution.
 dist
+
+# Lockfile written by pnpm.
+pnpm-lock.yaml

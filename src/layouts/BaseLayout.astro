@@ -2,10 +2,10 @@
 import { Font } from 'astro:assets'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { ClientRouter } from 'astro:transitions'
-import { Header } from '../components/shared/Header'
-import { getStrings } from '../i18n/strings'
-import type { AlternateLanguageLinks } from '../types/language.types'
-import { getLanguageDetails, languages, toLanguage } from '../utils/locale.utils'
+import { Header } from '@/components/shared/Header'
+import { getStrings } from '@/i18n/strings'
+import type { AlternateLanguageLinks } from '@/types/language.types'
+import { getLanguageDetails, languages, toLanguage } from '@/utils/locale.utils'
 
 type Props = {
   title: string

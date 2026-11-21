@@ -1,4 +1,4 @@
-import type { Language, LanguageDetails } from '../types/language.types'
+import type { Language, LanguageDetails } from '@/types/language.types'
 
 const details: Record<Language, LanguageDetails> = {
   'pt-br': { tag: 'pt-BR', name: 'Português', label: 'PT' },

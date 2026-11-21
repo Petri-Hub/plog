@@ -1,8 +1,8 @@
 ---
-import PostLayout from '../../../layouts/PostLayout.astro'
-import { getPostContent, getPosts } from '../../../contents/services/post.service'
-import type { Post } from '../../../types/content.types'
-import { toAlternateMap, toPostSlug } from '../../../utils/post.utils'
+import PostLayout from '@/layouts/PostLayout.astro'
+import { getPostContent, getPosts } from '@/contents/services/post.service'
+import type { Post } from '@/types/content.types'
+import { toAlternateMap, toPostSlug } from '@/utils/post.utils'
 
 export async function getStaticPaths() {
   const posts = await getPosts('pt-br')

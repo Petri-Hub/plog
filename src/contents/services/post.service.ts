@@ -1,7 +1,7 @@
 import { getCollection, render, type RenderResult } from 'astro:content'
-import type { Post } from '../../types/content.types'
-import type { Language } from '../../types/language.types'
-import { toPostLanguage } from '../../utils/post.utils'
+import type { Post } from '@/types/content.types'
+import type { Language } from '@/types/language.types'
+import { toPostLanguage } from '@/utils/post.utils'
 
 export const getAllPosts = async (): Promise<Post[]> => {
   return await getCollection('posts')

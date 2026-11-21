@@ -1,4 +1,4 @@
-import type { Language } from '../types/language.types'
+import type { Language } from '@/types/language.types'
 import { getLanguageDetails } from './locale.utils'
 
 export const toLocalizedDate = (date: Date, language: Language): string => {

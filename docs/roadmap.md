@@ -16,17 +16,17 @@ Astro was a deliberate choice to break the habit of reaching for Next.js for eve
 
 ### Stated
 
-| #   | Principle                                                                                                                                                       | Lands in                                                                                    |
-| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| 1   | Comments only when the code cannot speak for itself. This is a blog, not a complex system.                                                                      | `foundation/code-quality.md`                                                                |
-| 2   | TypeScript everywhere, with typing treated as mandatory. JS only where Astro leaves no alternative.                                                             | `foundation/code-quality.md`                                                                |
-| 3   | `docs/agent-rules-components`                                                                                                                                   | The SEO and accessibility concern and the components tier (the i18n concern landed with 4c) | 2   |
-| 4   | Code is written and reviewed with the `style` (Kent Beck simple design) and `simplify` skills.                                                                  | AGENTS.md                                                                                   |
-| 5   | SEO and accessibility at 100, enforced by CI (Lighthouse + Astro checks).                                                                                       | `concerns/seo-accessibility.md`, Phase 5                                                    |
-| 6   | Everything that exists in pt-BR exists in en-US: posts, screens, UI text. Not optional.                                                                         | `concerns/i18n.md`, AGENTS.md                                                               |
-| 7   | No direct commits to `production`. Every change (code, post, tweak) goes through a PR approved by Petri, and pushes happen only when he explicitly allows them. | AGENTS.md                                                                                   |
-| 8   | Any new pattern (folder, file kind, data shape) is discussed before it is introduced.                                                                           | AGENTS.md, `foundation/architecture.md`                                                     |
-| 9   | Documentation before claims. Astro 7 is recent and model memory gets it wrong, so check the Astro docs or MCP first.                                            | AGENTS.md                                                                                   |
+| #   | Principle                                                                                                                                                       | Lands in                                                                                                                                                                                                                     |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Comments only when the code cannot speak for itself. This is a blog, not a complex system.                                                                      | `foundation/code-quality.md`                                                                                                                                                                                                 |
+| 2   | TypeScript everywhere, with typing treated as mandatory. JS only where Astro leaves no alternative.                                                             | `foundation/code-quality.md`                                                                                                                                                                                                 |
+| 3   | `docs/agent-rules-components`                                                                                                                                   | The SEO and accessibility concern, eight component rules (page, layout, component, collection, service, post, utils, types) and the "Read when you are…" table in AGENTS.md. The endpoint rule waits for the first endpoint. | 2   |
+| 4   | Code is written and reviewed with the `style` (Kent Beck simple design) and `simplify` skills.                                                                  | AGENTS.md                                                                                                                                                                                                                    |
+| 5   | SEO and accessibility at 100, enforced by CI (Lighthouse + Astro checks).                                                                                       | `concerns/seo-accessibility.md`, Phase 5                                                                                                                                                                                     |
+| 6   | Everything that exists in pt-BR exists in en-US: posts, screens, UI text. Not optional.                                                                         | `concerns/i18n.md`, AGENTS.md                                                                                                                                                                                                |
+| 7   | No direct commits to `production`. Every change (code, post, tweak) goes through a PR approved by Petri, and pushes happen only when he explicitly allows them. | AGENTS.md                                                                                                                                                                                                                    |
+| 8   | Any new pattern (folder, file kind, data shape) is discussed before it is introduced.                                                                           | AGENTS.md, `foundation/architecture.md`                                                                                                                                                                                      |
+| 9   | Documentation before claims. Astro 7 is recent and model memory gets it wrong, so check the Astro docs or MCP first.                                            | AGENTS.md                                                                                                                                                                                                                    |
 
 ### Inferred
 
@@ -56,9 +56,10 @@ forge-mdcs requires rules to match reality. Where the code differs from the rule
 
 - The root `index.astro` is empty.
 
-**Docs**
+**Accessibility**
 
-- README.md is the Astro starter, and AGENTS.md is the file Astro generated.
+- `SearchContent` renders result titles as `<h4>` with no `<h3>` above them, and the open search menu sits before the page's `<h1>`. The search becomes a dialog in the design phase.
+- No page has a `<meta name="description">` yet. Phase 5 adds it with the Lighthouse gate and extends `concerns/seo-accessibility.md`.
 
 ## 4. Rule system brief (forge-mdcs, adapted)
 

@@ -52,7 +52,7 @@ const { Content } = await getPostContent(post)
 const alternates = toAlternateMap(post)
 ---
 
-<PostLayout title={post.data.title} alternates={alternates}>
+<PostLayout title={post.data.title} description={post.data.description} alternates={alternates}>
   <Content />
 </PostLayout>
 ```

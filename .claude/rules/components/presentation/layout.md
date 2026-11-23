@@ -13,13 +13,13 @@ paths:
 
 ### ✅ Do
 
-| Rule                                    | Directive                                                                                                                                                                                                                                                                               |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Wrap BaseLayout**                     | Render `BaseLayout` with a `title` and `alternates` from every other layout, and write `<html>`, `<head>` and `<body>` only in `BaseLayout` — it is the one place that sets `lang`, the `hreflang` links, the fonts and `<ClientRouter />`, so a second document shell would miss them. |
-| **Type the props**                      | Declare `type Props` with the data the page passes, such as `highlights`, `recents` and `posts`, and destructure it from `Astro.props` — Astro types `Astro.props` from `Props`, so a page that passes the wrong data fails `astro check`.                                              |
-| **Arrange, then delegate**              | Write the page's structure in the layout, its sections and headings, and render repeated or interactive pieces through components, as `HomeLayout` renders `HomePostList` and `SearchMenu` — the layout stays readable as an outline.                                                   |
-| **Hydrate only interactive components** | Add a `client:*` directive only to a component that needs the browser, as `SearchMenu` needs `client:only="react"` for its state and keyboard shortcut — every hydrated component ships its JavaScript, while static ones cost nothing.                                                 |
-| **Use the slot for page content**       | Render `<slot />` where the page's own content goes, as `PostLayout` does for the post body — the page passes rendered content without the layout knowing where it came from.                                                                                                           |
+| Rule                                    | Directive                                                                                                                                                                                                                                                                                                |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Wrap BaseLayout**                     | Render `BaseLayout` with a `title`, a `description` and `alternates` from every other layout, and write `<html>`, `<head>` and `<body>` only in `BaseLayout` — it is the one place that sets `lang`, the `hreflang` links, the fonts and `<ClientRouter />`, so a second document shell would miss them. |
+| **Type the props**                      | Declare `type Props` with the data the page passes, such as `highlights`, `recents` and `posts`, and destructure it from `Astro.props` — Astro types `Astro.props` from `Props`, so a page that passes the wrong data fails `astro check`.                                                               |
+| **Arrange, then delegate**              | Write the page's structure in the layout, its sections and headings, and render repeated or interactive pieces through components, as `HomeLayout` renders `HomePostList` and `SearchMenu` — the layout stays readable as an outline.                                                                    |
+| **Hydrate only interactive components** | Add a `client:*` directive only to a component that needs the browser, as `SearchMenu` needs `client:only="react"` for its state and keyboard shortcut — every hydrated component ships its JavaScript, while static ones cost nothing.                                                                  |
+| **Use the slot for page content**       | Render `<slot />` where the page's own content goes, as `PostLayout` does for the post body — the page passes rendered content without the layout knowing where it came from.                                                                                                                            |
 
 ### 🚫 Don't
 
@@ -36,13 +36,14 @@ paths:
 ---
 type Props = {
   title: string
+  description: string
   alternates: AlternateLanguageLinks
 }
 
-const { title, alternates } = Astro.props
+const { title, description, alternates } = Astro.props
 ---
 
-<BaseLayout title={title} alternates={alternates}>
+<BaseLayout title={title} description={description} alternates={alternates}>
   <article>
     <h1>{title}</h1>
     <slot />

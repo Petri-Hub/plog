@@ -40,7 +40,11 @@ paths:
 ### ✅ Correct
 
 ```astro
-<BaseLayout title={strings.home.title} alternates={alternates}>
+<BaseLayout
+  title={strings.home.title}
+  description={strings.home.description}
+  alternates={alternates}
+>
   <section>
     <h1>{strings.home.heading}</h1>
     <p>{strings.home.subheading}</p>

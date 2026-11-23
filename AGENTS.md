@@ -45,7 +45,7 @@ Manage it with `pnpm astro dev status`, `pnpm astro dev logs` and `pnpm astro de
 | Command       | Use                                                                               |
 | ------------- | --------------------------------------------------------------------------------- |
 | `pnpm build`  | Type-check with `astro check`, then build; it must pass before you hand work back |
-| `pnpm format` | Format the repository with Prettier; the pre-commit hook also runs it             |
+| `pnpm format` | Format the repository with Prettier; the pre-commit hook formats staged files     |
 
 Every pull request runs `.github/workflows/quality.yml`: the Prettier check, `pnpm build` and Lighthouse, which requires 100 in accessibility, best practices and SEO on the pages listed in `lighthouserc.json`. A pull request that fails it isn't ready for review.
 

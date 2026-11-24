@@ -42,6 +42,13 @@ const strings = getStrings(language)
       href={new URL(alternates['pt-br'], Astro.site).href}
     />
 
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="PLOG"
+      href={new URL(`${language}/rss.xml`, Astro.site).href}
+    />
+
     <Font cssVariable="--font-accent" preload />
     <Font cssVariable="--font-decorative" preload />
     <Font cssVariable="--font-text" preload />

@@ -169,7 +169,6 @@ pnpm dev
 - ⬜ Comments that are easy for developers to read and write
 - ⬜ Analytics that show how the blog grows week over week
 - ⬜ A first post about who I am and what I do
-- ⬜ Decide whether a Cloudflare captcha is worth it for filtering bots
 - ⬜ Decide whether a heatmap of where readers click is worth adding
 
 ## References

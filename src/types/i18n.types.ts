@@ -22,4 +22,8 @@ export type Strings = {
     label: string
     all: string
   }
+  rss: {
+    title: string
+    description: string
+  }
 }

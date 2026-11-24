@@ -30,4 +30,8 @@ export const ptBr: Strings = {
     label: 'Pesquisar posts',
     all: 'Tudo',
   },
+  rss: {
+    title: 'PLOG',
+    description: 'Meu blog técnico, em português, escrito enquanto aprendo.',
+  },
 }

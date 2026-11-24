@@ -30,4 +30,8 @@ export const enUs: Strings = {
     label: 'Search posts',
     all: 'All',
   },
+  rss: {
+    title: 'PLOG',
+    description: 'My technical blog, in English, written as I learn.',
+  },
 }

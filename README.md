@@ -154,10 +154,11 @@ pnpm dev
 - ✅ Rules that teach coding agents the architecture and its conventions
 - ✅ A quality gate in CI that holds SEO, accessibility and best practices at 100
 - ✅ Every piece of interface text in both languages
+- ✅ 100 in every Lighthouse category
+- ✅ An RSS feed in each language, announced in every page's head
 
 ### Open
 
-- ⬜ 100 in every Lighthouse category
 - ⬜ The visual design: blueprints, diagrams, Excalidraw-like sketches, dithering, pixel art and ASCII, with an elegant serif, plus a styling rule for coding agents
 - ⬜ The search as an accessible dialog, with its result headings in order
 - ⬜ Light and dark modes for reading at night

@@ -15,6 +15,7 @@ export const GET: APIRoute = async (context) => {
     title: 'PLOG',
     description: "Petri's blog. Tecnologia e assuntos gerais.",
     site: context.site,
+    trailingSlash: false,
     items: posts.map(({ id, data: { title, description, date, tags } }) => ({
       title: title,
       description: description,

@@ -9,7 +9,7 @@ export const GET: APIRoute = async ({ site }) => {
     throw new Error('Cannot generate llms.txt. Site is not defined in Astro configuration.')
   }
 
-  const summary = languages.map((language) => `> ${getStrings(language).rss.description}`)
+  const summary = `> ${getStrings('en-us').home.description}`
 
   const sections = await Promise.all(
     languages.map(async (language) => {
@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
     }),
   )
 
-  const text = ['# PLOG', summary.join('\n'), ...sections, ''].join('\n\n')
+  const text = ['# PLOG', summary, ...sections, ''].join('\n\n')
 
   return new Response(text, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

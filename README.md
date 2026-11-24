@@ -156,6 +156,7 @@ pnpm dev
 - ✅ Every piece of interface text in both languages
 - ✅ 100 in every Lighthouse category
 - ✅ An RSS feed in each language, announced in every page's head
+- ✅ An `llms.txt` index and a plain Markdown file for every post
 - ✅ Fallback pages: a 404 in each language and a 500 page, with their styling arriving with the visual design
 
 ### Open
@@ -164,7 +165,6 @@ pnpm dev
 - ⬜ The search as an accessible dialog, with its result headings in order
 - ⬜ Light and dark modes for reading at night
 - ⬜ View transitions between posts
-- ⬜ An `llms.txt` with every post in plain Markdown
 - ⬜ A greeting message for visitors
 - ⬜ Comments that are easy for developers to read and write
 - ⬜ Analytics that show how the blog grows week over week

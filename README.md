@@ -91,7 +91,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 ├── .github              # the quality gate: formatting, types, build and Lighthouse
 ├── .husky               # the pre-commit hook that formats staged files
 ├── docs
-│   ├── design.md        # the visual direction, fonts and wireframes
+│   ├── design.md        # the visual design: concept, standards, components and rejected ideas
 │   ├── decisions        # why the project is built the way it is, one decision per file
 │   └── wireframes       # the first sketches of the home and post pages
 ├── public               # files served as they are: the favicon and robots.txt
@@ -158,10 +158,11 @@ pnpm dev
 - ✅ An RSS feed in each language, announced in every page's head
 - ✅ An `llms.txt` index and a plain Markdown file for every post
 - ✅ Fallback pages: a 404 in each language and a 500 page, with their styling arriving with the visual design
+- ✅ Rules for coding agents on components and styles, ahead of the visual design
 
 ### Open
 
-- ⬜ The visual design: blueprints, diagrams, Excalidraw-like sketches, dithering, pixel art and ASCII, with an elegant serif, plus a styling rule for coding agents
+- ⬜ The visual design from `docs/design.md`: a notebook sheet on a drafting desk
 - ⬜ The search as an accessible dialog, with its result headings in order
 - ⬜ Light and dark modes for reading at night
 - ⬜ View transitions between posts

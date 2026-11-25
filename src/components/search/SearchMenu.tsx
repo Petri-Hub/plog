@@ -1,7 +1,8 @@
 import { SearchHeader } from './SearchHeader'
 import { SearchContent } from './SearchContent'
 import type { Post } from '@/types/content.types'
-import { useState, type FocusEvent, type InputEvent } from 'react'
+import type { TargetedFocusEvent, TargetedInputEvent } from 'preact'
+import { useState } from 'preact/hooks'
 import type { Strings } from '@/types/i18n.types'
 import type { Language } from '@/types/language.types'
 import { normalizeText } from '@/utils/text.utils'
@@ -38,11 +39,11 @@ export const SearchMenu = ({ posts, enabled, language, strings }: Props) => {
     return null
   }
 
-  const handleInput = ({ currentTarget }: InputEvent<HTMLInputElement>): void => {
+  const handleInput = ({ currentTarget }: TargetedInputEvent<HTMLInputElement>): void => {
     setSearch(currentTarget.value)
   }
 
-  const handleBlur = ({ currentTarget }: FocusEvent<HTMLInputElement>): void => {
+  const handleBlur = ({ currentTarget }: TargetedFocusEvent<HTMLInputElement>): void => {
     setSearch(currentTarget.value)
   }
 

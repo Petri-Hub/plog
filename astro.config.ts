@@ -1,6 +1,6 @@
 import { defineConfig, fontProviders } from 'astro/config'
 import vercel from '@astrojs/vercel'
-import react from '@astrojs/react'
+import preact from '@astrojs/preact'
 import sitemap from '@astrojs/sitemap'
 
 const site = 'https://blog.petri.zip'
@@ -25,7 +25,7 @@ export default defineConfig({
     },
   ],
   integrations: [
-    react(),
+    preact({ compat: true }),
     sitemap({
       filter: (page) => {
         return page !== `${site}/`

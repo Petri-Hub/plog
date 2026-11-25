@@ -2,8 +2,9 @@
 import { Font } from 'astro:assets'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { ClientRouter } from 'astro:transitions'
-import { Header } from '@/components/shared/Header'
+import Header from '@/components/shared/Header.astro'
 import { getStrings } from '@/i18n/strings'
+import '@/styles/base.css'
 import type { AlternateLanguageLinks } from '@/types/language.types'
 import { getLanguageDetails, languages, toLanguage } from '@/utils/locale.utils'
 
@@ -54,18 +55,6 @@ const strings = getStrings(language)
     <Font cssVariable="--font-text" preload />
 
     <ClientRouter />
-
-    <style is:global>
-      * {
-        font-family: var(--font-decorative);
-      }
-
-      header nav a {
-        display: inline-block;
-        min-width: 24px;
-        min-height: 24px;
-      }
-    </style>
   </head>
   <body>
     <Header

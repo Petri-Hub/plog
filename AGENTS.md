@@ -2,7 +2,7 @@
 
 ## Intro
 
-PLOG is Petri's technical blog, published in Brazilian Portuguese and English. It is a static Astro 7 site with React components, TypeScript in strict mode and Markdown posts in content collections, deployed on Vercel. Every route exists under `/pt-br` and `/en-us`, and the code is kept small enough for one person to read in full. The README explains what the blog is and why it exists, and `docs/decisions/` records why it is built this way.
+PLOG is Petri's technical blog, published in Brazilian Portuguese and English. It is a static Astro 7 site with Astro components, Preact for the few interactive pieces, TypeScript in strict mode and Markdown posts in content collections, deployed on Vercel. Every route exists under `/pt-br` and `/en-us`, and the code is kept small enough for one person to read in full. The README explains what the blog is and why it exists, and `docs/decisions/` records why it is built this way.
 
 ## Core principles
 
@@ -60,6 +60,7 @@ Consult these guides before working on related tasks:
 - [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
 - [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
 - [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
+- [Using Preact, and React libraries through `preact/compat`](https://docs.astro.build/en/guides/integrations-guide/preact/)
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)

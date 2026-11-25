@@ -74,16 +74,16 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 
 ## Technologies
 
-|                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                              | Technology                                         | Used for                                                                                        |
-| :-------------------------------------------------------------------------------------: | -------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-|      <img src="https://cdn.simpleicons.org/astro" width="20" height="20" alt="" />      | [Astro](https://docs.astro.build)                  | The framework: content collections, i18n routing and static pages                               |
-|      <img src="https://cdn.simpleicons.org/react" width="20" height="20" alt="" />      | [React](https://react.dev)                         | The components that build the layout, rendered on the server unless they need to be interactive |
-|   <img src="https://cdn.simpleicons.org/typescript" width="20" height="20" alt="" />    | [TypeScript](https://www.typescriptlang.org/docs/) | All of the code, in strict mode                                                                 |
-| <img src="https://cdn.simpleicons.org/markdown/9198A1" width="20" height="20" alt="" /> | [Markdown](https://commonmark.org)                 | The posts                                                                                       |
-|  <img src="https://cdn.simpleicons.org/vercel/9198A1" width="20" height="20" alt="" />  | [Vercel](https://vercel.com/docs)                  | Hosting and Web Analytics, through the `@astrojs/vercel` adapter                                |
-|      <img src="https://cdn.simpleicons.org/pnpm" width="20" height="20" alt="" />       | [pnpm](https://pnpm.io)                            | Dependencies and scripts                                                                        |
-|    <img src="https://cdn.simpleicons.org/prettier" width="20" height="20" alt="" />     | [Prettier](https://prettier.io/docs/)              | Formatting                                                                                      |
-|                                           🐶                                            | [Husky](https://typicode.github.io/husky/)         | The Git hook that runs Prettier before every commit                                             |
+|                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                              | Technology                                         | Used for                                                                                          |
+| :-------------------------------------------------------------------------------------: | -------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+|      <img src="https://cdn.simpleicons.org/astro" width="20" height="20" alt="" />      | [Astro](https://docs.astro.build)                  | The framework and most components: content collections, i18n routing, static pages and the layout |
+|     <img src="https://cdn.simpleicons.org/preact" width="20" height="20" alt="" />      | [Preact](https://preactjs.com)                     | The interactive pieces, such as search, with React libraries through `preact/compat`              |
+|   <img src="https://cdn.simpleicons.org/typescript" width="20" height="20" alt="" />    | [TypeScript](https://www.typescriptlang.org/docs/) | All of the code, in strict mode                                                                   |
+| <img src="https://cdn.simpleicons.org/markdown/9198A1" width="20" height="20" alt="" /> | [Markdown](https://commonmark.org)                 | The posts                                                                                         |
+|  <img src="https://cdn.simpleicons.org/vercel/9198A1" width="20" height="20" alt="" />  | [Vercel](https://vercel.com/docs)                  | Hosting and Web Analytics, through the `@astrojs/vercel` adapter                                  |
+|      <img src="https://cdn.simpleicons.org/pnpm" width="20" height="20" alt="" />       | [pnpm](https://pnpm.io)                            | Dependencies and scripts                                                                          |
+|    <img src="https://cdn.simpleicons.org/prettier" width="20" height="20" alt="" />     | [Prettier](https://prettier.io/docs/)              | Formatting                                                                                        |
+|                                           🐶                                            | [Husky](https://typicode.github.io/husky/)         | The Git hook that runs Prettier before every commit                                               |
 
 ## What's inside
 
@@ -96,7 +96,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 │   └── wireframes       # the first sketches of the home and post pages
 ├── public               # files served as they are: the favicon and robots.txt
 ├── src
-│   ├── components       # React components, grouped by feature
+│   ├── components       # Astro and Preact components, grouped by feature
 │   ├── contents
 │   │   ├── posts        # one folder per post and language: <locale>/<slug>/index.md
 │   │   └── services     # the only code that queries the content collections
@@ -141,7 +141,7 @@ pnpm dev
 
 ### Done
 
-- ✅ Astro with React, strict TypeScript and the Vercel adapter
+- ✅ Astro with Preact, strict TypeScript and the Vercel adapter
 - ✅ Posts as a content collection, with every frontmatter field required
 - ✅ Routes under `/pt-br` and `/en-us`, with `/` redirecting to Portuguese
 - ✅ `hreflang` alternates between every post and its translation
@@ -176,7 +176,7 @@ pnpm dev
 - [Astro documentation](https://docs.astro.build): the framework, and the first place to check, since Astro 7 is recent
 - [Content collections](https://docs.astro.build/en/guides/content-collections/): how posts are defined and validated
 - [Internationalization](https://docs.astro.build/en/guides/internationalization/): the routing behind `/pt-br` and `/en-us`
-- [React integration](https://docs.astro.build/en/guides/integrations-guide/react/): React components inside Astro
+- [Preact integration](https://docs.astro.build/en/guides/integrations-guide/preact/): Preact components inside Astro, and React libraries through `preact/compat`
 - [Sitemap integration](https://docs.astro.build/en/guides/integrations-guide/sitemap/): the sitemap in both languages
 - [Vercel adapter](https://docs.astro.build/en/guides/integrations-guide/vercel/): deployment and Web Analytics
 - [Fonts](https://docs.astro.build/en/guides/fonts/): how the fonts are loaded

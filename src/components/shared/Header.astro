@@ -1,0 +1,47 @@
+---
+import type { Strings } from '@/types/i18n.types'
+import type { AlternateLanguageLinks, Language } from '@/types/language.types'
+import { getLanguageDetails, languages } from '@/utils/locale.utils'
+
+type Props = {
+  language: Language
+  homeUrl: string
+  alternates: AlternateLanguageLinks
+  strings: Strings['header']
+}
+
+const { language, homeUrl, alternates, strings } = Astro.props
+---
+
+<header>
+  <a href={homeUrl}>PLOG</a>
+  <nav aria-label={strings.language}>
+    <ul>
+      {languages.map((alternate) => {
+        const { tag, name, label } = getLanguageDetails(alternate)
+
+        return (
+          <li>
+            <a
+              href={alternates[alternate]}
+              hreflang={tag}
+              lang={tag}
+              title={name}
+              aria-current={alternate === language ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          </li>
+        )
+      })}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  nav a {
+    display: inline-block;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+  }
+</style>

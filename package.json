@@ -20,19 +20,16 @@
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.10",
-    "@astrojs/react": "^7.1.9",
+    "@astrojs/preact": "^6.1.6",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.6",
     "@astrojs/vercel": "^11.0.22",
     "astro": "^7.4.13",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
+    "preact": "^11.2.0",
     "react-hotkeys-hook": "^5.4.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0",
     "husky": "^9.1.7",
     "prettier": "^3.10.1",
     "prettier-plugin-astro": "1.1.2",

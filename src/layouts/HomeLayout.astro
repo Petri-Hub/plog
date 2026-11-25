@@ -1,7 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
-import { HomePostList } from '@/components/home/HomePostList'
+import HomePostList from '@/components/home/HomePostList.astro'
 import { SearchMenu } from '@/components/search/SearchMenu'
 import { getStrings } from '@/i18n/strings'
 import type { Post } from '@/types/content.types'
@@ -31,7 +31,7 @@ const alternates: AlternateLanguageLinks = {
   alternates={alternates}
 >
   <SearchMenu
-    client:only="react"
+    client:only="preact"
     posts={posts}
     enabled={false}
     language={language}

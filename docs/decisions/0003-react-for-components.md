@@ -1,6 +1,6 @@
 # 0003. React for components
 
-- **Status:** Accepted
+- **Status:** Superseded by [0016](0016-astro-components-and-preact-islands.md)
 - **Date:** 2026-11-20
 
 ## Context

@@ -1,4 +1,4 @@
-import type { FocusEvent, InputEvent } from 'react'
+import type { TargetedFocusEvent, TargetedInputEvent } from 'preact'
 import type { Strings } from '@/types/i18n.types'
 import type { Language } from '@/types/language.types'
 import { getLanguageDetails, languages } from '@/utils/locale.utils'
@@ -6,17 +6,17 @@ import { getLanguageDetails, languages } from '@/utils/locale.utils'
 type Props = {
   search: string
   strings: Strings['search']
-  onInput: (event: InputEvent<HTMLInputElement>) => void
-  onBlur: (event: FocusEvent<HTMLInputElement>) => void
+  onInput: (event: TargetedInputEvent<HTMLInputElement>) => void
+  onBlur: (event: TargetedFocusEvent<HTMLInputElement>) => void
   onLanguageChange: (language: Language | 'all') => void
 }
 
 export const SearchHeader = ({ search, strings, onInput, onBlur, onLanguageChange }: Props) => {
-  const handleInput = (event: InputEvent<HTMLInputElement>): void => {
+  const handleInput = (event: TargetedInputEvent<HTMLInputElement>): void => {
     onInput(event)
   }
 
-  const handleBlur = (event: FocusEvent<HTMLInputElement>): void => {
+  const handleBlur = (event: TargetedFocusEvent<HTMLInputElement>): void => {
     onBlur(event)
   }
 

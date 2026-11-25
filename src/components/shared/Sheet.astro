@@ -1,0 +1,29 @@
+<div class="sheet">
+  <slot />
+</div>
+
+<style>
+  .sheet {
+    position: relative;
+    max-width: var(--width-sheet);
+    min-height: 100vh;
+    margin-inline: auto;
+    border-inline: var(--line-guide);
+    background: var(--color-paper);
+    box-shadow:
+      0 1px 3px var(--color-shadow),
+      0 6px 24px var(--color-shadow),
+      0 0 90px 12px var(--color-shadow);
+    isolation: isolate;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--texture-grain);
+      mix-blend-mode: multiply;
+      opacity: var(--opacity-grain);
+      pointer-events: none;
+    }
+  }
+</style>

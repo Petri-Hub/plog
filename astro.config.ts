@@ -11,17 +11,31 @@ export default defineConfig({
     {
       provider: fontProviders.google(),
       name: 'Cormorant Garamond',
-      cssVariable: '--font-accent',
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Shantell Sans',
-      cssVariable: '--font-decorative',
+      cssVariable: '--font-title',
+      weights: [600, 700],
+      styles: ['normal'],
+      fallbacks: ['serif'],
     },
     {
       provider: fontProviders.google(),
       name: 'Google Sans',
       cssVariable: '--font-text',
+      styles: ['normal'],
+    },
+    {
+      provider: fontProviders.local(),
+      name: 'Excalifont',
+      cssVariable: '--font-hand',
+      fallbacks: ['cursive'],
+      options: {
+        variants: [
+          {
+            src: ['./src/assets/fonts/Excalifont-Regular.woff2'],
+            weight: 400,
+            style: 'normal',
+          },
+        ],
+      },
     },
   ],
   integrations: [

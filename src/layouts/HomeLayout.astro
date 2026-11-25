@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
+import Column from '@/components/shared/Column.astro'
 import HomePostList from '@/components/home/HomePostList.astro'
 import { SearchMenu } from '@/components/search/SearchMenu'
 import { getStrings } from '@/i18n/strings'
@@ -30,23 +31,25 @@ const alternates: AlternateLanguageLinks = {
   description={strings.home.description}
   alternates={alternates}
 >
-  <SearchMenu
-    client:only="preact"
-    posts={posts}
-    enabled={false}
-    language={language}
-    strings={strings.search}
-  />
-  <section>
-    <h1>{strings.home.heading}</h1>
-    <p>{strings.home.subheading}</p>
-  </section>
-  <section>
-    <h2>{strings.home.highlights}</h2>
-    <HomePostList posts={highlights} language={language} />
-  </section>
-  <section>
-    <h2>{strings.home.recents}</h2>
-    <HomePostList posts={recents} language={language} />
-  </section>
+  <Column>
+    <SearchMenu
+      client:only="preact"
+      posts={posts}
+      enabled={false}
+      language={language}
+      strings={strings.search}
+    />
+    <section>
+      <h1>{strings.home.heading}</h1>
+      <p>{strings.home.subheading}</p>
+    </section>
+    <section>
+      <h2>{strings.home.highlights}</h2>
+      <HomePostList posts={highlights} language={language} />
+    </section>
+    <section>
+      <h2>{strings.home.recents}</h2>
+      <HomePostList posts={recents} language={language} />
+    </section>
+  </Column>
 </BaseLayout>

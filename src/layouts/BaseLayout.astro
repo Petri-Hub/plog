@@ -2,8 +2,13 @@
 import { Font } from 'astro:assets'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { ClientRouter } from 'astro:transitions'
+import Desk from '@/components/shared/Desk.astro'
+import Footer from '@/components/shared/Footer.astro'
 import Header from '@/components/shared/Header.astro'
+import RoughFilter from '@/components/shared/RoughFilter.astro'
+import Sheet from '@/components/shared/Sheet.astro'
 import { getStrings } from '@/i18n/strings'
+import '@/styles/tokens.css'
 import '@/styles/base.css'
 import type { AlternateLanguageLinks } from '@/types/language.types'
 import { getLanguageDetails, languages, toLanguage } from '@/utils/locale.utils'
@@ -18,6 +23,8 @@ const { title, description, alternates } = Astro.props
 
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
+
+const homeUrl = getRelativeLocaleUrl(language)
 ---
 
 <!doctype html>
@@ -50,21 +57,43 @@ const strings = getStrings(language)
       href={new URL(`${language}/rss.xml`, Astro.site).href}
     />
 
-    <Font cssVariable="--font-accent" preload />
-    <Font cssVariable="--font-decorative" preload />
+    <Font cssVariable="--font-title" preload={[{ weight: 600 }]} />
     <Font cssVariable="--font-text" preload />
+    <Font cssVariable="--font-hand" preload />
+
+    <script is:inline>
+      function handleSavedTheme() {
+        const theme = localStorage.getItem('theme')
+
+        if (theme) {
+          document.documentElement.dataset.theme = theme
+        }
+      }
+
+      handleSavedTheme()
+      document.addEventListener('astro:after-swap', handleSavedTheme)
+    </script>
 
     <ClientRouter />
   </head>
   <body>
-    <Header
-      language={language}
-      homeUrl={getRelativeLocaleUrl(language)}
-      alternates={alternates}
-      strings={strings.header}
-    />
-    <main>
-      <slot />
-    </main>
+    <RoughFilter />
+    <Desk />
+    <Sheet>
+      <Header
+        language={language}
+        homeUrl={homeUrl}
+        alternates={alternates}
+        strings={strings.header}
+      />
+      <main>
+        <slot />
+      </main>
+      <Footer
+        homeUrl={homeUrl}
+        rssUrl={getRelativeLocaleUrl(language, 'rss.xml')}
+        strings={strings.footer}
+      />
+    </Sheet>
   </body>
 </html>

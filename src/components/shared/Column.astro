@@ -1,0 +1,10 @@
+<div class="column">
+  <slot />
+</div>
+
+<style>
+  .column {
+    width: min(100% - 2rem, var(--width-column));
+    margin-inline: auto;
+  }
+</style>

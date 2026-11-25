@@ -7,7 +7,7 @@ paths:
 
 ## Purpose
 
-> The types folder holds the types that more than one file uses: the post entry, the language and its details, the per-language link map and the shape of the dictionaries. Each type is derived from its source wherever one exists, so it changes when the source changes instead of drifting from it. This rule covers what belongs in the folder and how those types are written. It does not cover component props, which stay in their component (`component.md`), or file names (`nomenclature.md`).
+> The types folder holds the types that more than one file uses: the post entry, the language and its details, the per-language link map and the shape of the dictionaries. Each type is derived from its source wherever one exists, so it changes when the source changes instead of drifting from it. This rule covers what belongs in the folder and how those types are written. It does not cover component props, which stay in their component (`astro-component.md`, `preact-component.md`), or file names (`nomenclature.md`).
 
 ## Rules
 

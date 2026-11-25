@@ -7,7 +7,7 @@ paths:
 
 ## Purpose
 
-> Pages are the entry points of the site, because Astro turns every file in the pages folder into a route. A page here does three things only: it names its locale, fetches data through services and renders one layout with that data. Keeping pages that small is what lets the two locale twins of a page stay identical except for the locale they ask for. This rule covers locale pages, dynamic routes built with getStaticPaths and the root fallback pages. It does not cover the layouts and components a page renders (`layout.md`, `component.md`), endpoints for non-HTML routes, or how text is translated (`i18n.md`).
+> Pages are the entry points of the site, because Astro turns every file in the pages folder into a route. A page here does three things only: it names its locale, fetches data through services and renders one layout with that data. Keeping pages that small is what lets the two locale twins of a page stay identical except for the locale they ask for. This rule covers locale pages, dynamic routes built with getStaticPaths and the root fallback pages. It does not cover the layouts and components a page renders (`layout.md`, `astro-component.md`, `preact-component.md`), endpoints for non-HTML routes, or how text is translated (`i18n.md`).
 
 ## Rules
 

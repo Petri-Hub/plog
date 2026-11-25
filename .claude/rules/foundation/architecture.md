@@ -2,7 +2,7 @@
 
 ## Purpose
 
-> PLOG is a small static Astro site. Posts live in content collections, services are the only code that reads them, and pages pass the data down through layouts to React components, which render it all to static HTML. This rule decides where each file goes and what each kind of file may import, so the repository stays small enough for one person to read in full and every agent puts new code in the same place a human would. It covers folder placement, the file kind each folder holds, the direction of dependencies, and when a change needs discussion before it is made. It does not cover naming (`nomenclature.md`), code style (`code-quality.md`), or how to implement a specific file kind.
+> PLOG is a small static Astro site. Posts live in content collections, services are the only code that reads them, and pages pass the data down through layouts to Astro components, which render it to static HTML. The few Preact components that respond to the reader run in the browser as islands. This rule decides where each file goes and what each kind of file may import, so the repository stays small enough for one person to read in full and every agent puts new code in the same place a human would. It covers folder placement, the file kind each folder holds, the direction of dependencies, and when a change needs discussion before it is made. It does not cover naming (`nomenclature.md`), code style (`code-quality.md`), or how to implement a specific file kind.
 
 ## Rules
 
@@ -30,27 +30,30 @@
 
 ### Folder map
 
-| Folder                                       | Holds                                                                                                                       | File kind                                                    | May import                                    |
-| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------------------------- |
-| `src/pages/<locale>/`                        | Routes, one set per locale with identical paths                                                                             | `.astro` pages; `.ts` endpoints for non-HTML routes          | layouts, components, services, utils, types   |
-| `src/pages/` (root)                          | Locale-independent fallbacks only: `index.astro` (redirected to `/pt-br/`), `404.astro` and `500.astro`                     | `.astro`                                                     | layouts, components, utils, types             |
-| `src/layouts/`                               | Page shells: `<html>`, `<head>`, fonts, `<ClientRouter />`                                                                  | `.astro`                                                     | components, i18n, utils, types                |
-| `src/components/<feature>/`                  | UI pieces grouped by the feature that renders them, such as `search/` or `home/`; `shared/` holds pieces every page renders | `.tsx`; `.astro` only when it needs an Astro-only capability | components, utils, types                      |
-| `src/contents/services/`                     | The only collection queries and `render` calls                                                                              | `<domain>.service.ts`                                        | `astro:content`, utils, types                 |
-| `src/contents/<collection>/<locale>/<slug>/` | Content entries                                                                                                             | `index.md`                                                   | —                                             |
-| `src/content.config.ts`                      | Collection schemas                                                                                                          | `.ts`                                                        | `astro:content`, `astro/loaders`, `astro/zod` |
-| `src/i18n/`                                  | Interface text, one dictionary per locale, and `getStrings` to look one up                                                  | `<locale>.ts`, `strings.ts`                                  | types                                         |
-| `src/types/`                                 | Types shared by more than one file                                                                                          | `<domain>.types.ts`                                          | types; `astro:content` as type-only           |
-| `src/utils/`                                 | Small pure helpers                                                                                                          | `<domain>.utils.ts`                                          | utils, types                                  |
-| `public/`                                    | Files served as they are, such as `robots.txt` and the favicon                                                              | any                                                          | —                                             |
-| `docs/`                                      | Design notes and ADRs                                                                                                       | `.md`                                                        | —                                             |
+| Folder                                       | Holds                                                                                                                       | File kind                                                                                  | May import                                                                                 |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `src/pages/<locale>/`                        | Routes, one set per locale with identical paths                                                                             | `.astro` pages; `.ts` endpoints for non-HTML routes                                        | layouts, components, services, utils, types                                                |
+| `src/pages/` (root)                          | Locale-independent fallbacks only: `index.astro` (redirected to `/pt-br/`), `404.astro` and `500.astro`                     | `.astro`                                                                                   | layouts, components, utils, types                                                          |
+| `src/layouts/`                               | Page shells: `<html>`, `<head>`, fonts, global styles, `<ClientRouter />`                                                   | `.astro`                                                                                   | components, i18n, styles, utils, types                                                     |
+| `src/components/<feature>/`                  | UI pieces grouped by the feature that renders them, such as `search/` or `home/`; `shared/` holds pieces every page renders | `.astro` by default; `.tsx` Preact components for stateful UI, each with its `.module.css` | components, utils, types; Preact components import only Preact components, utils and types |
+| `src/contents/services/`                     | The only collection queries and `render` calls                                                                              | `<domain>.service.ts`                                                                      | `astro:content`, utils, types                                                              |
+| `src/contents/<collection>/<locale>/<slug>/` | Content entries                                                                                                             | `index.md`                                                                                 | —                                                                                          |
+| `src/content.config.ts`                      | Collection schemas                                                                                                          | `.ts`                                                                                      | `astro:content`, `astro/loaders`, `astro/zod`                                              |
+| `src/i18n/`                                  | Interface text, one dictionary per locale, and `getStrings` to look one up                                                  | `<locale>.ts`, `strings.ts`                                                                | types                                                                                      |
+| `src/types/`                                 | Types shared by more than one file                                                                                          | `<domain>.types.ts`                                                                        | types; `astro:content` as type-only                                                        |
+| `src/utils/`                                 | Small pure helpers                                                                                                          | `<domain>.utils.ts`                                                                        | utils, types                                                                               |
+| `src/styles/`                                | The only global CSS: tokens, base styles and rendered Markdown                                                              | `tokens.css`, `base.css`, `prose.css`                                                      | —                                                                                          |
+| `src/assets/fonts/`                          | Font files that `astro.config.ts` loads locally                                                                             | `.woff2`                                                                                   | —                                                                                          |
+| `public/`                                    | Files served as they are, such as `robots.txt` and the favicon                                                              | any                                                                                        | —                                                                                          |
+| `docs/`                                      | Design notes and ADRs                                                                                                       | `.md`                                                                                      | —                                                                                          |
 
 ### Dependency direction
 
 ```text
-pages ──► layouts ──► components
+pages ──► layouts ──► components (.astro) ──► components (.tsx)
   │          │
-  │          └──► i18n
+  │          ├──► i18n
+  │          └──► styles (BaseLayout only)
   │
   └────► services ──► astro:content
 
@@ -79,7 +82,7 @@ const posts = await getCollection('posts', (post) => post.id.startsWith('pt-br/'
 ---
 
 <BaseLayout>
-  <SearchMenu client:only="react" posts={await getAllPosts()} />
+  <SearchMenu client:only="preact" posts={await getAllPosts()} />
 </BaseLayout>
 ```
 

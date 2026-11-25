@@ -25,12 +25,14 @@ Coding conventions live in `.claude/rules/`, one concern per file. A rule withou
 
 Some tasks need a rule before any matching file is open. Read these while planning.
 
-| Task                                                      | Rule                                             |
-| --------------------------------------------------------- | ------------------------------------------------ |
-| Adding a page, which means adding it in both locales      | `.claude/rules/components/routing/page.md`       |
-| Writing or translating a post                             | `.claude/rules/components/content/post.md`       |
-| Adding a content collection, such as notices              | `.claude/rules/components/content/collection.md` |
-| Changing page titles, the `<head>` or the heading outline | `.claude/rules/concerns/seo-accessibility.md`    |
+| Task                                                           | Rule                                                       |
+| -------------------------------------------------------------- | ---------------------------------------------------------- |
+| Adding a page, which means adding it in both locales           | `.claude/rules/components/routing/page.md`                 |
+| Writing or translating a post                                  | `.claude/rules/components/content/post.md`                 |
+| Adding a content collection, such as notices                   | `.claude/rules/components/content/collection.md`           |
+| Changing page titles, the `<head>` or the heading outline      | `.claude/rules/concerns/seo-accessibility.md`              |
+| Adding a component, which starts with choosing Astro or Preact | `.claude/rules/components/presentation/astro-component.md` |
+| Changing anything visual: colors, fonts, layout or motion      | `.claude/rules/concerns/styling.md` and `docs/design.md`   |
 
 ## Development
 

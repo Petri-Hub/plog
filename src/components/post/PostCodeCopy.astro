@@ -7,13 +7,17 @@
       return
     }
 
-    const label = button.textContent
+    const { copy, copied, failed } = button.dataset
 
-    await navigator.clipboard.writeText(code.textContent ?? '')
-    button.textContent = button.dataset.copied ?? label
+    try {
+      await navigator.clipboard.writeText(code.textContent ?? '')
+      button.textContent = copied ?? null
+    } catch {
+      button.textContent = failed ?? null
+    }
 
     setTimeout(() => {
-      button.textContent = label
+      button.textContent = copy ?? null
     }, 2000)
   }
 

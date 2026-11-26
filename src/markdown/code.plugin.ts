@@ -38,7 +38,13 @@ export const codeFigurePlugin: HastPlugin = ({ fileURL }) => {
                 {
                   type: 'element',
                   tagName: 'button',
-                  properties: { type: 'button', dataCopyCode: '', dataCopied: strings.copied },
+                  properties: {
+                    type: 'button',
+                    dataCopyCode: '',
+                    dataCopy: strings.copy,
+                    dataCopied: strings.copied,
+                    dataFailed: strings.failed,
+                  },
                   children: [{ type: 'text', value: strings.copy }],
                 },
               ],

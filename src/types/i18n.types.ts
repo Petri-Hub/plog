@@ -57,6 +57,7 @@ export type Strings = {
   code: {
     copy: string
     copied: string
+    failed: string
   }
   post: {
     back: string

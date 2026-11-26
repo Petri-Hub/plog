@@ -73,6 +73,7 @@ export const enUs: Strings = {
   code: {
     copy: 'copy',
     copied: 'copied',
+    failed: 'copy failed',
   },
   post: {
     back: 'all posts',

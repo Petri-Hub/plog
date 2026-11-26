@@ -73,6 +73,7 @@ export const ptBr: Strings = {
   code: {
     copy: 'copiar',
     copied: 'copiado',
+    failed: 'falha ao copiar',
   },
   post: {
     back: 'todos os posts',

@@ -1,0 +1,208 @@
+@layer prose {
+  .prose {
+    padding-block: 2.5rem 3.5rem;
+
+    & > * {
+      margin-block: 0;
+    }
+
+    & > * + * {
+      margin-top: 1.15rem;
+    }
+
+    & h2,
+    & h3 {
+      scroll-margin-top: 2rem;
+      line-height: 1.15;
+    }
+
+    & h2 {
+      margin-top: 2.75rem;
+      font-size: 1.95rem;
+    }
+
+    & h3 {
+      margin-top: 2rem;
+      font-size: 1.45rem;
+    }
+
+    & :is(h2, h3) + * {
+      margin-top: 0.6rem;
+    }
+
+    & a {
+      color: var(--color-ink);
+      text-decoration: underline 1.5px var(--color-blue);
+      text-underline-offset: 0.2em;
+
+      &:hover {
+        color: var(--color-crimson);
+        text-decoration-style: wavy;
+      }
+    }
+
+    & strong {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    & :not(pre) > code {
+      padding: 0.08em 0.35em;
+      border: 1px solid color-mix(in srgb, var(--color-guide) 70%, transparent);
+      border-radius: 4px;
+      background: var(--color-raised);
+      color: var(--color-ink);
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+
+    & > ul,
+    & > ol {
+      display: grid;
+      gap: 0.55rem;
+      padding: 0;
+      list-style: none;
+
+      & > li {
+        position: relative;
+      }
+    }
+
+    & > ul > li {
+      padding-left: 1.5rem;
+
+      &::before {
+        content: '–' / '';
+        position: absolute;
+        left: 0.2rem;
+        color: var(--color-blue);
+        font-family: var(--font-hand);
+      }
+    }
+
+    & > ol > li {
+      padding-left: 2.5rem;
+
+      &::before {
+        content: counter(list-item) / '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: grid;
+        place-items: center;
+        width: 1.75rem;
+        height: 1.75rem;
+        border: 1.5px solid var(--color-blue);
+        border-radius: 50%;
+        color: var(--color-blue);
+        font-family: var(--font-hand);
+        font-size: 0.95rem;
+        filter: var(--filter-rough);
+      }
+    }
+
+    & blockquote {
+      margin-inline: 0;
+      padding: 0.25rem 0 0.25rem 1.25rem;
+      border-left: 2px solid var(--color-blue);
+
+      & p {
+        margin: 0;
+        color: var(--color-ink);
+        font-family: var(--font-title);
+        font-size: 1.45rem;
+        font-style: italic;
+        line-height: 1.35;
+      }
+
+      & cite {
+        display: block;
+        margin-top: 0.5rem;
+        color: var(--color-blue);
+        font-family: var(--font-hand);
+        font-size: 0.95rem;
+        font-style: normal;
+
+        &::before {
+          content: '— ';
+        }
+      }
+    }
+
+    & hr {
+      margin-block: 2.5rem 0.5rem;
+      border: 0;
+      text-align: center;
+
+      &::after {
+        content: '* * *';
+        color: var(--color-blue);
+        font-family: var(--font-hand);
+        letter-spacing: 0.5em;
+      }
+    }
+
+    & table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      overflow-wrap: anywhere;
+    }
+
+    & th {
+      padding: 0.5rem 0.75rem 0.5rem 0;
+      border-bottom: 1px solid var(--color-guide);
+      color: var(--color-blue);
+      font-family: var(--font-hand);
+      font-weight: 400;
+      text-align: left;
+    }
+
+    & td {
+      padding: 0.55rem 0.75rem 0.55rem 0;
+      border-bottom: var(--line-guide);
+      font-variant-numeric: tabular-nums;
+    }
+
+    & img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    & [data-footnote-ref] {
+      padding-inline: 0.1em;
+      color: var(--color-blue);
+      font-family: var(--font-hand);
+      text-decoration: none;
+    }
+
+    & .footnotes {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: var(--line-guide);
+      color: var(--color-muted);
+      font-size: 0.92rem;
+
+      & ol {
+        display: grid;
+        gap: 0.4rem;
+        margin: 0;
+        padding-left: 1.4rem;
+      }
+
+      & li::marker {
+        color: var(--color-blue);
+        font-family: var(--font-hand);
+      }
+
+      & p {
+        margin: 0;
+      }
+
+      & [data-footnote-backref] {
+        margin-left: 0.25em;
+        color: var(--color-blue);
+      }
+    }
+  }
+}

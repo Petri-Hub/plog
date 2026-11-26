@@ -54,6 +54,18 @@ export type Strings = {
     label: string
     all: string
   }
+  post: {
+    back: string
+    minutes: string
+    contents: string
+    tldr: string
+    tldrPrompt: string
+    newTab: string
+    keepReading: string
+    keepReadingNote: string
+    newer: string
+    older: string
+  }
   rss: {
     title: string
     description: string

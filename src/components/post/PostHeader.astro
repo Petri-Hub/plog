@@ -1,0 +1,88 @@
+---
+import Column from '@/components/shared/Column.astro'
+import type { Post } from '@/types/content.types'
+import type { Strings } from '@/types/i18n.types'
+import type { Language } from '@/types/language.types'
+import { toLocalizedDate } from '@/utils/date.utils'
+import { toHashtags, toReadingMinutes } from '@/utils/post.utils'
+
+type Props = {
+  post: Post
+  language: Language
+  homeUrl: string
+  strings: Strings['post']
+}
+
+const { post, language, homeUrl, strings } = Astro.props
+
+const { title, description, date, tags } = post.data
+---
+
+<header class="header">
+  <Column>
+    <a class="back" href={homeUrl}>
+      <span aria-hidden="true">←</span> {strings.back}
+    </a>
+    <p class="meta">
+      <time datetime={date.toISOString()}>{toLocalizedDate(date, language)}</time>
+      <span>
+        {toReadingMinutes(post)} {strings.minutes}
+      </span>
+      {tags.length > 0 && <span>{toHashtags(tags)}</span>}
+    </p>
+    <h1 class="title">{title}</h1>
+    <p class="summary">{description}</p>
+  </Column>
+</header>
+
+<style>
+  .header {
+    padding-block: 2rem 2.25rem;
+    border-bottom: var(--line-guide);
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-blue);
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-crimson);
+    }
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5rem;
+    margin: 0;
+    color: var(--color-blue);
+    font-family: var(--font-hand);
+    font-size: 0.92rem;
+    line-height: 1.4;
+
+    & > * + *::before {
+      content: '·' / '';
+      margin-right: 0.5rem;
+      color: var(--color-muted);
+    }
+  }
+
+  .title {
+    margin: 0.5rem 0 0;
+    color: var(--color-crimson);
+    font-size: clamp(1.9rem, 4.2vw, 2.6rem);
+  }
+
+  .summary {
+    margin: 1rem 0 0;
+    font-size: 1.2rem;
+    line-height: 1.55;
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import PostCard from '@/components/shared/PostCard.astro'
+import type { AdjacentPosts } from '@/types/content.types'
+import type { Strings } from '@/types/i18n.types'
+import type { Language } from '@/types/language.types'
+
+type Props = {
+  adjacent: AdjacentPosts
+  language: Language
+  strings: Strings['post']
+}
+
+const { adjacent, language, strings } = Astro.props
+---
+
+<ul class="cards">
+  {adjacent.newer && (
+    <li>
+      <PostCard post={adjacent.newer} language={language} label={strings.newer} />
+    </li>
+  )}
+  {adjacent.older && (
+    <li>
+      <PostCard post={adjacent.older} language={language} label={strings.older} />
+    </li>
+  )}
+</ul>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (width < 720px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

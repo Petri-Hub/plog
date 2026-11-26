@@ -70,6 +70,19 @@ export const ptBr: Strings = {
     label: 'Pesquisar posts',
     all: 'Tudo',
   },
+  post: {
+    back: 'todos os posts',
+    minutes: 'min de leitura',
+    contents: 'neste post',
+    tldr: 'TL;DR · sem tempo pra ler? pergunte ao Claude',
+    tldrPrompt:
+      'Leia o artigo em {url} e me entregue:\n1. Um TL;DR em duas ou três frases.\n2. Os pontos principais, numa lista curta.\n3. Comandos ou configurações que valem guardar.\n4. Uma pergunta que eu deveria saber responder depois de ler.\n5. O que eu perco lendo só este resumo, e por que vale a pena ler o post inteiro.\nSeja breve e responda em português.',
+    newTab: '(abre em nova aba)',
+    keepReading: 'Continue lendo',
+    keepReadingNote: 'os posts ao lado deste',
+    newer: '← mais novo',
+    older: 'mais antigo →',
+  },
   rss: {
     title: 'PLOG',
     description: 'Meu blog técnico, em português, escrito enquanto aprendo.',

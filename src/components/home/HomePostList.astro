@@ -2,7 +2,7 @@
 import type { Post } from '@/types/content.types'
 import type { Language } from '@/types/language.types'
 import { toLocalizedDayMonth } from '@/utils/date.utils'
-import { createUrlFromPostId } from '@/utils/post.utils'
+import { createUrlFromPostId, toHashtags } from '@/utils/post.utils'
 
 type Props = {
   posts: Post[]
@@ -26,7 +26,7 @@ const years = Map.groupBy(posts, ({ data }) => data.date.getUTCFullYear())
           <h3 class="title">
             <a href={createUrlFromPostId(id)}>{title}</a>
           </h3>
-          {tags.length > 0 && <p class="tags">{tags.map((tag) => `#${tag}`).join(' ')}</p>}
+          {tags.length > 0 && <p class="tags">{toHashtags(tags)}</p>}
           <p class="description">{description}</p>
         </li>
       ))}

@@ -104,6 +104,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 │   │   └── services     # the only code that queries the content collections
 │   ├── i18n             # the interface text, one dictionary per language
 │   ├── layouts          # the page shells that pages render into
+│   ├── markdown         # build-time Markdown code: the code theme and plugins
 │   ├── pages            # the routes, under /pt-br and /en-us
 │   ├── styles           # the global CSS: tokens, base styles and post text
 │   ├── types            # types shared across the code

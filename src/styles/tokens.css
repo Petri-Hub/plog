@@ -13,7 +13,8 @@
   --color-blue: light-dark(#24539e, #86aef0);
   --color-guide: color-mix(in srgb, var(--color-blue) 45%, transparent);
   --color-band: light-dark(color-mix(in srgb, #b08a5a 13%, #f5efe3), #16181a);
-  --color-hatch: color-mix(in srgb, var(--color-crimson) 40%, transparent);
+  /* Not color-mix(): Firefox draws color-mix() stops in repeating gradients as solid fills */
+  --color-hatch: rgb(from var(--color-crimson) r g b / 40%);
   --color-shadow: light-dark(
     color-mix(in srgb, #3b2a12 10%, transparent),
     color-mix(in srgb, #000 35%, transparent)

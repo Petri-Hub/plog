@@ -1,7 +1,7 @@
 ---
 import type { Post } from '@/types/content.types'
 import type { Language } from '@/types/language.types'
-import { toLocalizedDate } from '@/utils/date.utils'
+import { toLocalizedDayMonth } from '@/utils/date.utils'
 import { createUrlFromPostId } from '@/utils/post.utils'
 
 type Props = {
@@ -10,21 +10,143 @@ type Props = {
 }
 
 const { posts, language } = Astro.props
+
+const years = Map.groupBy(posts, ({ data }) => data.date.getUTCFullYear())
 ---
 
-<ul>
-  {posts.map(({ id, data: { title, description, date, tags } }) => (
-    <li>
-      <a href={createUrlFromPostId(id)}>
-        <article>
-          <p>
-            <time datetime={date.toISOString()}>{toLocalizedDate(date, language)}</time>{' '}
-            {tags.map((tag) => `#${tag}`).join(' ')}
-          </p>
-          <h3>{title}</h3>
-          <p>{description}</p>
-        </article>
-      </a>
-    </li>
-  ))}
-</ul>
+{[...years].map(([year, postsOfYear]) => (
+  <div class="year">
+    <p class="label">{year}</p>
+    <ul class="rows">
+      {postsOfYear.map(({ id, data: { title, description, date, tags } }) => (
+        <li class="row">
+          <time class="date" datetime={date.toISOString()}>
+            {toLocalizedDayMonth(date, language)}
+          </time>
+          <h3 class="title">
+            <a href={createUrlFromPostId(id)}>{title}</a>
+          </h3>
+          {tags.length > 0 && <p class="tags">{tags.map((tag) => `#${tag}`).join(' ')}</p>}
+          <p class="description">{description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+))}
+
+<style>
+  .year + .year {
+    margin-top: 2.25rem;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 0.25rem;
+    color: var(--color-blue);
+    font-family: var(--font-hand);
+    font-size: 1.2rem;
+    font-weight: 400;
+
+    &::after {
+      content: '';
+      flex: 1;
+      border-top: var(--line-guide);
+    }
+  }
+
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4.75rem minmax(0, 1fr) fit-content(40%);
+    grid-template-areas:
+      'date title tags'
+      '. description description';
+    align-items: baseline;
+    gap: 0.3rem 1rem;
+    padding: 1rem 0.25rem;
+
+    & + & {
+      border-top: var(--line-guide);
+    }
+
+    &:hover .title a {
+      text-decoration: underline wavy var(--color-blue) 1.5px;
+      text-underline-offset: 0.3em;
+    }
+
+    @media (width < 560px) {
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-areas:
+        'date tags'
+        'title title'
+        'description description';
+    }
+  }
+
+  .date {
+    grid-area: date;
+    color: var(--color-muted);
+    font-family: var(--font-hand);
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .title {
+    grid-area: title;
+    margin: 0;
+    color: var(--color-crimson);
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-wrap: wrap;
+  }
+
+  .title a {
+    text-decoration: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    &:focus-visible {
+      outline: none;
+
+      &::after {
+        outline: 2px dashed var(--color-blue);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .tags {
+    grid-area: tags;
+    justify-self: end;
+    min-width: 0;
+    margin: 0;
+    color: var(--color-blue);
+    font-family: var(--font-hand);
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    grid-area: description;
+    max-width: 60ch;
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+</style>

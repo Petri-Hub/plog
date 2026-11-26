@@ -92,8 +92,9 @@ Dark mode is **Graphite**: it changes the surfaces and keeps the roles. Every co
 | Inset band     | Kraft: `#b08a5a` mixed 13% into paper | `#16181a`, a deeper graphite | "Coming up" and the comments section          |
 | Hatched shadow | Crimson at 40%                        | Crimson at 40%               | Diagonal lines under cards                    |
 | Shadow         | `#3b2a12` at 10%                      | Black at 35%                 | The sheet's shadow on the desk                |
+| Paper shadow   | `#3b2a12` at 24%                      | Black at 60%                 | Sticky notes and loose papers                 |
 
-Sticky notes come in four colors, and dark mode uses dim versions with light text:
+Sticky notes come in four colors, and dark mode uses dim versions with light text. Their text uses the sticky ink, and the joke status uses the sticky red, which is lighter than the dark crimson so it keeps a 4.5:1 contrast on the dim notes:
 
 | Sticky | Light     | Dark      |
 | ------ | --------- | --------- |
@@ -101,6 +102,8 @@ Sticky notes come in four colors, and dark mode uses dim versions with light tex
 | Pink   | `#f0c3b9` | `#412f34` |
 | Mint   | `#cfe3bf` | `#2e3d35` |
 | Blue   | `#cfdff2` | `#313b4a` |
+| Ink    | `#3d3520` | `#e9e0c8` |
+| Red    | `#a3172f` | `#ff8fa3` |
 
 Rules:
 
@@ -155,7 +158,7 @@ Raised paper, a dashed border, the hatched shadow and a small lift on hover. Ins
 
 ### Post list
 
-One row per post: the date (short, like "Nov 19") on the left, the title in crimson serif with its description under it in the middle, and the tags on the right. Rows are separated by dashed lines. The title is the link and covers the whole row; tags are separate links. The home page groups rows by year, each year with a handwritten label and a dashed line. Short lists, like a tag page, are flat and show the full date instead ("Apr 11, 2026", "11 abr. 2026").
+One row per post: the date (short, like "Nov 19") on the left, the title in crimson serif with its description under it in the middle, and the tags on the right. Rows are separated by dashed lines. The title is the link and covers the whole row; tags are separate links. The home page groups rows by year, each year with a handwritten label and a dashed line. Short lists, like a tag page, are flat and show the full date instead ("Apr 11, 2026", "11 de abr. de 2026").
 
 ### Tag chips
 
@@ -255,7 +258,7 @@ There is no sound on scrolling, on page load or in the draft's own controls, and
 ## 11. Language and voice
 
 - **Bilingual by default.** Portuguese (pt-BR) and English (en-US), with the same slug for both versions of a post.
-- **Dates** follow the page language: "Nov 19" / "19 nov." in lists, "Apr 11, 2026" / "11 abr. 2026" on tag pages, "Aug 14, 2026" / "14 de ago. de 2026" on posts.
+- **Dates** follow the page language, written the way `Intl` writes them: "Nov 19" / "19 de nov." in lists, and "Aug 14, 2026" / "14 de ago. de 2026" on cards, tag pages and posts.
 - **Voice:** first person, plain and curious. The author is learning in public, so the tone is honest about not knowing everything. Short handwritten notes can be playful ("the posts I'd show a friend first", "the to-do list for this blog").
 - **Jokes** stay on the desk, sticky notes, empty states and notes. They never replace a clear label.
 

@@ -14,7 +14,7 @@ export const getPosts = async (language: Language): Promise<Post[]> => {
 }
 
 export const getHighlightedPosts = async (language: Language): Promise<Post[]> => {
-  const posts = await getPosts(language)
+  const posts = await getRecentPosts(language)
   const highlighted = posts.filter((post) => post.data.highlighted)
 
   return highlighted

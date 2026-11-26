@@ -168,6 +168,7 @@ pnpm dev
 
 - ⬜ The visual design from `docs/design.md`: a notebook sheet on a drafting desk
 - ⬜ The search as an accessible dialog, with its result headings in order
+- ⬜ Tag pages, and the tag chips that link to them from the home page
 - ⬜ View transitions between posts
 - ⬜ A greeting message for visitors
 - ⬜ Comments that are easy for developers to read and write

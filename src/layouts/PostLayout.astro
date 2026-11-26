@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from 'astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
+import PostCodeCopy from '@/components/post/PostCodeCopy.astro'
 import PostContents from '@/components/post/PostContents.astro'
 import PostHeader from '@/components/post/PostHeader.astro'
 import PostNeighbors from '@/components/post/PostNeighbors.astro'
@@ -45,6 +46,7 @@ const markdownUrl = new URL(createMarkdownUrlFromPostId(post.id), Astro.site).hr
       <div class="prose">
         <slot />
       </div>
+      <PostCodeCopy />
     </Column>
   </article>
   {(adjacent.newer || adjacent.older) && (

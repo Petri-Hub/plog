@@ -70,6 +70,10 @@ export const enUs: Strings = {
     label: 'Search posts',
     all: 'All',
   },
+  code: {
+    copy: 'copy',
+    copied: 'copied',
+  },
   post: {
     back: 'all posts',
     minutes: 'min read',

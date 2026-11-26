@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro'
+import Column from '@/components/shared/Column.astro'
 import type { AlternateLanguageLinks } from '@/types/language.types'
 
 type Props = {
@@ -12,8 +13,10 @@ const { title, description, alternates } = Astro.props
 ---
 
 <BaseLayout title={title} description={description} alternates={alternates}>
-  <article>
-    <h1>{title}</h1>
-    <slot />
-  </article>
+  <Column>
+    <article>
+      <h1>{title}</h1>
+      <slot />
+    </article>
+  </Column>
 </BaseLayout>

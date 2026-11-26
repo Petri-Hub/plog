@@ -96,6 +96,8 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 │   └── wireframes       # the first sketches of the home and post pages
 ├── public               # files served as they are: the favicon and robots.txt
 ├── src
+│   ├── assets
+│   │   └── fonts        # font files served from the site, such as Excalifont
 │   ├── components       # Astro and Preact components, grouped by feature
 │   ├── contents
 │   │   ├── posts        # one folder per post and language: <locale>/<slug>/index.md
@@ -103,6 +105,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 │   ├── i18n             # the interface text, one dictionary per language
 │   ├── layouts          # the page shells that pages render into
 │   ├── pages            # the routes, under /pt-br and /en-us
+│   ├── styles           # the global CSS: tokens, base styles and post text
 │   ├── types            # types shared across the code
 │   ├── utils            # small helpers
 │   └── content.config.ts  # the schemas posts are validated against
@@ -159,12 +162,12 @@ pnpm dev
 - ✅ An `llms.txt` index and a plain Markdown file for every post
 - ✅ Fallback pages: a 404 in each language and a 500 page, with their styling arriving with the visual design
 - ✅ Rules for coding agents on components and styles, ahead of the visual design
+- ✅ Light and dark modes for reading at night, following the system until the reader picks one
 
 ### Open
 
 - ⬜ The visual design from `docs/design.md`: a notebook sheet on a drafting desk
 - ⬜ The search as an accessible dialog, with its result headings in order
-- ⬜ Light and dark modes for reading at night
 - ⬜ View transitions between posts
 - ⬜ A greeting message for visitors
 - ⬜ Comments that are easy for developers to read and write

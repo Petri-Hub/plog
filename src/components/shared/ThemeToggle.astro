@@ -1,0 +1,75 @@
+---
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  strings: Strings['header']
+}
+
+const { strings } = Astro.props
+---
+
+<button type="button" class="toggle" aria-label={strings.theme} data-theme-toggle>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="8"></circle>
+    <path d="M12 4a8 8 0 0 0 0 16z"></path>
+  </svg>
+</button>
+
+<style>
+  .toggle {
+    display: grid;
+    place-items: center;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-ink);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-crimson);
+    }
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+
+  path {
+    fill: currentColor;
+  }
+</style>
+
+<script>
+  const isDarkTheme = (): boolean => {
+    const { theme } = document.documentElement.dataset
+
+    return theme === 'dark' || (!theme && matchMedia('(prefers-color-scheme: dark)').matches)
+  }
+
+  const handleThemeSync = (): void => {
+    document.querySelectorAll('[data-theme-toggle]').forEach((toggle) => {
+      toggle.setAttribute('aria-pressed', String(isDarkTheme()))
+    })
+  }
+
+  const handleClick = ({ target }: MouseEvent): void => {
+    if (!(target instanceof Element) || !target.closest('[data-theme-toggle]')) {
+      return
+    }
+
+    const theme = isDarkTheme() ? 'light' : 'dark'
+
+    document.documentElement.dataset.theme = theme
+    localStorage.setItem('theme', theme)
+    handleThemeSync()
+  }
+
+  document.addEventListener('click', handleClick)
+  document.addEventListener('astro:page-load', handleThemeSync)
+</script>

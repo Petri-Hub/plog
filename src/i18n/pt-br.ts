@@ -2,7 +2,19 @@ import type { Strings } from '@/types/i18n.types'
 
 export const ptBr: Strings = {
   header: {
+    subtitle: "petri's log",
     language: 'Idioma',
+    theme: 'Modo escuro',
+  },
+  footer: {
+    tagline: 'Um registro do que estou estudando, escrito enquanto eu aprendo. Por Petri.',
+    blog: 'Este blog',
+    home: 'Início',
+    sitemap: 'Mapa do site',
+    elsewhere: 'Em outros lugares',
+    portfolio: 'Portfólio',
+    built: 'Feito com Astro.',
+    source: 'Código-fonte',
   },
   home: {
     title: 'Início',

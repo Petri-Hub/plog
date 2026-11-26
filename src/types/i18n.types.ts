@@ -7,7 +7,19 @@ type ErrorStrings = {
 
 export type Strings = {
   header: {
+    subtitle: string
     language: string
+    theme: string
+  }
+  footer: {
+    tagline: string
+    blog: string
+    home: string
+    sitemap: string
+    elsewhere: string
+    portfolio: string
+    built: string
+    source: string
   }
   home: {
     title: string

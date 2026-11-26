@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
+import Column from '@/components/shared/Column.astro'
 import { getStrings } from '@/i18n/strings'
 import type { AlternateLanguageLinks } from '@/types/language.types'
 import { toLanguage } from '@/utils/locale.utils'
@@ -25,7 +26,9 @@ const alternates: AlternateLanguageLinks = {
   description={strings.errors[status].description}
   alternates={alternates}
 >
-  <h1>{strings.errors[status].heading}</h1>
-  <p>{strings.errors[status].description}</p>
-  <a href={alternates[language]}>{strings.errors[status].back}</a>
+  <Column>
+    <h1>{strings.errors[status].heading}</h1>
+    <p>{strings.errors[status].description}</p>
+    <a href={alternates[language]}>{strings.errors[status].back}</a>
+  </Column>
 </BaseLayout>

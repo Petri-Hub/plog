@@ -91,6 +91,7 @@ Dark mode is **Graphite**: it changes the surfaces and keeps the roles. Every co
 | Guide line     | Blue at 45%                           | Blue at 45%                  | Dashed lines and borders                      |
 | Inset band     | Kraft: `#b08a5a` mixed 13% into paper | `#16181a`, a deeper graphite | "Coming up" and the comments section          |
 | Hatched shadow | Crimson at 40%                        | Crimson at 40%               | Diagonal lines under cards                    |
+| Shadow         | `#3b2a12` at 10%                      | Black at 35%                 | The sheet's shadow on the desk                |
 
 Sticky notes come in four colors, and dark mode uses dim versions with light text:
 

@@ -1,0 +1,146 @@
+---
+import Column from './Column.astro'
+import Wordmark from './Wordmark.astro'
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  homeUrl: string
+  rssUrl: string
+  strings: Strings['footer']
+}
+
+const { homeUrl, rssUrl, strings } = Astro.props
+
+const year = new Date().getFullYear()
+---
+
+<footer class="footer">
+  <Column>
+    <div class="grid">
+      <div>
+        <a class="brand" href={homeUrl}>
+          <Wordmark />
+        </a>
+        <p class="tagline">{strings.tagline}</p>
+      </div>
+      <nav aria-labelledby="footer-blog">
+        <p class="heading" id="footer-blog">
+          {strings.blog}
+        </p>
+        <ul class="links">
+          <li>
+            <a href={homeUrl}>{strings.home}</a>
+          </li>
+          <li>
+            <a href={rssUrl}>RSS</a>
+          </li>
+          <li>
+            <a href="/sitemap-index.xml">{strings.sitemap}</a>
+          </li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="footer-elsewhere">
+        <p class="heading" id="footer-elsewhere">
+          {strings.elsewhere}
+        </p>
+        <ul class="links">
+          <li>
+            <a href="https://github.com/Petri-Hub">
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://petri.zip">
+              {strings.portfolio} <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="bottom">
+      <p>© {year} Petri</p>
+      <p>
+        {strings.built} <a href="https://github.com/Petri-Hub/plog">{strings.source}</a>
+      </p>
+    </div>
+  </Column>
+</footer>
+
+<style>
+  .footer {
+    padding-block: 2.75rem 2rem;
+    border-top: var(--line-guide);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+
+    @media (width < 640px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & > :first-child {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  .brand {
+    text-decoration: none;
+  }
+
+  .tagline {
+    max-width: 26ch;
+    margin: 0.75rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.98rem;
+  }
+
+  .heading {
+    margin: 0 0 0.5rem;
+    color: var(--color-blue);
+    font-family: var(--font-hand);
+    font-size: 1.02rem;
+  }
+
+  .links {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 2rem;
+      color: var(--color-ink);
+      font-size: 0.98rem;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-crimson);
+        text-decoration: underline wavy var(--color-blue) 1.5px;
+        text-underline-offset: 0.3em;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2.25rem;
+    padding-top: 1rem;
+    border-top: var(--line-guide);
+    color: var(--color-muted);
+    font-size: 0.86rem;
+
+    & p {
+      margin: 0;
+    }
+  }
+</style>

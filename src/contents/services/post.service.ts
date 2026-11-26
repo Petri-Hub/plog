@@ -1,5 +1,5 @@
 import { getCollection, render, type RenderResult } from 'astro:content'
-import type { Post } from '@/types/content.types'
+import type { AdjacentPosts, Post } from '@/types/content.types'
 import type { Language } from '@/types/language.types'
 import { toPostLanguage } from '@/utils/post.utils'
 
@@ -27,6 +27,16 @@ export const getRecentPosts = async (language: Language): Promise<Post[]> => {
   })
 
   return recents
+}
+
+export const getAdjacentPosts = async (post: Post): Promise<AdjacentPosts> => {
+  const posts = await getRecentPosts(toPostLanguage(post.id))
+  const index = posts.findIndex(({ id }) => id === post.id)
+
+  return {
+    newer: index > 0 ? posts.at(index - 1) : undefined,
+    older: posts.at(index + 1),
+  }
 }
 
 export const getPostContent = async (post: Post): Promise<RenderResult> => {

@@ -37,6 +37,20 @@ export const toAlternateMap = ({ id, data }: Post): AlternateLanguageLinks => {
   }
 }
 
+export const toHashtags = (tags: string[]): string => {
+  return tags.map((tag) => `#${tag}`).join(' ')
+}
+
+export const toReadingMinutes = ({ id, body }: Post): number => {
+  if (!body) {
+    throw new Error(`Post "${id}" has no body`)
+  }
+
+  const words = body.split(/\s+/).filter((word) => word.length > 0).length
+
+  return Math.max(1, Math.ceil(words / 200))
+}
+
 export const toPostMarkdown = (post: Post, site: URL): string => {
   const { id, data, body } = post
 

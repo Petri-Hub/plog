@@ -1,8 +1,7 @@
 ---
+import PostCard from '@/components/shared/PostCard.astro'
 import type { Post } from '@/types/content.types'
 import type { Language } from '@/types/language.types'
-import { toLocalizedDate } from '@/utils/date.utils'
-import { createUrlFromPostId } from '@/utils/post.utils'
 
 type Props = {
   posts: Post[]
@@ -13,16 +12,9 @@ const { posts, language } = Astro.props
 ---
 
 <ul class="cards">
-  {posts.map(({ id, data: { title, description, date, tags } }) => (
-    <li class="card">
-      <p class="meta">
-        <time datetime={date.toISOString()}>{toLocalizedDate(date, language)}</time>
-        {tags.length > 0 && <span>{tags.map((tag) => `#${tag}`).join(' ')}</span>}
-      </p>
-      <h3 class="title">
-        <a href={createUrlFromPostId(id)}>{title}</a>
-      </h3>
-      <p class="description">{description}</p>
+  {posts.map((post) => (
+    <li>
+      <PostCard post={post} language={language} />
     </li>
   ))}
 </ul>
@@ -39,93 +31,5 @@ const { posts, language } = Astro.props
     @media (width < 720px) {
       grid-template-columns: minmax(0, 1fr);
     }
-  }
-
-  .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem 1rem 1.2rem;
-    border: var(--line-guide);
-    isolation: isolate;
-    transition: translate 0.2s;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-    }
-
-    &::before {
-      z-index: -1;
-      background: var(--color-raised);
-    }
-
-    &::after {
-      z-index: -2;
-      background: var(--texture-hatch);
-      translate: 7px 7px;
-      transition: translate 0.2s;
-    }
-
-    &:hover {
-      translate: -3px -3px;
-
-      &::after {
-        translate: 10px 10px;
-      }
-    }
-  }
-
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 0.5rem;
-    margin: 0;
-    color: var(--color-blue);
-    font-family: var(--font-hand);
-    font-size: 0.92rem;
-    line-height: 1.4;
-
-    & > * + *::before {
-      content: '·' / '';
-      margin-right: 0.5rem;
-      color: var(--color-muted);
-    }
-  }
-
-  .title {
-    margin: 0;
-    font-size: 1.38rem;
-    line-height: 1.12;
-
-    & a {
-      color: var(--color-crimson);
-      text-decoration: none;
-
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-      }
-
-      &:focus-visible {
-        outline: none;
-
-        &::after {
-          outline: 2px dashed var(--color-blue);
-          outline-offset: 2px;
-        }
-      }
-    }
-  }
-
-  .description {
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 0.92rem;
-    line-height: 1.55;
   }
 </style>

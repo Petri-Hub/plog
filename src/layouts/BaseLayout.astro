@@ -10,6 +10,7 @@ import Sheet from '@/components/shared/Sheet.astro'
 import { getStrings } from '@/i18n/strings'
 import '@/styles/tokens.css'
 import '@/styles/base.css'
+import '@/styles/prose.css'
 import type { AlternateLanguageLinks } from '@/types/language.types'
 import { getLanguageDetails, languages, toLanguage } from '@/utils/locale.utils'
 
@@ -57,7 +58,7 @@ const homeUrl = getRelativeLocaleUrl(language)
       href={new URL(`${language}/rss.xml`, Astro.site).href}
     />
 
-    <Font cssVariable="--font-title" preload={[{ weight: 600 }]} />
+    <Font cssVariable="--font-title" preload={[{ style: 'normal' }]} />
     <Font cssVariable="--font-text" preload />
     <Font cssVariable="--font-hand" preload />
 

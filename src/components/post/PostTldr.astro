@@ -1,0 +1,40 @@
+---
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  markdownUrl: string
+  strings: Strings['post']
+}
+
+const { markdownUrl, strings } = Astro.props
+
+const prompt = strings.tldrPrompt.replace('{url}', markdownUrl)
+---
+
+<a
+  class="tldr"
+  href={`https://claude.ai/new?q=${encodeURIComponent(prompt)}`}
+  target="_blank"
+  rel="noopener"
+>
+  {strings.tldr} <span aria-hidden="true">↗</span>
+  <span class="sr-only">{strings.newTab}</span>
+</a>
+
+<style>
+  .tldr {
+    display: inline-block;
+    margin-top: 1.75rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--color-sticky-yellow);
+    box-shadow: 0 1px 1px var(--color-shadow-paper);
+    color: var(--color-sticky-ink);
+    font-family: var(--font-hand);
+    text-decoration: none;
+    rotate: -1deg;
+
+    &:hover {
+      color: var(--color-crimson);
+    }
+  }
+</style>

@@ -12,14 +12,15 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: 'Cormorant Garamond',
       cssVariable: '--font-title',
-      weights: [600, 700],
-      styles: ['normal'],
+      weights: [400, 600, 700],
+      styles: ['normal', 'italic'],
       fallbacks: ['serif'],
     },
     {
       provider: fontProviders.google(),
       name: 'Google Sans',
       cssVariable: '--font-text',
+      weights: [400, 600],
       styles: ['normal'],
     },
     {

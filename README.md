@@ -88,7 +88,7 @@ Almost everything here already has a pattern. A new folder, a new kind of file o
 ## What's inside
 
 ```sh
-├── .github              # the quality gate: formatting, types, build and Lighthouse
+├── .github              # the quality gate, the code owners and the author assignment
 ├── .husky               # the pre-commit hook that formats staged files
 ├── docs
 │   ├── design.md        # the visual design: concept, standards, components and rejected ideas

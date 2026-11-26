@@ -1,9 +1,12 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
-import Column from '@/components/shared/Column.astro'
+import HomeHero from '@/components/home/HomeHero.astro'
+import HomePostCards from '@/components/home/HomePostCards.astro'
 import HomePostList from '@/components/home/HomePostList.astro'
+import HomeUpcoming from '@/components/home/HomeUpcoming.astro'
 import { SearchMenu } from '@/components/search/SearchMenu'
+import Section from '@/components/shared/Section.astro'
 import { getStrings } from '@/i18n/strings'
 import type { Post } from '@/types/content.types'
 import type { AlternateLanguageLinks } from '@/types/language.types'
@@ -31,25 +34,21 @@ const alternates: AlternateLanguageLinks = {
   description={strings.home.description}
   alternates={alternates}
 >
-  <Column>
-    <SearchMenu
-      client:only="preact"
-      posts={posts}
-      enabled={false}
-      language={language}
-      strings={strings.search}
-    />
-    <section>
-      <h1>{strings.home.heading}</h1>
-      <p>{strings.home.subheading}</p>
-    </section>
-    <section>
-      <h2>{strings.home.highlights}</h2>
-      <HomePostList posts={highlights} language={language} />
-    </section>
-    <section>
-      <h2>{strings.home.recents}</h2>
-      <HomePostList posts={recents} language={language} />
-    </section>
-  </Column>
+  <SearchMenu
+    client:only="preact"
+    posts={posts}
+    enabled={false}
+    language={language}
+    strings={strings.search}
+  />
+  <HomeHero strings={strings.home} />
+  <Section id="highlights" title={strings.home.highlights} note={strings.home.highlightsNote}>
+    <HomePostCards posts={highlights} language={language} />
+  </Section>
+  <Section id="posts" title={strings.home.recents} note={strings.home.recentsNote}>
+    <HomePostList posts={recents} language={language} />
+  </Section>
+  <Section id="upcoming" title={strings.home.upcoming} note={strings.home.upcomingNote} isBoard>
+    <HomeUpcoming strings={strings.upcoming} />
+  </Section>
 </BaseLayout>

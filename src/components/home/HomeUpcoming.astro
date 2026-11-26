@@ -1,0 +1,119 @@
+---
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  strings: Strings['upcoming']
+}
+
+const { strings } = Astro.props
+
+const notes = [
+  { ...strings.analytics, status: strings.next, color: 'pink', tilt: -2, isJoke: false },
+  { ...strings.newsletter, status: strings.planned, color: 'yellow', tilt: 1.5, isJoke: false },
+  { ...strings.comments, status: strings.planned, color: 'blue', tilt: -1, isJoke: false },
+  { ...strings.decentPosts, status: strings.someday, color: 'mint', tilt: 2, isJoke: true },
+]
+---
+
+<ul class="notes">
+  {notes.map(({ title, text, status, color, tilt, isJoke }) => (
+    <li class="note" data-color={color} style={`--tilt: ${tilt}deg`}>
+      <h3 class="title">{title}</h3>
+      <p class="text">{text}</p>
+      <p class="status" data-joke={isJoke ? '' : undefined}>
+        {status}
+      </p>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .notes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0.5rem 0 0;
+    list-style: none;
+
+    @media (width < 900px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (width < 640px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .note {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 12rem;
+    padding: 1.2rem 1.1rem 1rem;
+    background: var(--color-sticky);
+    box-shadow:
+      0 1px 1px var(--color-shadow-paper),
+      4px 12px 18px -12px var(--color-shadow-paper);
+    color: var(--color-sticky-ink);
+    font-family: var(--font-hand);
+    rotate: var(--tilt);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--texture-crumple);
+      background-size: 320px;
+      mix-blend-mode: multiply;
+      opacity: var(--opacity-crumple);
+      pointer-events: none;
+    }
+
+    &[data-color='yellow'] {
+      --color-sticky: var(--color-sticky-yellow);
+    }
+
+    &[data-color='pink'] {
+      --color-sticky: var(--color-sticky-pink);
+    }
+
+    &[data-color='mint'] {
+      --color-sticky: var(--color-sticky-mint);
+    }
+
+    &[data-color='blue'] {
+      --color-sticky: var(--color-sticky-blue);
+    }
+  }
+
+  .title {
+    margin: 0;
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .status {
+    align-self: flex-end;
+    margin: auto 0 0;
+    color: var(--color-blue);
+    font-size: 0.95rem;
+    text-decoration: underline wavy currentColor 1.5px;
+    text-underline-offset: 0.25em;
+
+    &[data-joke] {
+      color: var(--color-sticky-red);
+      rotate: -6deg;
+    }
+  }
+</style>

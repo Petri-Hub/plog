@@ -19,10 +19,38 @@ export const enUs: Strings = {
   home: {
     title: 'Home',
     description: 'My technical blog, in Portuguese and English, written as I learn.',
-    heading: 'Welcome to my blog',
-    subheading: 'Tech things here and there',
-    highlights: 'Highlights',
-    recents: 'Recents',
+    note: 'written down as I learn it',
+    heading: "A log of what I'm",
+    words: ['studying', 'building', 'breaking', 'reading'],
+    subheading:
+      'Software engineering, infrastructure and my homelab, explained while I learn them. Every post in Portuguese and English.',
+    highlights: 'Start here',
+    highlightsNote: "the posts I'd show a friend first",
+    recents: 'All posts',
+    recentsNote: 'newest first',
+    upcoming: 'Coming up',
+    upcomingNote: 'the to-do list for this blog',
+  },
+  upcoming: {
+    analytics: {
+      title: 'Analytics',
+      text: 'A simple look at which posts people actually read, so I know what to write next.',
+    },
+    newsletter: {
+      title: 'Newsletter',
+      text: "New posts in your inbox, so you don't have to keep checking back.",
+    },
+    comments: {
+      title: 'Comments',
+      text: 'Tell me where I got it wrong, right under each post. Markdown welcome.',
+    },
+    decentPosts: {
+      title: 'Decent posts',
+      text: 'Working on it. Everything above was practice.',
+    },
+    next: 'next',
+    planned: 'planned',
+    someday: 'someday',
   },
   errors: {
     404: {

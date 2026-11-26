@@ -19,10 +19,38 @@ export const ptBr: Strings = {
   home: {
     title: 'Início',
     description: 'Meu blog técnico, em português e inglês, escrito enquanto aprendo.',
-    heading: 'Bem-vindo ao meu blog',
-    subheading: 'Assuntos de tecnologia e coisas por aí',
-    highlights: 'Destaques',
-    recents: 'Recentes',
+    note: 'escrito enquanto eu aprendo',
+    heading: 'Um registro do que estou',
+    words: ['estudando', 'construindo', 'quebrando', 'lendo'],
+    subheading:
+      'Engenharia de software, infraestrutura e meu homelab, explicados enquanto eu aprendo. Todo post em português e inglês.',
+    highlights: 'Comece por aqui',
+    highlightsNote: 'os posts que eu mostraria primeiro',
+    recents: 'Todos os posts',
+    recentsNote: 'do mais novo ao mais antigo',
+    upcoming: 'Em breve',
+    upcomingNote: 'a lista de tarefas deste blog',
+  },
+  upcoming: {
+    analytics: {
+      title: 'Métricas',
+      text: 'Uma visão simples de quais posts as pessoas leem de verdade, pra eu saber o que escrever a seguir.',
+    },
+    newsletter: {
+      title: 'Newsletter',
+      text: 'Posts novos no seu e-mail, sem precisar ficar voltando aqui.',
+    },
+    comments: {
+      title: 'Comentários',
+      text: 'Me diga onde errei, logo abaixo de cada post. Markdown é bem-vindo.',
+    },
+    decentPosts: {
+      title: 'Posts decentes',
+      text: 'Tô trabalhando nisso. Tudo aí em cima foi treino.',
+    },
+    next: 'próximo',
+    planned: 'planejado',
+    someday: 'algum dia',
   },
   errors: {
     404: {

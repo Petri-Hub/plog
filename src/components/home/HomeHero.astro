@@ -1,0 +1,108 @@
+---
+import Column from '@/components/shared/Column.astro'
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  strings: Strings['home']
+}
+
+const { strings } = Astro.props
+
+const [firstWord] = strings.words
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Column>
+    <p class="note">{strings.note}</p>
+    <h1 class="title" id="hero-title">
+      {strings.heading}{' '}
+      <span class="words" aria-hidden="true" data-hero-words>
+        {strings.words.map((word, index) => (
+          <span class="word" data-active={index === 0 ? '' : undefined}>
+            {word}
+          </span>
+        ))}
+      </span>
+      <span class="sr-only">{firstWord}</span>
+    </h1>
+    <p class="lede">{strings.subheading}</p>
+  </Column>
+</section>
+
+<style>
+  .hero {
+    padding-block: 2.75rem 3.25rem;
+  }
+
+  .note {
+    margin: 0 0 0.15rem;
+    color: var(--color-blue);
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    rotate: -2deg;
+    transform-origin: left;
+  }
+
+  .title {
+    margin: 0;
+    color: var(--color-crimson);
+    font-size: clamp(2.3rem, 6vw, 3.5rem);
+    line-height: 1.08;
+  }
+
+  .words {
+    display: inline-grid;
+  }
+
+  .word {
+    grid-area: 1 / 1;
+    color: var(--color-blue);
+    font-family: var(--font-hand);
+    font-size: 0.86em;
+    font-weight: 400;
+    text-decoration: underline wavy currentColor 1.5px;
+    text-underline-offset: 0.2em;
+    opacity: 0;
+    translate: 0 0.15em;
+    transition:
+      opacity 0.25s,
+      translate 0.25s;
+
+    &[data-active] {
+      opacity: 1;
+      translate: 0;
+    }
+  }
+
+  .lede {
+    max-width: 36ch;
+    margin: 1.1rem 0 0;
+    font-size: 1.2rem;
+    line-height: 1.55;
+  }
+</style>
+
+<script>
+  let rotation = 0
+
+  const handleWordRotation = (): void => {
+    clearInterval(rotation)
+
+    const container = document.querySelector('[data-hero-words]')
+
+    if (!container || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
+    const words = [...container.children]
+    let index = 0
+
+    rotation = window.setInterval(() => {
+      words[index].removeAttribute('data-active')
+      index = (index + 1) % words.length
+      words[index].setAttribute('data-active', '')
+    }, 2800)
+  }
+
+  document.addEventListener('astro:page-load', handleWordRotation)
+</script>

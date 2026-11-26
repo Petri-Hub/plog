@@ -1,3 +1,8 @@
+type UpcomingNoteStrings = {
+  title: string
+  text: string
+}
+
 type ErrorStrings = {
   title: string
   heading: string
@@ -24,10 +29,25 @@ export type Strings = {
   home: {
     title: string
     description: string
+    note: string
     heading: string
+    words: [string, ...string[]]
     subheading: string
     highlights: string
+    highlightsNote: string
     recents: string
+    recentsNote: string
+    upcoming: string
+    upcomingNote: string
+  }
+  upcoming: {
+    analytics: UpcomingNoteStrings
+    newsletter: UpcomingNoteStrings
+    comments: UpcomingNoteStrings
+    decentPosts: UpcomingNoteStrings
+    next: string
+    planned: string
+    someday: string
   }
   errors: Record<404 | 500, ErrorStrings>
   search: {

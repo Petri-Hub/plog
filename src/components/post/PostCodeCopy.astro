@@ -1,0 +1,25 @@
+<script>
+  const handleCopy = async ({ target }: MouseEvent): Promise<void> => {
+    const button = target instanceof Element ? target.closest('[data-copy-code]') : null
+    const code = button?.closest('figure')?.querySelector('code')
+
+    if (!(button instanceof HTMLElement) || !code) {
+      return
+    }
+
+    const { copy, copied, failed } = button.dataset
+
+    try {
+      await navigator.clipboard.writeText(code.textContent ?? '')
+      button.textContent = copied ?? null
+    } catch {
+      button.textContent = failed ?? null
+    }
+
+    setTimeout(() => {
+      button.textContent = copy ?? null
+    }, 2000)
+  }
+
+  document.addEventListener('click', handleCopy)
+</script>

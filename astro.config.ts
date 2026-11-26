@@ -2,11 +2,24 @@ import { defineConfig, fontProviders } from 'astro/config'
 import vercel from '@astrojs/vercel'
 import preact from '@astrojs/preact'
 import sitemap from '@astrojs/sitemap'
+import { satteri } from '@astrojs/markdown-satteri'
+import { codeFigurePlugin } from './src/markdown/code.plugin'
+import { codeTheme } from './src/markdown/code.theme'
+import { codeTitleTransformer } from './src/markdown/code.transformer'
 
 const site = 'https://blog.petri.zip'
 
 export default defineConfig({
   site,
+  markdown: {
+    shikiConfig: {
+      theme: codeTheme,
+      transformers: [codeTitleTransformer],
+    },
+    processor: satteri({
+      hastPlugins: [codeFigurePlugin],
+    }),
+  },
   fonts: [
     {
       provider: fontProviders.google(),

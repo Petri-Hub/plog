@@ -70,6 +70,11 @@ export const ptBr: Strings = {
     label: 'Pesquisar posts',
     all: 'Tudo',
   },
+  code: {
+    copy: 'copiar',
+    copied: 'copiado',
+    failed: 'falha ao copiar',
+  },
   post: {
     back: 'todos os posts',
     minutes: 'min de leitura',

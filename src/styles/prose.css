@@ -101,6 +101,49 @@
       }
     }
 
+    & figure.code {
+      display: flex;
+      flex-direction: column;
+      margin-inline: 0;
+      border: var(--line-guide);
+      background: var(--color-raised);
+
+      & figcaption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        order: -1;
+        padding: 0.15rem 0.5rem 0.15rem 0.85rem;
+        border-bottom: var(--line-guide);
+        color: var(--color-blue);
+        font-family: var(--font-hand);
+        font-size: 0.95rem;
+      }
+
+      & button {
+        min-height: 2rem;
+        padding: 0 0.4rem;
+        border: 0;
+        background: none;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--color-crimson);
+        }
+      }
+
+      & pre {
+        margin: 0;
+        padding: 0.9rem 1rem 1rem;
+        line-height: 1.65;
+      }
+
+      & code {
+        font-family: var(--font-mono);
+        font-size: 0.86rem;
+      }
+    }
+
     & blockquote {
       margin-inline: 0;
       padding: 0.25rem 0 0.25rem 1.25rem;

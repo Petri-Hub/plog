@@ -54,6 +54,11 @@ export type Strings = {
     label: string
     all: string
   }
+  code: {
+    copy: string
+    copied: string
+    failed: string
+  }
   post: {
     back: string
     minutes: string

@@ -83,6 +83,7 @@ const [firstWord] = strings.words
 </style>
 
 <script>
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
   let rotation = 0
 
   const handleWordRotation = (): void => {
@@ -90,12 +91,12 @@ const [firstWord] = strings.words
 
     const container = document.querySelector('[data-hero-words]')
 
-    if (!container || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!container || reducedMotion.matches) {
       return
     }
 
     const words = [...container.children]
-    let index = 0
+    let index = words.findIndex((word) => word.hasAttribute('data-active'))
 
     rotation = window.setInterval(() => {
       words[index].removeAttribute('data-active')
@@ -105,4 +106,5 @@ const [firstWord] = strings.words
   }
 
   document.addEventListener('astro:page-load', handleWordRotation)
+  reducedMotion.addEventListener('change', handleWordRotation)
 </script>

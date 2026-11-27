@@ -1,0 +1,343 @@
+---
+type Props = {
+  side: 'left' | 'right'
+  top: number
+  width: number
+  height: number
+  tilt: number
+  tuck: number
+  isBack?: boolean
+  surface?:
+    | 'plain'
+    | 'graph'
+    | 'lined'
+    | 'card'
+    | 'sticky'
+    | 'slip'
+    | 'cert'
+    | 'pile'
+    | 'calendar'
+    | 'torn'
+    | 'receipt'
+  tint?: 'pink' | 'mint'
+  hasTape?: boolean
+  hasFold?: boolean
+  hasStain?: boolean
+}
+
+const {
+  side,
+  top,
+  width,
+  height,
+  tilt,
+  tuck,
+  isBack = false,
+  surface = 'plain',
+  tint,
+  hasTape = false,
+  hasFold = false,
+  hasStain = false,
+} = Astro.props
+
+const isCut = surface === 'torn' || surface === 'receipt'
+const delay = ((top / 100) * 0.25).toFixed(3)
+---
+
+<div
+  class="paper"
+  data-desk-paper
+  data-side={side}
+  data-layer={isBack ? 'back' : 'front'}
+  data-surface={surface}
+  data-tint={tint}
+  data-tape={hasTape ? '' : undefined}
+  data-fold={hasFold ? '' : undefined}
+  data-stain={hasStain ? '' : undefined}
+  style={{
+    '--top': `${top}%`,
+    '--width': `${width}rem`,
+    '--height': `${height}rem`,
+    '--tilt': `${tilt}deg`,
+    '--tuck': `${tuck}rem`,
+    '--delay': `${delay}s`,
+  }}
+>
+  {isCut ? (
+    <div class="cut">
+      <slot />
+    </div>
+  ) : (
+    <slot />
+  )}
+</div>
+
+<style>
+  .paper {
+    --side: -1;
+
+    position: absolute;
+    top: var(--top);
+    z-index: 1;
+    width: var(--width);
+    height: var(--height);
+    padding: 1.375rem 1.25rem;
+    background-color: var(--color-scrap-paper);
+    box-shadow:
+      0 1px 2px var(--color-shadow-paper),
+      0 14px 24px -14px var(--color-shadow-paper);
+    color: var(--color-scrap-pencil);
+    font-family: var(--font-hand);
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    translate: calc(var(--dx, 0px) + var(--sweep, 0) * var(--side) * 60vw) var(--dy, 0px);
+    rotate: calc(var(--tilt) + var(--dr, 0deg) + var(--sweep, 0) * var(--side) * 12deg);
+    transition:
+      translate var(--paper-timing, 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2))
+        calc(var(--paper-cascade, 0) * var(--delay)),
+      rotate var(--paper-timing, 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2))
+        calc(var(--paper-cascade, 0) * var(--delay));
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image: var(--texture-crumple);
+      background-size: 320px;
+      mix-blend-mode: multiply;
+      opacity: var(--opacity-crumple);
+      pointer-events: none;
+    }
+  }
+
+  .paper[data-layer='back'] {
+    z-index: 0;
+    overflow: hidden;
+    background-color: var(--color-scrap-back);
+    color: var(--color-scrap-faint);
+  }
+
+  .paper[data-surface='graph'] {
+    background-image:
+      linear-gradient(var(--color-scrap-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-scrap-grid) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+
+  .paper[data-surface='graph'][data-stain] {
+    background-image:
+      radial-gradient(
+        circle at 64% 76%,
+        transparent 0 38px,
+        var(--color-scrap-stain) 39px 41px,
+        color-mix(in srgb, var(--color-scrap-stain) 40%, transparent) 42px 44px,
+        transparent 46px
+      ),
+      radial-gradient(
+        circle at 64% 76%,
+        color-mix(in srgb, var(--color-scrap-stain) 22%, transparent) 0 38px,
+        transparent 39px
+      ),
+      linear-gradient(var(--color-scrap-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-scrap-grid) 1px, transparent 1px);
+    background-size:
+      auto,
+      auto,
+      14px 14px,
+      14px 14px;
+  }
+
+  .paper[data-surface='lined'] {
+    padding: 2.75rem 1.125rem 1.125rem 3.25rem;
+    background-image:
+      radial-gradient(circle at 18px 56px, var(--color-desk) 0 6px, transparent 6.5px),
+      radial-gradient(circle at 18px 50%, var(--color-desk) 0 6px, transparent 6.5px),
+      radial-gradient(circle at 18px calc(100% - 56px), var(--color-desk) 0 6px, transparent 6.5px),
+      linear-gradient(
+        90deg,
+        transparent 40px,
+        var(--color-scrap-margin) 40px 41.5px,
+        transparent 41.5px
+      ),
+      linear-gradient(var(--color-scrap-paper) 0 36px, transparent 36px),
+      repeating-linear-gradient(transparent 0 23px, var(--color-scrap-line) 23px 24px);
+  }
+
+  .paper[data-surface='card'] {
+    padding-top: 0.25rem;
+    background-color: var(--color-scrap-white);
+    background-image:
+      linear-gradient(transparent 30px, var(--color-scrap-margin) 30px 31.5px, transparent 31.5px),
+      linear-gradient(var(--color-scrap-white) 0 31.5px, transparent 31.5px),
+      repeating-linear-gradient(transparent 0 21px, var(--color-scrap-line) 21px 22px);
+    background-position:
+      0 0,
+      0 0,
+      0 11px;
+  }
+
+  .paper[data-surface='sticky'] {
+    padding: 1.5rem 1.125rem;
+    background-color: var(--color-sticky-yellow);
+    color: var(--color-sticky-ink);
+    font-size: 1.3rem;
+    line-height: 1.15;
+  }
+
+  .paper[data-tint='pink'] {
+    background-color: var(--color-sticky-pink);
+  }
+
+  .paper[data-tint='mint'] {
+    background-color: var(--color-sticky-mint);
+  }
+
+  .paper[data-surface='slip'] {
+    background-color: var(--color-scrap-white);
+  }
+
+  .paper[data-surface='cert'] {
+    background-color: var(--color-scrap-white);
+    box-shadow:
+      inset 0 0 0 7px var(--color-scrap-white),
+      inset 0 0 0 8.5px var(--color-scrap-line),
+      0 1px 2px var(--color-shadow-paper),
+      0 14px 24px -14px var(--color-shadow-paper);
+  }
+
+  .paper[data-surface='pile'] {
+    box-shadow:
+      0 1px 2px var(--color-shadow-paper),
+      7px 6px 0 -1px var(--color-scrap-white),
+      7px 6px 3px -1px var(--color-shadow-paper),
+      14px 12px 0 -2px var(--color-scrap-paper),
+      14px 12px 4px -2px var(--color-shadow-paper);
+  }
+
+  .paper[data-surface='calendar'] {
+    background-color: var(--color-scrap-white);
+    background-image: linear-gradient(var(--color-crimson) 0 34px, transparent 34px);
+    text-align: center;
+  }
+
+  .paper[data-surface='torn'],
+  .paper[data-surface='receipt'] {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    filter: drop-shadow(0 1px 1px var(--color-shadow-paper))
+      drop-shadow(0 10px 10px var(--color-shadow-paper));
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .cut {
+    position: relative;
+    height: 100%;
+    padding: 1.875rem 1.25rem 1.25rem;
+    background-color: var(--color-scrap-paper);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image: var(--texture-crumple-hard);
+      background-size: 320px;
+      mix-blend-mode: multiply;
+      opacity: var(--opacity-crumple-hard);
+      pointer-events: none;
+    }
+  }
+
+  [data-surface='torn'] .cut {
+    clip-path: polygon(
+      0 9px,
+      6% 3px,
+      11% 10px,
+      17% 2px,
+      23% 8px,
+      30% 1px,
+      36% 9px,
+      42% 4px,
+      49% 11px,
+      55% 3px,
+      61% 8px,
+      68% 1px,
+      74% 10px,
+      80% 4px,
+      87% 9px,
+      93% 2px,
+      100% 7px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  [data-surface='receipt'] .cut {
+    padding-top: 1.125rem;
+    padding-bottom: 1.875rem;
+    background-color: var(--color-scrap-white);
+    mask: conic-gradient(
+        from -45deg at bottom,
+        transparent,
+        currentColor 1deg 89deg,
+        transparent 90deg
+      )
+      50% / 12px 100%;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .paper[data-tape]::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 22%;
+    z-index: 2;
+    width: 5.5rem;
+    height: 1.5rem;
+    background: var(--color-scrap-tape);
+    rotate: 5deg;
+  }
+
+  .paper[data-fold]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 2.125rem;
+    height: 2.125rem;
+    background: linear-gradient(
+      to bottom right,
+      var(--color-desk) 50%,
+      var(--color-scrap-fold) 50%
+    );
+  }
+
+  .paper[data-side='left'] {
+    right: calc(50% + var(--width-sheet) / 2 - var(--tuck));
+    padding-right: calc(var(--tuck) + 0.875rem);
+
+    & > .cut {
+      padding-right: calc(var(--tuck) + 0.875rem);
+    }
+  }
+
+  .paper[data-side='right'] {
+    --side: 1;
+
+    left: calc(50% + var(--width-sheet) / 2 - var(--tuck));
+    padding-left: calc(var(--tuck) + 0.875rem);
+
+    & > .cut {
+      padding-left: calc(var(--tuck) + 0.875rem);
+    }
+  }
+</style>

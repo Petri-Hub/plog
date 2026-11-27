@@ -1,0 +1,645 @@
+---
+import DeskPaper from './DeskPaper.astro'
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  strings: Strings['desk']
+}
+
+const { strings } = Astro.props
+---
+
+<DeskPaper
+  side="left"
+  surface="graph"
+  hasTape
+  top={6.1}
+  width={17.5}
+  height={18.125}
+  tilt={-6}
+  tuck={2.875}
+>
+  <svg class="sketch" viewBox="0 0 200 200">
+    <path d="M8 18 L88 15 L90 52 L9 54 Z"></path>
+    <text x="49" y="40">
+      browser
+    </text>
+    <path d="M118 16 L190 18 L189 54 L119 52 Z"></path>
+    <text x="154" y="40">
+      DNS
+    </text>
+    <path d="M92 34 C 100 31, 108 32, 115 34"></path>
+    <path d="M108 28 L116 34 L108 40"></path>
+    <path d="M48 58 C 50 84, 51 104, 52 126"></path>
+    <path d="M45 118 L52 128 L59 118"></path>
+    <text x="140" y="78" class="small">
+      CNAME → vercel
+    </text>
+    <text x="128" y="104" class="small">
+      {strings.dnsNote}
+    </text>
+    <path d="M10 132 L188 134 L186 176 L12 174 Z"></path>
+    <text x="99" y="159">
+      blog.petri.zip
+    </text>
+  </svg>
+</DeskPaper>
+
+<DeskPaper
+  side="left"
+  surface="sticky"
+  tint="mint"
+  top={16.7}
+  width={14.6875}
+  height={10.3125}
+  tilt={-4}
+  tuck={1.5}
+>
+  <p class="sticky-code">
+    claude
+    <br />
+    --dangerously-
+    <br />
+    skip-permissions
+  </p>
+</DeskPaper>
+
+<DeskPaper side="left" surface="lined" top={26.9} width={18.75} height={22.5} tilt={3} tuck={3.75}>
+  <p class="title">3-way handshake</p>
+  <svg class="sketch" viewBox="0 0 200 230">
+    <text x="30" y="16" class="small">
+      client
+    </text>
+    <text x="170" y="16" class="small">
+      server
+    </text>
+    <path d="M30 26 C 31 90, 29 150, 30 222"></path>
+    <path d="M170 26 C 169 90, 171 150, 170 222"></path>
+    <path d="M32 50 C 80 60, 120 70, 166 82"></path>
+    <path d="M156 75 L167 82 L155 88"></path>
+    <text x="96" y="56">
+      SYN
+    </text>
+    <text x="92" y="82" class="small">
+      {strings.synHi}
+    </text>
+    <path d="M168 108 C 120 118, 80 128, 34 140"></path>
+    <path d="M44 133 L33 140 L45 146"></path>
+    <text x="104" y="112">
+      SYN-ACK
+    </text>
+    <text x="110" y="148" class="small">
+      {strings.synAckHi}
+    </text>
+    <path d="M32 166 C 80 176, 120 186, 166 198"></path>
+    <path d="M156 191 L167 198 L155 204"></path>
+    <text x="96" y="172">
+      ACK
+    </text>
+    <text x="88" y="198" class="small">
+      {strings.ackYes}
+    </text>
+  </svg>
+</DeskPaper>
+
+<DeskPaper
+  side="left"
+  surface="torn"
+  top={44.5}
+  width={18.75}
+  height={15.625}
+  tilt={-9}
+  tuck={3.125}
+>
+  <p>
+    <s class="draft-old">{strings.draftOld}</s>
+  </p>
+  <p>
+    <s class="draft-old">{strings.draftOld2}</s>
+  </p>
+  <p class="draft-new">{strings.draftNew}</p>
+</DeskPaper>
+
+<DeskPaper side="left" surface="cert" top={55.5} width={17.5} height={13.4375} tilt={4} tuck={2.5}>
+  <p class="title">{strings.certTitle}</p>
+  <p class="cert-line">{strings.certIssued}</p>
+  <svg class="stamp" viewBox="0 0 120 120">
+    <defs>
+      <path id="stamp-ring" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"></path>
+    </defs>
+    <circle cx="60" cy="60" r="56"></circle>
+    <circle cx="60" cy="60" r="31"></circle>
+    <text textLength="262" lengthAdjust="spacing">
+      <textPath href="#stamp-ring">{strings.stampText}</textPath>
+    </text>
+    <path class="stamp-check" d="M46 61 L56 71 L76 48"></path>
+  </svg>
+</DeskPaper>
+
+<DeskPaper
+  side="left"
+  surface="slip"
+  top={64.1}
+  width={19.375}
+  height={10.625}
+  tilt={-2}
+  tuck={2.875}
+>
+  <p class="title">{strings.regretsTitle}</p>
+  <pre class="slip-lines">$ rm -rf / tmp/build  <span class="slip-hand">{strings.regretsSpace}</span>
+$ terraform destroy
+$ kubectl delete ns prod
+$ git push -f origin main
+&gt; UPDATE users SET admin = 1;</pre>
+</DeskPaper>
+
+<DeskPaper
+  side="left"
+  surface="sticky"
+  tint="pink"
+  top={71.4}
+  width={13.4375}
+  height={9.375}
+  tilt={-4}
+  tuck={1.625}
+>
+  <p class="crash">{strings.crashLoop}</p>
+</DeskPaper>
+
+<DeskPaper side="left" hasFold top={77.6} width={17.5} height={18.75} tilt={7} tuck={3.5}>
+  <p class="title">{strings.measureTitle}</p>
+  <svg class="sketch" viewBox="0 0 180 110">
+    <path d="M6 44 L174 44"></path>
+    <path d="M6 32 L6 56"></path>
+    <path d="M174 32 L174 56"></path>
+    <path d="M15 38 L6 44 L15 50"></path>
+    <path d="M165 38 L174 44 L165 50"></path>
+    <text x="90" y="34">
+      68ch
+    </text>
+    <text x="90" y="74" class="small">
+      45–75 ch
+    </text>
+    <text x="90" y="94" class="small">
+      {strings.measureNote}
+    </text>
+  </svg>
+  <svg class="sketch scribble" viewBox="0 0 170 70">
+    <path d="M4 10 c8 -5 14 5 22 0 s14 5 22 0 s14 5 22 0 s14 5 22 0 s14 5 22 0 s14 5 22 0"></path>
+    <path d="M4 34 c8 -5 14 5 22 0 s14 5 22 0 s14 5 22 0 s14 5 22 0"></path>
+    <path d="M4 58 c8 -5 14 5 22 0 s14 5 22 0 s14 5 22 0 s14 5 22 0 s14 5 22 0"></path>
+  </svg>
+</DeskPaper>
+
+<DeskPaper side="left" surface="card" top={91} width={16.875} height={9.375} tilt={-4} tuck={2.25}>
+  <p class="title">{strings.estimateTitle}</p>
+  <ul class="checklist" data-plain>
+    <li data-done>{strings.estimateGuess}</li>
+    <li>{strings.estimateReal}</li>
+  </ul>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="sticky"
+  top={3.7}
+  width={13.75}
+  height={11.875}
+  tilt={5}
+  tuck={1.375}
+>
+  <div class="haiku">
+    <p>{strings.haiku1}</p>
+    <p>{strings.haiku2}</p>
+  </div>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="card"
+  top={18.8}
+  width={16.875}
+  height={12.25}
+  tilt={-3}
+  tuck={2.5}
+>
+  <p class="title">{strings.todoTitle}</p>
+  <ul class="checklist">
+    <li data-done>{strings.todoRss}</li>
+    <li data-done>{strings.todoSitemap}</li>
+    <li data-done>{strings.todoDark}</li>
+    <li>{strings.todoPost}</li>
+    <li>{strings.todoGrass}</li>
+  </ul>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="receipt"
+  top={33.5}
+  width={13.125}
+  height={20.625}
+  tilt={-4}
+  tuck={1.875}
+>
+  <div class="receipt">
+    <p data-align="center">DEV MARKET · #0042</p>
+    <p data-align="center">2026-11-24 03:12</p>
+    <hr />
+    <p>
+      <span>{strings.receiptCoffee}</span>
+      <span>×4</span>
+    </p>
+    <p>
+      <span>node_modules</span>
+      <span>1.2 GB</span>
+    </p>
+    <p>
+      <span>{strings.receiptTabs}</span>
+      <span>23</span>
+    </p>
+    <p>
+      <span>{strings.receiptQuickFix}</span>
+      <span>×7</span>
+    </p>
+    <p>
+      <span>git push -f</span>
+      <span>×1</span>
+    </p>
+    <hr />
+    <p>
+      <span>TOTAL</span>
+      <span>{strings.receiptTotal}</span>
+    </p>
+    <hr />
+    <p data-align="center">{strings.receiptBye}</p>
+  </div>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="slip"
+  top={48.6}
+  width={18.125}
+  height={9.375}
+  tilt={3}
+  tuck={2.25}
+>
+  <pre class="slip-lines">$ git blame date.utils.ts
+a1f3c9e  Petri
+         {strings.blameAgo}</pre>
+  <p class="hand-note">{strings.blameNote}</p>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="graph"
+  hasStain
+  top={59.2}
+  width={17.5}
+  height={18.125}
+  tilt={-3}
+  tuck={3.5}
+>
+  <p class="title">Bayer 4×4</p>
+  <div class="bayer">
+    {[0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((value) => (
+      <span>{value}</span>
+    ))}
+  </div>
+  <p class="aside">÷ 16</p>
+  <p class="coffee">{strings.coffeeFig}</p>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="slip"
+  top={72.2}
+  width={16.25}
+  height={10.9375}
+  tilt={-5}
+  tuck={1.875}
+>
+  <pre class="slip-lines"><s>v1.0.0</s>
+<s>v1.0.0-final</s>
+<s>v1.0.0-final-2</s>
+<s>v1.0.0-final-FINAL</s>
+v1.0.0-final-FINAL(1)</pre>
+  <p class="hand-note">{strings.shipIt}</p>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="pile"
+  top={80}
+  width={16.875}
+  height={16.875}
+  tilt={4}
+  tuck={3.125}
+>
+  <p class="title">POSTMORTEM #17</p>
+  <dl class="fields">
+    <dt>{strings.pmCause}</dt>
+    <dd class="sql">DELETE FROM users;</dd>
+    <dt>{strings.pmRows}</dt>
+    <dd>48 213</dd>
+    <dt>{strings.pmFoundBy}</dt>
+    <dd>{strings.pmFoundValue}</dd>
+    <dt>{strings.pmDowntime}</dt>
+    <dd>4h</dd>
+  </dl>
+  <p class="hand-note">{strings.pmNote}</p>
+  <ul class="checklist">
+    <li>{strings.pmAction1}</li>
+    <li>{strings.pmAction2}</li>
+  </ul>
+</DeskPaper>
+
+<DeskPaper
+  side="right"
+  surface="calendar"
+  top={91}
+  width={12.5}
+  height={13.125}
+  tilt={6}
+  tuck={1.625}
+>
+  <p class="month">NOV 2026</p>
+  <p class="day">27</p>
+  <p class="weekday">{strings.calWeekday}</p>
+  <p class="cal-note">{strings.calNote}</p>
+</DeskPaper>
+
+<style>
+  p {
+    margin: 0;
+  }
+
+  .title {
+    color: var(--color-scrap-ink);
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+  }
+
+  .hand-note {
+    margin-top: 0.375rem;
+    color: var(--color-scrap-red);
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .sketch {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+
+    & path {
+      fill: none;
+      stroke: var(--color-scrap-ink);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    & text {
+      fill: var(--color-scrap-ink);
+      font-family: var(--font-hand);
+      font-size: 15px;
+      text-anchor: middle;
+    }
+
+    & .small {
+      fill: var(--color-scrap-pencil);
+      font-size: 11px;
+    }
+  }
+
+  .scribble path {
+    stroke: var(--color-scrap-pencil);
+    stroke-width: 1.2;
+    opacity: 0.7;
+  }
+
+  .sticky-code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .haiku {
+    font-size: 1.12rem;
+    line-height: 1.25;
+
+    & p + p {
+      margin-top: 0.375rem;
+    }
+  }
+
+  .crash {
+    font-size: 1.1rem;
+  }
+
+  .draft-old {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+    text-decoration: line-through var(--color-scrap-margin) 2px;
+  }
+
+  .draft-new {
+    color: var(--color-scrap-ink);
+    font-size: 1.25rem;
+  }
+
+  .cert-line {
+    font-size: 0.95rem;
+  }
+
+  .stamp {
+    display: block;
+    width: 6.5rem;
+    margin-top: 0.375rem;
+    opacity: 0.85;
+    filter: var(--filter-rough);
+    rotate: -14deg;
+
+    & circle,
+    & path {
+      fill: none;
+      stroke: var(--color-scrap-stamp);
+      stroke-width: 2.2;
+    }
+
+    & .stamp-check {
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    & text {
+      fill: var(--color-scrap-stamp);
+      font-family: var(--font-text);
+      font-size: 10px;
+      font-weight: 700;
+    }
+  }
+
+  .slip-lines {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.6;
+    white-space: pre;
+
+    & s {
+      text-decoration: line-through var(--color-scrap-red) 1.5px;
+    }
+  }
+
+  .slip-hand {
+    color: var(--color-scrap-red);
+    font-family: var(--font-hand);
+    font-size: 0.8125rem;
+  }
+
+  .checklist {
+    margin: 0.375rem 0 0;
+    padding: 0;
+    line-height: 1.375rem;
+    list-style: none;
+
+    & li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &::before {
+        content: '';
+        flex-shrink: 0;
+        width: 11px;
+        height: 11px;
+        border: 1.5px solid var(--color-scrap-ink);
+      }
+    }
+
+    & li[data-done] {
+      text-decoration: line-through var(--color-scrap-margin) 2px;
+
+      &::before {
+        background:
+          linear-gradient(45deg, transparent 42%, var(--color-scrap-ink) 42% 58%, transparent 58%),
+          linear-gradient(-45deg, transparent 42%, var(--color-scrap-ink) 42% 58%, transparent 58%);
+      }
+    }
+
+    &[data-plain] li::before {
+      display: none;
+    }
+  }
+
+  .receipt {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.7;
+
+    & p {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    & p[data-align='center'] {
+      justify-content: center;
+    }
+
+    & hr {
+      margin: 0.3125rem 0;
+      border: 0;
+      border-top: 1px dashed currentColor;
+      opacity: 0.6;
+    }
+  }
+
+  .bayer {
+    display: grid;
+    grid-template-columns: repeat(4, 1.7rem);
+    width: max-content;
+    margin-top: 0.625rem;
+    padding: 0.125rem 0.375rem;
+    border-inline: 1.5px solid var(--color-scrap-pencil);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .aside {
+    margin-top: 0.5rem;
+    color: var(--color-scrap-ink);
+  }
+
+  .coffee {
+    position: absolute;
+    top: calc(76% + 2.75rem);
+    left: calc(64% - 3rem);
+    color: var(--color-scrap-red);
+    font-size: 0.95rem;
+    rotate: -4deg;
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0 0.625rem;
+    margin: 0.375rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.65625rem;
+    line-height: 1.7;
+
+    & dt {
+      color: var(--color-scrap-faint);
+    }
+
+    & dd {
+      margin: 0;
+    }
+  }
+
+  .sql {
+    color: var(--color-scrap-red);
+    font-weight: 700;
+  }
+
+  .month {
+    margin-top: -1.375rem;
+    color: var(--color-scrap-white);
+    font-family: var(--font-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 2.125rem;
+  }
+
+  .day {
+    margin-top: 0.5rem;
+    color: var(--color-scrap-pencil);
+    font-family: var(--font-title);
+    font-size: 4.2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .weekday {
+    color: var(--color-scrap-faint);
+    font-family: var(--font-text);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+  }
+
+  .cal-note {
+    margin-top: 0.5rem;
+    color: var(--color-scrap-red);
+    font-size: 1.15rem;
+    rotate: -6deg;
+  }
+</style>

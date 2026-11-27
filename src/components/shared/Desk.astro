@@ -1,4 +1,24 @@
-<div class="desk" aria-hidden="true"></div>
+---
+import DeskBackPapers from './DeskBackPapers.astro'
+import DeskFrontPapers from './DeskFrontPapers.astro'
+import type { Strings } from '@/types/i18n.types'
+import type { Language } from '@/types/language.types'
+
+type Props = {
+  language: Language
+  isCleared: boolean
+  strings: Strings['desk']
+}
+
+const { language, isCleared, strings } = Astro.props
+---
+
+<div class="desk" aria-hidden="true" transition:persist={`desk-${language}`}>
+  <div class="papers" data-desk-papers data-cleared={isCleared ? '' : undefined}>
+    <DeskBackPapers strings={strings} />
+    <DeskFrontPapers strings={strings} />
+  </div>
+</div>
 
 <style>
   .desk {
@@ -18,11 +38,128 @@
       120px 120px,
       24px 24px,
       24px 24px;
+    overflow: clip;
     filter: blur(1px);
+    isolation: isolate;
     transition: filter 0.4s ease;
 
     &:hover {
       filter: none;
     }
   }
+
+  .papers {
+    --sweep: 0;
+
+    position: absolute;
+    inset: 0;
+    overflow: clip;
+
+    &[data-cleared] {
+      --sweep: 1;
+
+      height: var(--frozen-height, 100%);
+    }
+
+    &[data-moving] {
+      --paper-timing: 0.75s cubic-bezier(0.6, 0, 0.3, 1);
+      --paper-cascade: 1;
+    }
+
+    @media (width < 1100px) {
+      display: none;
+    }
+  }
 </style>
+
+<script>
+  import type { TransitionBeforeSwapEvent } from 'astro:transitions/client'
+
+  const sweepDuration = 1200
+  const nudgeInterval = 400
+  const nudgeLimit = 12
+  const turnLimit = 3
+
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
+  const lastNudges = new WeakMap<HTMLElement, number>()
+
+  let isNextCleared = false
+  let sweepTimer = 0
+
+  const getPapers = (): HTMLElement | null => {
+    return document.querySelector<HTMLElement>('[data-desk-papers]')
+  }
+
+  const getOffset = (paper: HTMLElement, name: string): number => {
+    return parseFloat(paper.style.getPropertyValue(name)) || 0
+  }
+
+  const toClamped = (value: number, limit: number): number => {
+    return Math.max(-limit, Math.min(limit, value))
+  }
+
+  const handleBeforeSwap = ({ newDocument }: TransitionBeforeSwapEvent): void => {
+    const papers = getPapers()
+
+    isNextCleared =
+      newDocument.querySelector('[data-desk-papers]')?.hasAttribute('data-cleared') ?? false
+
+    if (papers && isNextCleared && !papers.hasAttribute('data-cleared')) {
+      papers.style.setProperty('--frozen-height', `${papers.offsetHeight}px`)
+    }
+  }
+
+  const handleAfterSwap = (): void => {
+    const papers = getPapers()
+
+    if (!papers || papers.hasAttribute('data-cleared') === isNextCleared) {
+      return
+    }
+
+    void papers.offsetWidth
+    clearTimeout(sweepTimer)
+    papers.toggleAttribute('data-moving', true)
+    papers.toggleAttribute('data-cleared', isNextCleared)
+
+    if (!isNextCleared) {
+      papers.style.removeProperty('--frozen-height')
+    }
+
+    sweepTimer = window.setTimeout(() => papers.removeAttribute('data-moving'), sweepDuration)
+  }
+
+  const handlePointerOver = (event: PointerEvent): void => {
+    if (event.pointerType !== 'mouse' || reducedMotion.matches) {
+      return
+    }
+
+    const paper =
+      event.target instanceof Element
+        ? event.target.closest<HTMLElement>('[data-desk-paper]')
+        : null
+    const isInside = event.relatedTarget instanceof Node && paper?.contains(event.relatedTarget)
+    const now = performance.now()
+
+    if (!paper || isInside || now - (lastNudges.get(paper) ?? 0) < nudgeInterval) {
+      return
+    }
+
+    const box = paper.getBoundingClientRect()
+    const awayX = box.left + box.width / 2 - event.clientX
+    const awayY = box.top + box.height / 2 - event.clientY
+    const distance = Math.hypot(awayX, awayY) || 1
+    const push = 5 + Math.random() * 3
+    const dx = toClamped(getOffset(paper, '--dx') + (awayX / distance) * push, nudgeLimit)
+    const dy = toClamped(getOffset(paper, '--dy') + (awayY / distance) * push, nudgeLimit)
+    const dr = toClamped(getOffset(paper, '--dr') + (Math.random() - 0.5) * 2.4, turnLimit)
+
+    lastNudges.set(paper, now)
+    paper.style.setProperty('--dx', `${dx}px`)
+    paper.style.setProperty('--dy', `${dy}px`)
+    paper.style.setProperty('--dr', `${dr}deg`)
+  }
+
+  document.addEventListener('astro:before-swap', handleBeforeSwap)
+  document.addEventListener('astro:after-swap', handleAfterSwap)
+  document.addEventListener('pointerover', handlePointerOver)
+</script>

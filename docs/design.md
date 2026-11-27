@@ -105,6 +105,27 @@ Sticky notes come in four colors, and dark mode uses dim versions with light tex
 | Ink    | `#3d3520` | `#e9e0c8` |
 | Red    | `#a3172f` | `#ff8fa3` |
 
+Desk papers have their own palette, named `scrap` in the tokens, so it never mixes with the colors that build the page. Sticky notes on the desk use the sticky colors above, and loose papers cast the paper shadow:
+
+| Scrap  | Light            | Dark             | Used for                                                |
+| ------ | ---------------- | ---------------- | ------------------------------------------------------- |
+| Paper  | `#f3ecdd`        | `#18191b`        | Loose front papers                                      |
+| White  | `#f8f4ea`        | `#232427`        | Index cards, slips, receipts, the certificate, calendar |
+| Back   | `#e9e0cd`        | `#171819`        | Back papers                                             |
+| Fold   | `#e2d9c6`        | `#141516`        | The folded corner                                       |
+| Pencil | `#4a443c`        | `#cfc8bb`        | Writing on front papers                                 |
+| Ink    | `#2f5fae`        | `#86aef0`        | Titles, sketches and checkboxes in blue pen             |
+| Faint  | `#6f675b`        | `#a49d90`        | Writing on back papers                                  |
+| Red    | Crimson at 85%   | Crimson at 85%   | Handwritten notes, circles and strikes in red pen       |
+| Stamp  | Crimson at 75%   | Crimson at 75%   | The "works on my machine" stamp                         |
+| Margin | Crimson at 50%   | Crimson at 50%   | Margin lines and crossed-out items                      |
+| Line   | Blue at 24%      | Blue at 24%      | Ruled lines                                             |
+| Grid   | Blue at 16%      | Blue at 16%      | Graph paper                                             |
+| Tape   | `#e6d7ae` at 72% | `#86aef0` at 16% | Masking tape                                            |
+| Stain  | `#8a5a2b` at 38% | Black at 40%     | The coffee ring                                         |
+
+Writing on scrap papers keeps at least 4.5:1, except faint on back paper in light mode, which sits at 4.25:1 on purpose so the back layer recedes. Desk papers are hidden from screen readers.
+
 Rules:
 
 - **Kraft is light mode only.** In dark mode a warm kraft clashes with graphite; the inset band becomes a slightly darker graphite instead, so it still reads as recessed.
@@ -140,6 +161,7 @@ Conventions:
 | Hand-drawn wobble | Small circles: the active language, avatars, numbered list steps | A slight irregular outline, used sparingly.                                                 |
 | Sticky notes      | "Coming up", the TL;DR note, desk jokes                          | Four colors, slight tilt, soft crumple texture, small drop shadow.                          |
 | Index card        | The contents paper                                               | White card with a red line under the title and ruled blue lines.                            |
+| Torn paper        | A desk paper torn from a notebook                                | A ragged top edge and a harder crumple texture than sticky notes.                           |
 | Kraft band        | "Coming up" and comments                                         | The full width of the sheet, inside the dashed edges.                                       |
 
 ## 7. Components
@@ -220,9 +242,9 @@ Not designed yet: the 404 and 500 pages, the newsletter signup and anything for 
 
 The desk is where the blog's personality lives. It is decoration only, visible from 1100px wide.
 
-**Papers.** 21 papers in two layers:
+**Papers.** 26 papers in two layers:
 
-- **Front papers carry the jokes**, about the daily life of a developer: DNS ("It's not DNS. There's no way it's DNS."), `claude --dangerously-skip-permissions`, a postmortem for `DELETE FROM users;` without a `WHERE`, a "regrets" list of dangerous commands, a "works on my machine" certificate, `git blame` pointing at yourself, version tags crossed out up to `v1.0.0-final-FINAL(1)`, a build receipt, a to-do list with "touch grass", a "no deploys" Friday calendar page.
+- **Front papers carry the jokes**, about the daily life of a developer: DNS ("It's not DNS. There's no way it's DNS."), `claude --dangerously-skip-permissions`, a postmortem for `DELETE FROM users;` without a `WHERE`, a "regrets" list of dangerous commands, a "works on my machine" certificate, `git blame` pointing at yourself, version tags crossed out up to `v1.0.0-final-FINAL(1)`, a build receipt, a to-do list with "touch grass", a "no deploys" Friday calendar page, "CrashLoopBackOff is a lifestyle", a sprint estimate of two days that took two sprints, crossed-out titles for this blog, and sketches of DNS, the TCP handshake, a 68-character measure and a Bayer matrix with a coffee ring.
 - **Back papers carry numbers**: a latency table, subnets, ports, HTTP status counts, a Big O chart, a hex dump, a `node` session with `0.1 + 0.2`, the site's own color swatches, a wireframe of the page. Numbers need no translation.
 
 **Placement.** Papers sit on both sides of the sheet, partly tucked under its edges, tilted a few degrees, overlapping each other like a real desk. Their height on the page is a share of the page's height, so they spread out on their own as the page grows. They are cut off at the top and bottom of the page rather than making it longer.

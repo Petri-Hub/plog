@@ -83,6 +83,7 @@ const homeUrl = getRelativeLocaleUrl(language)
   <body>
     <RoughFilter />
     <Desk language={language} isCleared={isDeskCleared} strings={strings.desk} />
+    <slot name="desk" />
     <Sheet>
       <Header
         language={language}

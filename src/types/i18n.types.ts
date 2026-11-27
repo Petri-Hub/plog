@@ -133,7 +133,9 @@ export type Strings = {
     back: string
     minutes: string
     contents: string
-    tldr: string
+    backToTop: string
+    tldrTitle: string
+    tldrText: string
     tldrPrompt: string
     newTab: string
     keepReading: string

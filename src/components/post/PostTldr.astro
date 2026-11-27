@@ -2,22 +2,15 @@
 import type { Strings } from '@/types/i18n.types'
 
 type Props = {
-  markdownUrl: string
+  url: string
   strings: Strings['post']
 }
 
-const { markdownUrl, strings } = Astro.props
-
-const prompt = strings.tldrPrompt.replace('{url}', markdownUrl)
+const { url, strings } = Astro.props
 ---
 
-<a
-  class="tldr"
-  href={`https://claude.ai/new?q=${encodeURIComponent(prompt)}`}
-  target="_blank"
-  rel="noopener"
->
-  {strings.tldr} <span aria-hidden="true">↗</span>
+<a class="tldr" href={url} target="_blank" rel="noopener">
+  {strings.tldrTitle} · {strings.tldrText} <span aria-hidden="true">↗</span>
   <span class="sr-only">{strings.newTab}</span>
 </a>
 
@@ -32,6 +25,10 @@ const prompt = strings.tldrPrompt.replace('{url}', markdownUrl)
     font-family: var(--font-hand);
     text-decoration: none;
     rotate: -1deg;
+
+    @media (width >= 1360px) {
+      display: none;
+    }
 
     &:hover {
       color: var(--color-sticky-red);

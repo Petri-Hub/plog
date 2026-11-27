@@ -164,11 +164,11 @@ pnpm dev
 - ✅ Fallback pages: a 404 in each language and a 500 page, with their styling arriving with the visual design
 - ✅ Rules for coding agents on components and styles, ahead of the visual design
 - ✅ Light and dark modes for reading at night, following the system until the reader picks one
+- ✅ The search as an accessible dialog in the header of every page, reading a small index of the posts
 
 ### Open
 
 - ⬜ The visual design from `docs/design.md`: a notebook sheet on a drafting desk
-- ⬜ The search as an accessible dialog, with its result headings in order
 - ⬜ Tag pages, and the tag chips that link to them from the home page
 - ⬜ View transitions between posts
 - ⬜ A greeting message for visitors

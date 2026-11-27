@@ -3,17 +3,11 @@ import type { MarkdownHeading } from 'astro'
 import type { Strings } from '@/types/i18n.types'
 
 type Props = {
-  headings: MarkdownHeading[]
+  sections: MarkdownHeading[]
   strings: Strings['post']
 }
 
-const { headings, strings } = Astro.props
-
-const footnotesSlug = 'footnote-label'
-
-const sections = headings.filter(({ depth, slug }) => {
-  return (depth === 2 || depth === 3) && slug !== footnotesSlug
-})
+const { sections, strings } = Astro.props
 ---
 
 {sections.length > 0 && (
@@ -34,6 +28,10 @@ const sections = headings.filter(({ depth, slug }) => {
     margin-top: 1.5rem;
     border: var(--line-guide);
     background: var(--color-raised);
+
+    @media (width >= 1360px) {
+      display: none;
+    }
   }
 
   summary {

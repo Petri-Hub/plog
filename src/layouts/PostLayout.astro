@@ -6,6 +6,7 @@ import PostCodeCopy from '@/components/post/PostCodeCopy.astro'
 import PostContents from '@/components/post/PostContents.astro'
 import PostHeader from '@/components/post/PostHeader.astro'
 import PostNeighbors from '@/components/post/PostNeighbors.astro'
+import PostReadingAids from '@/components/post/PostReadingAids.astro'
 import PostTldr from '@/components/post/PostTldr.astro'
 import Column from '@/components/shared/Column.astro'
 import Section from '@/components/shared/Section.astro'
@@ -26,7 +27,15 @@ const { post, headings, adjacent, searchPosts } = Astro.props
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
 
+const footnotesSlug = 'footnote-label'
+
+const sections = headings.filter(({ depth, slug }) => {
+  return (depth === 2 || depth === 3) && slug !== footnotesSlug
+})
+
 const markdownUrl = new URL(createMarkdownUrlFromPostId(post.id), Astro.site).href
+const tldrPrompt = strings.post.tldrPrompt.replace('{url}', markdownUrl)
+const tldrUrl = `https://claude.ai/new?q=${encodeURIComponent(tldrPrompt)}`
 ---
 
 <BaseLayout
@@ -36,6 +45,7 @@ const markdownUrl = new URL(createMarkdownUrlFromPostId(post.id), Astro.site).hr
   searchPosts={searchPosts}
   isDeskCleared
 >
+  <PostReadingAids slot="desk" sections={sections} tldrUrl={tldrUrl} strings={strings.post} />
   <article>
     <PostHeader
       post={post}
@@ -44,8 +54,8 @@ const markdownUrl = new URL(createMarkdownUrlFromPostId(post.id), Astro.site).hr
       strings={strings.post}
     />
     <Column>
-      <PostTldr markdownUrl={markdownUrl} strings={strings.post} />
-      <PostContents headings={headings} strings={strings.post} />
+      <PostTldr url={tldrUrl} strings={strings.post} />
+      <PostContents sections={sections} strings={strings.post} />
       <div class="prose">
         <slot />
       </div>

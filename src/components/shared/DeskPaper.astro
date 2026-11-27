@@ -323,21 +323,21 @@ const delay = ((top / 100) * 0.25).toFixed(3)
 
   .paper[data-side='left'] {
     right: calc(50% + var(--width-sheet) / 2 - var(--tuck));
-    padding-right: calc(var(--tuck) + 0.875rem);
-
-    & > .cut {
-      padding-right: calc(var(--tuck) + 0.875rem);
-    }
   }
 
   .paper[data-side='right'] {
     --side: 1;
 
     left: calc(50% + var(--width-sheet) / 2 - var(--tuck));
-    padding-left: calc(var(--tuck) + 0.875rem);
+  }
 
-    & > .cut {
-      padding-left: calc(var(--tuck) + 0.875rem);
-    }
+  .paper[data-side='left']:not([data-surface='torn'], [data-surface='receipt']),
+  .paper[data-side='left'] > .cut {
+    padding-right: calc(var(--tuck) + 0.875rem);
+  }
+
+  .paper[data-side='right']:not([data-surface='torn'], [data-surface='receipt']),
+  .paper[data-side='right'] > .cut {
+    padding-left: calc(var(--tuck) + 0.875rem);
   }
 </style>

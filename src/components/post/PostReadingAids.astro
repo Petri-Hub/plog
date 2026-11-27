@@ -1,0 +1,212 @@
+---
+import type { MarkdownHeading } from 'astro'
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  sections: MarkdownHeading[]
+  tldrUrl: string
+  strings: Strings['post']
+}
+
+const { sections, tldrUrl, strings } = Astro.props
+---
+
+<aside class="aids" data-reading-aids>
+  {sections.length > 0 && (
+    <nav class="card" aria-labelledby="reading-aids-title">
+      <p class="title" id="reading-aids-title">
+        {strings.contents}
+      </p>
+      <ol>
+        {sections.map(({ depth, slug, text }) => (
+          <li data-depth={depth}>
+            <a href={`#${slug}`} data-contents-link>
+              {text}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a class="top" href="#">
+            <span aria-hidden="true">↑</span> {strings.backToTop}
+          </a>
+        </li>
+      </ol>
+    </nav>
+  )}
+  <a class="tldr" href={tldrUrl} target="_blank" rel="noopener">
+    <span class="tldr-title">{strings.tldrTitle}</span>
+    <span class="tldr-text">
+      {strings.tldrText} <span aria-hidden="true">↗</span>
+    </span>
+    <span class="sr-only">{strings.newTab}</span>
+  </a>
+</aside>
+
+<style>
+  .aids {
+    position: fixed;
+    top: 6rem;
+    left: calc(50% + var(--width-sheet) / 2 - 2.75rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 19.375rem;
+    animation: reading-aids-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.45s both;
+
+    &[data-settled] {
+      animation: none;
+    }
+
+    @media (width < 1360px) {
+      display: none;
+    }
+  }
+
+  @keyframes reading-aids-in {
+    from {
+      translate: calc(100% + 60vw) 0;
+    }
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: calc(100vh - 26rem);
+    overflow-y: auto;
+    padding: 0 1.2rem 0.9rem 3.85rem;
+    background-color: var(--color-scrap-white);
+    background-image:
+      linear-gradient(transparent 38px, var(--color-scrap-margin) 38px 39.5px, transparent 39.5px),
+      linear-gradient(var(--color-scrap-white) 0 39.5px, transparent 39.5px),
+      repeating-linear-gradient(transparent 0 25px, var(--color-scrap-line) 25px 26px);
+    background-position:
+      0 0,
+      0 0,
+      0 14px;
+    background-attachment: local;
+    box-shadow:
+      0 1px 2px var(--color-shadow-paper),
+      0 16px 28px -16px var(--color-shadow-paper);
+    rotate: 1.5deg;
+  }
+
+  .title {
+    margin: 0;
+    color: var(--color-crimson);
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    line-height: 2.375rem;
+  }
+
+  ol {
+    margin: 0.125rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li[data-depth='3'] a {
+    padding-left: 1rem;
+    color: var(--color-muted);
+    font-size: 0.88rem;
+  }
+
+  ol a {
+    display: block;
+    color: var(--color-scrap-pencil);
+    font-family: var(--font-hand);
+    font-size: 0.95rem;
+    line-height: 1.625rem;
+    text-decoration: none;
+
+    &.top {
+      color: var(--color-blue);
+    }
+
+    &:hover,
+    &[aria-current='location'] {
+      color: var(--color-crimson);
+    }
+
+    &[aria-current='location']::before {
+      content: '→ ';
+    }
+  }
+
+  .tldr {
+    position: relative;
+    display: block;
+    width: 14.6875rem;
+    margin: 0.35rem 0 0 2.45rem;
+    padding: 1.1rem 0.85rem 0.8rem;
+    background: var(--color-sticky-yellow);
+    box-shadow:
+      0 1px 1px var(--color-shadow-paper),
+      4px 10px 16px -10px var(--color-shadow-paper);
+    color: var(--color-sticky-ink);
+    font-family: var(--font-hand);
+    text-decoration: none;
+    rotate: 3deg;
+    transition: translate 0.25s ease;
+
+    &:hover,
+    &:focus-visible {
+      z-index: 2;
+      color: var(--color-sticky-red);
+      translate: 0 4px;
+    }
+  }
+
+  .tldr-title {
+    display: block;
+    font-size: 1.35rem;
+    line-height: 1.1;
+  }
+
+  .tldr-text {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.92rem;
+    line-height: 1.25;
+  }
+</style>
+
+<script>
+  import type { TransitionBeforeSwapEvent } from 'astro:transitions/client'
+
+  const currentLine = 0.35
+
+  let frame = 0
+
+  const handleContentsSync = (): void => {
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-contents-link]')]
+    const current = links.findLast((link) => {
+      const heading = document.getElementById(decodeURIComponent(link.hash.slice(1)))
+
+      return heading !== null && heading.getBoundingClientRect().top < innerHeight * currentLine
+    })
+
+    links.forEach((link) => {
+      if (link === current) {
+        link.setAttribute('aria-current', 'location')
+      } else {
+        link.removeAttribute('aria-current')
+      }
+    })
+  }
+
+  const handleScroll = (): void => {
+    cancelAnimationFrame(frame)
+    frame = requestAnimationFrame(handleContentsSync)
+  }
+
+  const handleBeforeSwap = ({ newDocument }: TransitionBeforeSwapEvent): void => {
+    if (document.querySelector('[data-reading-aids]')) {
+      newDocument.querySelector('[data-reading-aids]')?.setAttribute('data-settled', '')
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  document.addEventListener('astro:page-load', handleContentsSync)
+  document.addEventListener('astro:before-swap', handleBeforeSwap)
+</script>

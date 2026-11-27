@@ -34,23 +34,23 @@
 
 ### Files and folders
 
-| Kind              | Pattern                                                                                       | Example                                    |
-| ----------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| Service           | `<domain>.service.ts`                                                                         | `post.service.ts`                          |
-| Utils             | `<domain>.utils.ts`                                                                           | `locale.utils.ts`, `text.utils.ts`         |
-| Types             | `<domain>.types.ts`                                                                           | `content.types.ts`, `language.types.ts`    |
-| Astro component   | `PascalCase.astro`                                                                            | `Header.astro`, `HomePostList.astro`       |
-| Preact component  | `PascalCase.tsx`, named after its export                                                      | `SearchMenu.tsx`                           |
-| CSS Module        | `<Component>.module.css`, beside its Preact component                                         | `SearchMenu.module.css`                    |
-| Layout            | `PascalCase` ending in `Layout.astro`                                                         | `BaseLayout.astro`, `PostLayout.astro`     |
-| Dictionary        | `<locale>.ts` in `src/i18n/`                                                                  | `pt-br.ts`, `en-us.ts`                     |
-| Global stylesheet | `<name>.css` in `src/styles/`                                                                 | `tokens.css`, `base.css`, `prose.css`      |
-| Markdown code     | `<domain>.<kind>.ts` in `src/markdown/`, where the kind is `theme`, `transformer` or `plugin` | `code.theme.ts`, `code.plugin.ts`          |
-| Font file         | The name its publisher gives it, in `src/assets/fonts/`                                       | `Excalifont-Regular.woff2`                 |
-| Page              | lowercase route segment; dynamic parameters in brackets                                       | `index.astro`, `404.astro`, `[slug].astro` |
-| Component folder  | lowercase name of the feature that renders it                                                 | `search/`, `home/`, `shared/`              |
-| Post              | `<locale>/<slug>/index.md`                                                                    | `en-us/post-1-test/index.md`               |
-| ADR               | `NNNN-<kebab-title>.md`                                                                       | `0004-ui-strings-from-pages.md`            |
+| Kind              | Pattern                                                                                       | Example                                              |
+| ----------------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Service           | `<domain>.service.ts`                                                                         | `post.service.ts`                                    |
+| Utils             | `<domain>.utils.ts`                                                                           | `locale.utils.ts`, `text.utils.ts`                   |
+| Types             | `<domain>.types.ts`                                                                           | `content.types.ts`, `language.types.ts`              |
+| Astro component   | `PascalCase.astro`                                                                            | `Header.astro`, `HomePostList.astro`                 |
+| Preact component  | `PascalCase.tsx`, named after its export                                                      | `SearchMenu.tsx`                                     |
+| CSS Module        | `<Component>.module.css`, beside its Preact component                                         | `SearchMenu.module.css`                              |
+| Layout            | `PascalCase` ending in `Layout.astro`                                                         | `BaseLayout.astro`, `PostLayout.astro`               |
+| Dictionary        | `<locale>.ts` in `src/i18n/`                                                                  | `pt-br.ts`, `en-us.ts`                               |
+| Global stylesheet | `<name>.css` in `src/styles/`                                                                 | `tokens.css`, `base.css`, `prose.css`                |
+| Markdown code     | `<domain>.<kind>.ts` in `src/markdown/`, where the kind is `theme`, `transformer` or `plugin` | `code.theme.ts`, `code.plugin.ts`                    |
+| Font file         | The name its publisher gives it, in `src/assets/fonts/`                                       | `Excalifont-Regular.woff2`                           |
+| Page              | lowercase route segment; dynamic parameters in brackets                                       | `index.astro`, `404.astro`, `[slug].astro`           |
+| Component folder  | lowercase name of the feature that renders it                                                 | `search/`, `home/`, `shared/`                        |
+| Post              | `<locale>/<slug>/index.md`                                                                    | `en-us/debugging-dns-at-two-in-the-morning/index.md` |
+| ADR               | `NNNN-<kebab-title>.md`                                                                       | `0004-ui-strings-from-pages.md`                      |
 
 ### Function prefixes
 

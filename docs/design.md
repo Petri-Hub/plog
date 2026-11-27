@@ -198,7 +198,7 @@ A section on the kraft band titled "Comments", with the count handwritten under 
 
 ### Search
 
-Opened from the header or with Ctrl K / ⌘ K. A paper panel over the dimmed desk with a large search field, handwritten placeholder and a dashed line under the field that turns blue (and stays dashed) on focus. Every post appears once, in the page's language, but a query matches both languages, ignoring accents. With an empty query it shows "Recent posts"; otherwise "Best matches" with a count, ranked title first, then tags, then description, with every word required. Matches are marked like a highlighter. Arrow keys, Enter and Esc work, and key hints sit at the bottom. The empty state is a joke: "Nothing here. Not even DNS." There is no language filter.
+Opened from the header or with Ctrl K / ⌘ K. A paper panel over the dimmed desk with a large search field, handwritten placeholder and a dashed line under the field that turns blue (and stays dashed) on focus. It lists the posts in the page's language and matches only that language, ignoring accents, so every match is text the reader can see. With an empty query it shows "Recent posts"; otherwise "Best matches" with a count, ranked title first, then tags, then description, with every word required. Matches are marked like a highlighter. Arrow keys, Enter and Esc work, and key hints sit at the bottom. The empty state is a joke: "Nothing here. Not even DNS." There is no language filter.
 
 ### Footer
 

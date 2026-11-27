@@ -1,5 +1,9 @@
 ---
 import ErrorLayout from '@/layouts/ErrorLayout.astro'
+import { getRecentPosts } from '@/contents/services/post.service'
+import { toLanguage } from '@/utils/locale.utils'
+
+const searchPosts = await getRecentPosts(toLanguage(Astro.currentLocale))
 ---
 
-<ErrorLayout status={404} />
+<ErrorLayout status={404} searchPosts={searchPosts} />

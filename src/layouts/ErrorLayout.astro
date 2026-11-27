@@ -3,14 +3,16 @@ import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from './BaseLayout.astro'
 import Column from '@/components/shared/Column.astro'
 import { getStrings } from '@/i18n/strings'
+import type { Post } from '@/types/content.types'
 import type { AlternateLanguageLinks } from '@/types/language.types'
 import { toLanguage } from '@/utils/locale.utils'
 
 type Props = {
   status: 404 | 500
+  searchPosts: Post[]
 }
 
-const { status } = Astro.props
+const { status, searchPosts } = Astro.props
 
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
@@ -25,6 +27,7 @@ const alternates: AlternateLanguageLinks = {
   title={strings.errors[status].title}
   description={strings.errors[status].description}
   alternates={alternates}
+  searchPosts={searchPosts}
 >
   <Column>
     <h1>{strings.errors[status].heading}</h1>

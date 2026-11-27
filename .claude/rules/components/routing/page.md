@@ -13,12 +13,13 @@ paths:
 
 ### ✅ Do
 
-| Rule                                          | Directive                                                                                                                                                                                                                                                             |
-| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Write both twins in one change**            | Create the page under `src/pages/pt-br/` and `src/pages/en-us/` together, identical except for the locale literal passed to services — the language switch links each page to its twin, and copies that differ in more than the locale drift apart.                   |
-| **Fetch, then render one layout**             | Call services in the frontmatter and render exactly one layout with the results as props, as the index pages do with `HomeLayout` — the layout owns the markup, so the page stays a short list of queries.                                                            |
-| **Pass entries through getStaticPaths props** | In a dynamic route, return `{ params: { slug: toPostSlug(post.id) }, props: { post } }` for each entry and read it with `const { post } = Astro.props` under a `type Props` — each page receives the entry it was built for, with no lookup that could match another. |
-| **Keep root pages locale-free**               | Put only `index.astro`, `404.astro` and `500.astro` at the root of `src/pages/`, rendering a layout without a locale literal — Astro gives unprefixed routes the default locale, so they render in Portuguese without naming it.                                      |
+| Rule                                          | Directive                                                                                                                                                                                                                                                                                                                                  |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Write both twins in one change**            | Create the page under `src/pages/pt-br/` and `src/pages/en-us/` together, identical except for the locale literal passed to services — the language switch links each page to its twin, and copies that differ in more than the locale drift apart.                                                                                        |
+| **Fetch, then render one layout**             | Call services in the frontmatter and render exactly one layout with the results as props, as the index pages do with `HomeLayout` — the layout owns the markup, so the page stays a short list of queries.                                                                                                                                 |
+| **Pass the search posts**                     | Pass the layout `searchPosts` from `getRecentPosts` for the page's locale, as the post and 404 pages do, or the `recents` the page already fetched, as the home pages do through `HomeLayout` — every page renders the header's search, and only pages may query, so the layout's `Props` makes a page that forgets it fail `astro check`. |
+| **Pass entries through getStaticPaths props** | In a dynamic route, return `{ params: { slug: toPostSlug(post.id) }, props: { post } }` for each entry and read it with `const { post } = Astro.props` under a `type Props` — each page receives the entry it was built for, with no lookup that could match another.                                                                      |
+| **Keep root pages locale-free**               | Put only `index.astro`, `404.astro` and `500.astro` at the root of `src/pages/`, rendering a layout without a locale literal, and read the locale with `toLanguage(Astro.currentLocale)` when a service needs one — Astro gives unprefixed routes the default locale, so they render in Portuguese without naming it.                      |
 
 ### 🚫 Don't
 
@@ -50,9 +51,15 @@ const { post } = Astro.props
 
 const { Content } = await getPostContent(post)
 const alternates = toAlternateMap(post)
+const searchPosts = await getRecentPosts('pt-br')
 ---
 
-<PostLayout title={post.data.title} description={post.data.description} alternates={alternates}>
+<PostLayout
+  title={post.data.title}
+  description={post.data.description}
+  alternates={alternates}
+  searchPosts={searchPosts}
+>
   <Content />
 </PostLayout>
 ```

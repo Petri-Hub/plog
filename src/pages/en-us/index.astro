@@ -1,10 +1,9 @@
 ---
 import HomeLayout from '@/layouts/HomeLayout.astro'
-import { getAllPosts, getHighlightedPosts, getRecentPosts } from '@/contents/services/post.service'
+import { getHighlightedPosts, getRecentPosts } from '@/contents/services/post.service'
 
 const highlights = await getHighlightedPosts('en-us')
 const recents = await getRecentPosts('en-us')
-const posts = await getAllPosts()
 ---
 
-<HomeLayout highlights={highlights} recents={recents} posts={posts} />
+<HomeLayout highlights={highlights} recents={recents} />

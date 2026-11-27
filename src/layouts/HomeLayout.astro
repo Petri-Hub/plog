@@ -5,7 +5,6 @@ import HomeHero from '@/components/home/HomeHero.astro'
 import HomePostCards from '@/components/home/HomePostCards.astro'
 import HomePostList from '@/components/home/HomePostList.astro'
 import HomeUpcoming from '@/components/home/HomeUpcoming.astro'
-import { SearchMenu } from '@/components/search/SearchMenu'
 import Section from '@/components/shared/Section.astro'
 import { getStrings } from '@/i18n/strings'
 import type { Post } from '@/types/content.types'
@@ -15,10 +14,9 @@ import { toLanguage } from '@/utils/locale.utils'
 type Props = {
   highlights: Post[]
   recents: Post[]
-  posts: Post[]
 }
 
-const { highlights, recents, posts } = Astro.props
+const { highlights, recents } = Astro.props
 
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
@@ -33,14 +31,8 @@ const alternates: AlternateLanguageLinks = {
   title={strings.home.title}
   description={strings.home.description}
   alternates={alternates}
+  searchPosts={recents}
 >
-  <SearchMenu
-    client:only="preact"
-    posts={posts}
-    enabled={false}
-    language={language}
-    strings={strings.search}
-  />
   <HomeHero strings={strings.home} />
   <Section id="highlights" title={strings.home.highlights} note={strings.home.highlightsNote}>
     <HomePostCards posts={highlights} language={language} />

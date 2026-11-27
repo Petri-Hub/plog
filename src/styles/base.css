@@ -32,6 +32,18 @@
     font: inherit;
   }
 
+  kbd {
+    display: inline-block;
+    padding: 0 0.35rem;
+    border: 1px solid var(--color-guide);
+    border-radius: 4px;
+    background: var(--color-raised);
+    color: var(--color-muted);
+    font-family: var(--font-text);
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
   :focus-visible {
     outline: 2px dashed var(--color-blue);
     outline-offset: 3px;

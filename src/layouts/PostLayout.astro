@@ -18,9 +18,10 @@ type Props = {
   post: Post
   headings: MarkdownHeading[]
   adjacent: AdjacentPosts
+  searchPosts: Post[]
 }
 
-const { post, headings, adjacent } = Astro.props
+const { post, headings, adjacent, searchPosts } = Astro.props
 
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
@@ -32,6 +33,7 @@ const markdownUrl = new URL(createMarkdownUrlFromPostId(post.id), Astro.site).hr
   title={post.data.title}
   description={post.data.description}
   alternates={toAlternateMap(post)}
+  searchPosts={searchPosts}
 >
   <article>
     <PostHeader

@@ -13,15 +13,15 @@ paths:
 
 ### ✅ Do
 
-| Rule                                 | Directive                                                                                                                                                                                                                                                                                                |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Wrap BaseLayout**                  | Render `BaseLayout` with a `title`, a `description` and `alternates` from every other layout, and write `<html>`, `<head>` and `<body>` only in `BaseLayout` — it is the one place that sets `lang`, the `hreflang` links, the fonts and `<ClientRouter />`, so a second document shell would miss them. |
-| **Type the props**                   | Declare `type Props` with the data the page passes, such as `highlights`, `recents` and `posts`, and destructure it from `Astro.props` — Astro types `Astro.props` from `Props`, so a page that passes the wrong data fails `astro check`.                                                               |
-| **Arrange, then delegate**           | Write the page's structure in the layout, its sections and headings, and render repeated or interactive pieces through components, as `HomeLayout` renders `HomePostList` and `SearchMenu` — the layout stays readable as an outline.                                                                    |
-| **Hydrate Preact components**        | Render every Preact component with a `client:*` directive, as `HomeLayout` renders `SearchMenu` with `client:only="preact"` — a component is Preact only because it holds state, and without a directive it renders once and never responds.                                                             |
-| **Load global styles in BaseLayout** | Import `@/styles/tokens.css`, `@/styles/base.css` and `@/styles/prose.css`, in that order, in `BaseLayout`'s frontmatter and nowhere else — the tokens declare the layer order first, and one import point keeps every page on the same global CSS (ADR 0017).                                           |
-| **Apply the theme before paint**     | Keep the theme script inline in `BaseLayout`'s `<head>`, applying the saved choice to `<html>` at once and again on `astro:after-swap` — a bundled script runs after the first paint, and the router replaces `<html>`'s attributes on every navigation, so either gap would flash the wrong theme.      |
-| **Use the slot for page content**    | Render `<slot />` where the page's own content goes, as `PostLayout` does for the post body — the page passes rendered content without the layout knowing where it came from.                                                                                                                            |
+| Rule                                 | Directive                                                                                                                                                                                                                                                                                                                                                                                    |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Wrap BaseLayout**                  | Render `BaseLayout` with a `title`, a `description`, `alternates` and the `searchPosts` the page passed from every other layout, and write `<html>`, `<head>` and `<body>` only in `BaseLayout` — it is the one place that sets `lang`, the `hreflang` links, the fonts and `<ClientRouter />`, and its header renders the search on every page, so a second document shell would miss them. |
+| **Type the props**                   | Declare `type Props` with the data the page passes, such as `highlights` and `recents`, and destructure it from `Astro.props` — Astro types `Astro.props` from `Props`, so a page that passes the wrong data fails `astro check`.                                                                                                                                                            |
+| **Arrange, then delegate**           | Write the page's structure in the layout, its sections and headings, and render repeated or interactive pieces through components, as `HomeLayout` renders `HomeHero`, `Section` and `HomePostList` — the layout stays readable as an outline.                                                                                                                                               |
+| **Hydrate Preact components**        | Render every Preact component with a `client:*` directive, as `Header` renders `SearchMenu` with `client:idle` — a component is Preact only because it holds state, and without a directive it renders once and never responds.                                                                                                                                                              |
+| **Load global styles in BaseLayout** | Import `@/styles/tokens.css`, `@/styles/base.css` and `@/styles/prose.css`, in that order, in `BaseLayout`'s frontmatter and nowhere else — the tokens declare the layer order first, and one import point keeps every page on the same global CSS (ADR 0017).                                                                                                                               |
+| **Apply the theme before paint**     | Keep the theme script inline in `BaseLayout`'s `<head>`, applying the saved choice to `<html>` at once and again on `astro:after-swap` — a bundled script runs after the first paint, and the router replaces `<html>`'s attributes on every navigation, so either gap would flash the wrong theme.                                                                                          |
+| **Use the slot for page content**    | Render `<slot />` where the page's own content goes, as `PostLayout` does for the post body — the page passes rendered content without the layout knowing where it came from.                                                                                                                                                                                                                |
 
 ### 🚫 Don't
 
@@ -40,12 +40,18 @@ type Props = {
   title: string
   description: string
   alternates: AlternateLanguageLinks
+  searchPosts: Post[]
 }
 
-const { title, description, alternates } = Astro.props
+const { title, description, alternates, searchPosts } = Astro.props
 ---
 
-<BaseLayout title={title} description={description} alternates={alternates}>
+<BaseLayout
+  title={title}
+  description={description}
+  alternates={alternates}
+  searchPosts={searchPosts}
+>
   <article>
     <h1>{title}</h1>
     <slot />

@@ -51,8 +51,19 @@ export type Strings = {
   }
   errors: Record<404 | 500, ErrorStrings>
   search: {
+    button: string
     label: string
-    all: string
+    placeholder: string
+    close: string
+    recent: string
+    matches: string
+    resultOne: string
+    resultMany: string
+    empty: string
+    emptyHint: string
+    keyMove: string
+    keyOpen: string
+    keyClose: string
   }
   code: {
     copy: string

@@ -30,6 +30,27 @@
   --color-sticky-ink: light-dark(#3d3520, #e9e0c8);
   --color-sticky-red: light-dark(#a3172f, #ff8fa3);
 
+  --color-scrap-paper: light-dark(#f3ecdd, #18191b);
+  --color-scrap-white: light-dark(#f8f4ea, #232427);
+  --color-scrap-back: light-dark(#e9e0cd, #171819);
+  --color-scrap-fold: light-dark(#e2d9c6, #141516);
+  --color-scrap-pencil: light-dark(#4a443c, #cfc8bb);
+  --color-scrap-ink: light-dark(#2f5fae, #86aef0);
+  --color-scrap-faint: light-dark(#6f675b, #a49d90);
+  --color-scrap-red: rgb(from var(--color-crimson) r g b / 85%);
+  --color-scrap-stamp: rgb(from var(--color-crimson) r g b / 75%);
+  --color-scrap-margin: rgb(from var(--color-crimson) r g b / 50%);
+  --color-scrap-line: rgb(from var(--color-blue) r g b / 24%);
+  --color-scrap-grid: rgb(from var(--color-blue) r g b / 16%);
+  --color-scrap-tape: light-dark(
+    color-mix(in srgb, #e6d7ae 72%, transparent),
+    color-mix(in srgb, #86aef0 16%, transparent)
+  );
+  --color-scrap-stain: light-dark(
+    color-mix(in srgb, #8a5a2b 38%, transparent),
+    color-mix(in srgb, #000 40%, transparent)
+  );
+
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
   --width-sheet: 54rem;
@@ -41,6 +62,8 @@
   --opacity-grain: 0.62;
   --texture-crumple: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008 .012' numOctaves='4' seed='4' stitchTiles='stitch'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='2.2'%3E%3CfeDistantLight azimuth='235' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
   --opacity-crumple: 0.4;
+  --texture-crumple-hard: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.022 .03' numOctaves='5' seed='9' stitchTiles='stitch'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='5'%3E%3CfeDistantLight azimuth='225' elevation='48'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+  --opacity-crumple-hard: 0.6;
   --texture-hatch: repeating-linear-gradient(
     -45deg,
     transparent 0 6px,
@@ -56,11 +79,13 @@
   color-scheme: dark;
   --opacity-grain: 0.42;
   --opacity-crumple: 0.55;
+  --opacity-crumple-hard: 0.75;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --opacity-grain: 0.42;
     --opacity-crumple: 0.55;
+    --opacity-crumple-hard: 0.75;
   }
 }

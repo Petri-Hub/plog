@@ -1,0 +1,286 @@
+---
+import DeskPaper from './DeskPaper.astro'
+import type { Strings } from '@/types/i18n.types'
+
+type Props = {
+  strings: Strings['desk']
+}
+
+const { strings } = Astro.props
+
+const swatches = [
+  { label: '#a3172f', color: 'var(--color-crimson)', scheme: 'light' },
+  { label: '#24539e', color: 'var(--color-blue)', scheme: 'light' },
+  { label: '#f5efe3', color: 'var(--color-paper)', scheme: 'light' },
+  { label: '#1c1d1f', color: 'var(--color-paper)', scheme: 'dark' },
+  { label: '#f2728a', color: 'var(--color-crimson)', scheme: 'dark' },
+]
+
+const statuses = [
+  { code: '200', share: 100, count: '12044' },
+  { code: '301', share: 22, count: '873' },
+  { code: '404', share: 10, count: '312' },
+  { code: '418', share: 1, count: '1', isCircled: true },
+  { code: '500', share: 2, count: '3' },
+]
+---
+
+<DeskPaper isBack side="left" top={0.4} width={22.5} height={18.75} tilt={3} tuck={6.25}>
+  <pre class="printout"><b>LATENCY · api-gateway · ms</b>
+endpoint       p50  p95   p99
+GET /posts      12   48   210
+GET /rss.xml     8   21    64
+GET /search     31  120   480
+POST /login     95  340  1200
+GET /health      1    2   <span class="circled">900</span></pre>
+  <p class="hand-note">{strings.latencyWhy}</p>
+</DeskPaper>
+
+<DeskPaper isBack side="left" top={21.6} width={22.5} height={18.75} tilt={5} tuck={6.25}>
+  <pre class="printout"><b>SUBNETS · homelab</b>
+10.0.0.0/8       16777214
+172.16.0.0/12     1048574
+192.168.0.0/16      65534
+192.168.1.0/24        254
+192.168.1.0/30          2
+192.168.1.7/32          <span class="circled">1</span></pre>
+  <p class="hand-note">{strings.subnetMe}</p>
+</DeskPaper>
+
+<DeskPaper isBack side="left" top={40.8} width={22.5} height={20.625} tilt={-5} tuck={6.25}>
+  <pre class="printout"><b>$ xxd plog.bin</b>
+00000000  50 4c 4f 47 20 69 73 20  |PLOG is |
+00000008  61 20 6c 6f 67 20 6f 66  |a log of|
+00000010  20 77 68 61 74 20 49 27  | what I'|
+00000018  6d 20 73 74 75 64 79 69  |m studyi|
+00000020  6e 67 0a 00 00 00 00 00  |ng......|
+00000028  <span class="circled">ca fe ba be</span> 00 00 00 41  |.......A|
+00000030  de ad be ef 00 00 00 2a  |.......*|</pre>
+  <p class="hand-note">java 21</p>
+</DeskPaper>
+
+<DeskPaper isBack side="left" top={58.8} width={12.5} height={23.75} tilt={-7} tuck={1.875}>
+  <p class="title">{strings.paletteTitle}</p>
+  <div class="swatches">
+    {swatches.map(({ label, color, scheme }) => (
+      <span class="swatch" data-scheme={scheme} style={{ '--swatch': color }}>
+        {label}
+      </span>
+    ))}
+  </div>
+</DeskPaper>
+
+<DeskPaper
+  isBack
+  side="left"
+  surface="graph"
+  top={73.5}
+  width={21.25}
+  height={20.625}
+  tilt={5}
+  tuck={6.25}
+>
+  <svg class="sketch" viewBox="0 0 220 200">
+    <text x="110" y="12">
+      54rem
+    </text>
+    <path d="M10 20 L210 20 L210 196 L10 196 Z"></path>
+    <path d="M40 20 L40 196 M180 20 L180 196"></path>
+    <path d="M48 32 L80 32 M150 32 L172 32"></path>
+    <path d="M48 54 L150 54 M48 64 L130 64"></path>
+    <path d="M48 78 L92 78 L92 88 L48 88 Z"></path>
+    <path d="M48 102 L108 102 L108 138 L48 138 Z M114 102 L172 102 L172 138 L114 138 Z"></path>
+    <path d="M48 150 L172 150 M48 160 L172 160 M48 170 L172 170 M48 180 L172 180"></path>
+  </svg>
+</DeskPaper>
+
+<DeskPaper isBack side="right" top={0} width={22.5} height={21.25} tilt={-4} tuck={6.25}>
+  <pre class="printout"><b>PORTS</b>
+22     ssh
+53     dns
+80     http
+443    https
+3000   {strings.portsTemp}
+5432   postgres
+6443   kube-apiserver
+8080   quarkus
+9090   prometheus</pre>
+</DeskPaper>
+
+<DeskPaper isBack side="right" top={13.5} width={22.5} height={18.75} tilt={5} tuck={6.25}>
+  <p class="printout">
+    <b>HTTP · nov</b>
+  </p>
+  <div class="status">
+    {statuses.map(({ code, share, count, isCircled }) => (
+      <>
+        <span class:list={{ circled: isCircled }}>{code}</span>
+        <span class="status-fill" style={{ '--share': `${share}%` }} />
+        <span>{count}</span>
+      </>
+    ))}
+  </div>
+  <p class="hand-note">{strings.statusTeapot}</p>
+</DeskPaper>
+
+<DeskPaper
+  isBack
+  side="right"
+  surface="graph"
+  top={28.2}
+  width={22.5}
+  height={20.625}
+  tilt={-6}
+  tuck={6.25}
+>
+  <p class="printout">
+    <b>BIG O</b>
+  </p>
+  <svg class="sketch" viewBox="0 0 190 160">
+    <path d="M14 8 L14 146 L186 146"></path>
+    <path d="M14 132 L176 132"></path>
+    <path d="M14 146 C 30 112, 60 104, 176 98"></path>
+    <path d="M14 146 L150 22"></path>
+    <path d="M14 146 C 70 144, 100 100, 116 10"></path>
+    <path d="M14 146 C 64 146, 82 124, 90 10"></path>
+    <text x="183" y="136">
+      1
+    </text>
+    <text x="174" y="92">
+      log n
+    </text>
+    <text x="158" y="22">
+      n
+    </text>
+    <text x="126" y="14">
+      n²
+    </text>
+    <text x="96" y="14">
+      2ⁿ
+    </text>
+  </svg>
+  <p class="hand-note">{strings.bigONote}</p>
+</DeskPaper>
+
+<DeskPaper isBack side="right" top={54.7} width={22.5} height={18.75} tilt={4} tuck={6.25}>
+  <pre class="printout"><b>$ node</b>
+&gt; 2 ** 10
+1024
+&gt; 0.1 + 0.2
+<span class="circled">0.30000000000000004</span>
+&gt; [] + {'{}'}
+'[object Object]'
+&gt; typeof NaN
+'number'</pre>
+</DeskPaper>
+
+<style>
+  p {
+    margin: 0;
+  }
+
+  .printout {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.65625rem;
+    line-height: 1.6;
+    white-space: pre;
+
+    & b {
+      color: var(--color-scrap-pencil);
+    }
+  }
+
+  .title {
+    color: var(--color-scrap-ink);
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+  }
+
+  .hand-note {
+    margin-top: 0.375rem;
+    color: var(--color-scrap-red);
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .circled {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -4px -7px;
+      border: 1.5px solid var(--color-scrap-red);
+      border-radius: 50%;
+      filter: var(--filter-rough);
+    }
+  }
+
+  .swatches {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .swatch {
+    display: grid;
+    gap: 0.125rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+
+    &::before {
+      content: '';
+      height: 2.125rem;
+      border: 1px solid var(--color-shadow-paper);
+      background: var(--swatch);
+    }
+
+    &[data-scheme='light'] {
+      color-scheme: light;
+    }
+
+    &[data-scheme='dark'] {
+      color-scheme: dark;
+    }
+  }
+
+  .status {
+    display: grid;
+    grid-template-columns: 2.4em minmax(0, 1fr) 3.4em;
+    align-items: center;
+    gap: 0.25rem 0.625rem;
+    margin-top: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.65625rem;
+  }
+
+  .status-fill {
+    width: var(--share);
+    min-width: 2px;
+    height: 7px;
+    background: currentColor;
+  }
+
+  .sketch {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+
+    & path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    & text {
+      fill: currentColor;
+      font-family: var(--font-hand);
+      font-size: 11px;
+      text-anchor: middle;
+    }
+  }
+</style>

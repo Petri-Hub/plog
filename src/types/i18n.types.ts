@@ -65,6 +65,59 @@ export type Strings = {
     keyOpen: string
     keyClose: string
   }
+  desk: {
+    latencyWhy: string
+    dnsNote: string
+    subnetMe: string
+    synHi: string
+    synAckHi: string
+    ackYes: string
+    draftOld: string
+    draftOld2: string
+    draftNew: string
+    paletteTitle: string
+    certTitle: string
+    certIssued: string
+    stampText: string
+    regretsTitle: string
+    regretsSpace: string
+    crashLoop: string
+    measureTitle: string
+    measureNote: string
+    estimateTitle: string
+    estimateGuess: string
+    estimateReal: string
+    portsTemp: string
+    haiku1: string
+    haiku2: string
+    statusTeapot: string
+    todoTitle: string
+    todoRss: string
+    todoSitemap: string
+    todoDark: string
+    todoPost: string
+    todoGrass: string
+    bigONote: string
+    receiptCoffee: string
+    receiptTabs: string
+    receiptQuickFix: string
+    receiptTotal: string
+    receiptBye: string
+    blameAgo: string
+    blameNote: string
+    coffeeFig: string
+    shipIt: string
+    pmCause: string
+    pmRows: string
+    pmFoundBy: string
+    pmFoundValue: string
+    pmDowntime: string
+    pmNote: string
+    pmAction1: string
+    pmAction2: string
+    calWeekday: string
+    calNote: string
+  }
   code: {
     copy: string
     copied: string

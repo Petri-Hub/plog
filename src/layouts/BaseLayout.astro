@@ -20,9 +20,10 @@ type Props = {
   description: string
   alternates: AlternateLanguageLinks
   searchPosts: Post[]
+  isDeskCleared?: boolean
 }
 
-const { title, description, alternates, searchPosts } = Astro.props
+const { title, description, alternates, searchPosts, isDeskCleared = false } = Astro.props
 
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
@@ -81,7 +82,7 @@ const homeUrl = getRelativeLocaleUrl(language)
   </head>
   <body>
     <RoughFilter />
-    <Desk />
+    <Desk language={language} isCleared={isDeskCleared} strings={strings.desk} />
     <Sheet>
       <Header
         language={language}

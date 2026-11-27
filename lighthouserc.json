@@ -5,8 +5,8 @@
       "url": [
         "http://localhost/pt-br/",
         "http://localhost/en-us/",
-        "http://localhost/pt-br/posts/post-1-test/",
-        "http://localhost/en-us/posts/post-1-test/",
+        "http://localhost/pt-br/posts/debugging-dns-at-two-in-the-morning/",
+        "http://localhost/en-us/posts/debugging-dns-at-two-in-the-morning/",
         "http://localhost/en-us/404/"
       ]
     },

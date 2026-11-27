@@ -26,7 +26,7 @@ const statuses = [
 ---
 
 <DeskPaper isBack side="left" top={0.4} width={22.5} height={18.75} tilt={3} tuck={6.25}>
-  <pre class="printout"><b>LATENCY · api-gateway · ms</b>
+  <pre class="printout"><b>{strings.latencyTitle} · api-gateway · ms</b>
 endpoint       p50  p95   p99
 GET /posts      12   48   210
 GET /rss.xml     8   21    64
@@ -37,7 +37,7 @@ GET /health      1    2   <span class="circled">900</span></pre>
 </DeskPaper>
 
 <DeskPaper isBack side="left" top={21.6} width={22.5} height={18.75} tilt={5} tuck={6.25}>
-  <pre class="printout"><b>SUBNETS · homelab</b>
+  <pre class="printout"><b>{strings.subnetsTitle} · homelab</b>
 10.0.0.0/8       16777214
 172.16.0.0/12     1048574
 192.168.0.0/16      65534
@@ -95,7 +95,7 @@ GET /health      1    2   <span class="circled">900</span></pre>
 </DeskPaper>
 
 <DeskPaper isBack side="right" top={0} width={22.5} height={21.25} tilt={-4} tuck={6.25}>
-  <pre class="printout"><b>PORTS</b>
+  <pre class="printout"><b>{strings.portsTitle}</b>
 22     ssh
 53     dns
 80     http

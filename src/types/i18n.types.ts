@@ -66,7 +66,13 @@ export type Strings = {
     keyClose: string
   }
   desk: {
+    latencyTitle: string
     latencyWhy: string
+    subnetsTitle: string
+    portsTitle: string
+    dnsBrowser: string
+    synClient: string
+    synServer: string
     dnsNote: string
     subnetMe: string
     synHi: string

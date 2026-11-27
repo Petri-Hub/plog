@@ -22,7 +22,7 @@ const { strings } = Astro.props
   <svg class="sketch" viewBox="0 0 200 200">
     <path d="M8 18 L88 15 L90 52 L9 54 Z"></path>
     <text x="49" y="40">
-      browser
+      {strings.dnsBrowser}
     </text>
     <path d="M118 16 L190 18 L189 54 L119 52 Z"></path>
     <text x="154" y="40">
@@ -68,10 +68,10 @@ const { strings } = Astro.props
   <p class="title">3-way handshake</p>
   <svg class="sketch" viewBox="0 0 200 230">
     <text x="30" y="16" class="small">
-      client
+      {strings.synClient}
     </text>
     <text x="170" y="16" class="small">
-      server
+      {strings.synServer}
     </text>
     <path d="M30 26 C 31 90, 29 150, 30 222"></path>
     <path d="M170 26 C 169 90, 171 150, 170 222"></path>

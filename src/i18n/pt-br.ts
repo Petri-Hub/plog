@@ -82,7 +82,13 @@ export const ptBr: Strings = {
     keyClose: 'para fechar',
   },
   desk: {
+    latencyTitle: 'LATÊNCIA',
     latencyWhy: 'por quê??',
+    subnetsTitle: 'SUB-REDES',
+    portsTitle: 'PORTAS',
+    dnsBrowser: 'navegador',
+    synClient: 'cliente',
+    synServer: 'servidor',
     dnsNote: 'tá aqui em algum lugar',
     subnetMe: '↑ eu',
     synHi: 'oi',

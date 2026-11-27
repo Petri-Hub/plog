@@ -82,7 +82,13 @@ export const enUs: Strings = {
     keyClose: 'to close',
   },
   desk: {
+    latencyTitle: 'LATENCY',
     latencyWhy: 'why??',
+    subnetsTitle: 'SUBNETS',
+    portsTitle: 'PORTS',
+    dnsBrowser: 'browser',
+    synClient: 'client',
+    synServer: 'server',
     dnsNote: "it's in here somewhere",
     subnetMe: '↑ me',
     synHi: 'hi',

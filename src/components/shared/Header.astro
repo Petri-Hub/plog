@@ -2,6 +2,7 @@
 import Column from './Column.astro'
 import ThemeToggle from './ThemeToggle.astro'
 import Wordmark from './Wordmark.astro'
+import { SearchMenu } from '@/components/search/SearchMenu'
 import type { Strings } from '@/types/i18n.types'
 import type { AlternateLanguageLinks, Language } from '@/types/language.types'
 import { getLanguageDetails, languages } from '@/utils/locale.utils'
@@ -11,9 +12,10 @@ type Props = {
   homeUrl: string
   alternates: AlternateLanguageLinks
   strings: Strings['header']
+  searchStrings: Strings['search']
 }
 
-const { language, homeUrl, alternates, strings } = Astro.props
+const { language, homeUrl, alternates, strings, searchStrings } = Astro.props
 ---
 
 <header class="header">
@@ -24,6 +26,7 @@ const { language, homeUrl, alternates, strings } = Astro.props
         <span class="subtitle">{strings.subtitle}</span>
       </a>
       <div class="tools">
+        <SearchMenu client:idle language={language} strings={searchStrings} />
         <nav aria-label={strings.language}>
           <ul class="languages">
             {languages.map((alternate) => {

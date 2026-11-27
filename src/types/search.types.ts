@@ -1,11 +1,5 @@
-import type { Language } from './language.types'
+import type { Post } from './content.types'
 
-type SearchDocument = {
-  title: string
-  description: string
-  tags: string[]
-  date: string
+export type SearchEntry = Pick<Post['data'], 'title' | 'description' | 'tags' | 'date'> & {
   url: string
 }
-
-export type SearchEntry = Record<Language, SearchDocument>

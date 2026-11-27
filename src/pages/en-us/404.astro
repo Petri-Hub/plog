@@ -1,5 +1,8 @@
 ---
 import ErrorLayout from '@/layouts/ErrorLayout.astro'
+import { getRecentPosts } from '@/contents/services/post.service'
+
+const searchPosts = await getRecentPosts('en-us')
 ---
 
-<ErrorLayout status={404} />
+<ErrorLayout status={404} searchPosts={searchPosts} />

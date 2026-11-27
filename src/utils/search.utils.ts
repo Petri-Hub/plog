@@ -1,11 +1,7 @@
 import type { Post } from '@/types/content.types'
-import type { Language } from '@/types/language.types'
 import type { SearchEntry } from '@/types/search.types'
-import { languages } from './locale.utils'
-import { createUrlFromPostId, toPostLanguage, toPostSlug } from './post.utils'
+import { createUrlFromPostId } from './post.utils'
 import { normalizeText } from './text.utils'
-
-type SearchDocument = SearchEntry[Language]
 
 type HighlightPart = {
   text: string
@@ -13,37 +9,8 @@ type HighlightPart = {
 }
 
 export const toSearchEntries = (posts: Post[]): SearchEntry[] => {
-  const slugs = [...new Set(posts.map(({ id }) => toPostSlug(id)))]
-
-  const toEntry = (slug: string): SearchEntry => {
-    const toDocument = (language: Language): SearchDocument => {
-      const post = posts.find(({ id }) => {
-        return toPostSlug(id) === slug && toPostLanguage(id) === language
-      })
-
-      if (!post) {
-        throw new Error(`Post "${slug}" has no "${language}" version`)
-      }
-
-      const { title, description, tags, date } = post.data
-
-      return {
-        title,
-        description,
-        tags,
-        date: date.toISOString(),
-        url: createUrlFromPostId(post.id),
-      }
-    }
-
-    return {
-      'pt-br': toDocument('pt-br'),
-      'en-us': toDocument('en-us'),
-    }
-  }
-
-  return slugs.map(toEntry).toSorted((entryA, entryB) => {
-    return entryB['en-us'].date.localeCompare(entryA['en-us'].date)
+  return posts.map(({ id, data: { title, description, tags, date } }) => {
+    return { title, description, tags, date, url: createUrlFromPostId(id) }
   })
 }
 
@@ -55,14 +22,10 @@ export const toSearchTerms = (query: string): string[] => {
 }
 
 export const toSearchMatches = (entries: SearchEntry[], terms: string[]): SearchEntry[] => {
-  const toField = (entry: SearchEntry, pick: (document: SearchDocument) => string): string => {
-    return normalizeText(languages.map((language) => pick(entry[language])).join(' '))
-  }
-
   const toScore = (entry: SearchEntry): number => {
-    const title = toField(entry, ({ title }) => title)
-    const tags = toField(entry, ({ tags }) => tags.join(' '))
-    const description = toField(entry, ({ description }) => description)
+    const title = normalizeText(entry.title)
+    const tags = normalizeText(entry.tags.join(' '))
+    const description = normalizeText(entry.description)
     let score = 0
 
     for (const term of terms) {
@@ -91,7 +54,9 @@ export const toHighlightParts = (text: string, terms: string[]): HighlightPart[]
   const characters = [...text]
   const normalized = characters.map((character) => normalizeText(character))
   const flat = normalized.join('')
-  const owners = normalized.flatMap((part, index) => [...part].map(() => index))
+  const owners = normalized.flatMap((part, index) =>
+    Array.from({ length: part.length }, () => index),
+  )
   const isMarked = characters.map(() => false)
 
   for (const term of terms) {
@@ -117,35 +82,4 @@ export const toHighlightParts = (text: string, terms: string[]): HighlightPart[]
 
     return parts
   }, [])
-}
-
-const isSearchDocument = (value: unknown): value is SearchDocument => {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    'title' in value &&
-    typeof value.title === 'string' &&
-    'description' in value &&
-    typeof value.description === 'string' &&
-    'date' in value &&
-    typeof value.date === 'string' &&
-    'url' in value &&
-    typeof value.url === 'string' &&
-    'tags' in value &&
-    Array.isArray(value.tags) &&
-    value.tags.every((tag) => typeof tag === 'string')
-  )
-}
-
-export const isSearchEntries = (value: unknown): value is SearchEntry[] => {
-  return (
-    Array.isArray(value) &&
-    value.every((entry) => {
-      return (
-        typeof entry === 'object' &&
-        entry !== null &&
-        languages.every((language) => language in entry && isSearchDocument(entry[language]))
-      )
-    })
-  )
 }

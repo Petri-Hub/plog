@@ -11,6 +11,7 @@ import { getStrings } from '@/i18n/strings'
 import '@/styles/tokens.css'
 import '@/styles/base.css'
 import '@/styles/prose.css'
+import type { Post } from '@/types/content.types'
 import type { AlternateLanguageLinks } from '@/types/language.types'
 import { getLanguageDetails, languages, toLanguage } from '@/utils/locale.utils'
 
@@ -18,9 +19,10 @@ type Props = {
   title: string
   description: string
   alternates: AlternateLanguageLinks
+  searchPosts: Post[]
 }
 
-const { title, description, alternates } = Astro.props
+const { title, description, alternates, searchPosts } = Astro.props
 
 const language = toLanguage(Astro.currentLocale)
 const strings = getStrings(language)
@@ -86,6 +88,7 @@ const homeUrl = getRelativeLocaleUrl(language)
         homeUrl={homeUrl}
         alternates={alternates}
         strings={strings.header}
+        searchPosts={searchPosts}
         searchStrings={strings.search}
       />
       <main>

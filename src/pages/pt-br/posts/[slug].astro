@@ -1,6 +1,11 @@
 ---
 import PostLayout from '@/layouts/PostLayout.astro'
-import { getAdjacentPosts, getPostContent, getPosts } from '@/contents/services/post.service'
+import {
+  getAdjacentPosts,
+  getPostContent,
+  getPosts,
+  getRecentPosts,
+} from '@/contents/services/post.service'
 import type { Post } from '@/types/content.types'
 import { toPostSlug } from '@/utils/post.utils'
 
@@ -21,8 +26,9 @@ const { post } = Astro.props
 
 const { Content, headings } = await getPostContent(post)
 const adjacent = await getAdjacentPosts(post)
+const searchPosts = await getRecentPosts('pt-br')
 ---
 
-<PostLayout post={post} headings={headings} adjacent={adjacent}>
+<PostLayout post={post} headings={headings} adjacent={adjacent} searchPosts={searchPosts}>
   <Content />
 </PostLayout>

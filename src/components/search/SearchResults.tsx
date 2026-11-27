@@ -54,7 +54,7 @@ export const SearchResults = ({
         aria-labelledby="search-heading"
       >
         {results.map((entry, index) => {
-          const { title, description, tags, date, url } = entry[language]
+          const { title, description, tags, date, url } = entry
 
           return (
             <li
@@ -67,7 +67,7 @@ export const SearchResults = ({
               onMouseMove={() => onHover(index)}
             >
               <span className={styles.resultMeta}>
-                <time dateTime={date}>{toLocalizedDate(new Date(date), language)}</time>
+                <time dateTime={date.toISOString()}>{toLocalizedDate(date, language)}</time>
                 {tags.length > 0 && <span>{toHashtags(tags)}</span>}
               </span>
               <span className={styles.title}>{renderHighlight(title)}</span>

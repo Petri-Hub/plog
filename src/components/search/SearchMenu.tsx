@@ -7,9 +7,10 @@ import styles from './SearchMenu.module.css'
 import type { Strings } from '@/types/i18n.types'
 import type { Language } from '@/types/language.types'
 import type { SearchEntry } from '@/types/search.types'
-import { isSearchEntries, toSearchMatches, toSearchTerms } from '@/utils/search.utils'
+import { toSearchMatches, toSearchTerms } from '@/utils/search.utils'
 
 type Props = {
+  entries: SearchEntry[]
   language: Language
   strings: Strings['search']
 }
@@ -17,10 +18,9 @@ type Props = {
 const recentLimit = 6
 const matchLimit = 20
 
-export const SearchMenu = ({ language, strings }: Props) => {
+export const SearchMenu = ({ entries, language, strings }: Props) => {
   const dialog = useRef<HTMLDialogElement>(null)
   const input = useRef<HTMLInputElement>(null)
-  const [entries, setEntries] = useState<SearchEntry[]>([])
   const [query, setQuery] = useState<string>('')
   const [selected, setSelected] = useState<number>(0)
   const [shortcut, setShortcut] = useState<string>('Ctrl K')
@@ -39,20 +39,11 @@ export const SearchMenu = ({ language, strings }: Props) => {
     document.getElementById(`search-result-${selected}`)?.scrollIntoView({ block: 'nearest' })
   }, [selected])
 
-  const handleOpen = async (): Promise<void> => {
+  const handleOpen = (): void => {
     setQuery('')
     setSelected(0)
     dialog.current?.showModal()
     input.current?.focus()
-
-    if (entries.length === 0) {
-      const response = await fetch('/search.json')
-      const data: unknown = await response.json()
-
-      if (isSearchEntries(data)) {
-        setEntries(data)
-      }
-    }
   }
 
   const handleClose = (): void => {
@@ -67,7 +58,7 @@ export const SearchMenu = ({ language, strings }: Props) => {
       if (dialog.current?.open) {
         handleClose()
       } else {
-        void handleOpen()
+        handleOpen()
       }
     },
     { enableOnFormTags: true },
@@ -75,7 +66,7 @@ export const SearchMenu = ({ language, strings }: Props) => {
 
   const handleSelect = (entry: SearchEntry): void => {
     handleClose()
-    void navigate(entry[language].url)
+    void navigate(entry.url)
   }
 
   const handleInput = ({ currentTarget }: TargetedInputEvent<HTMLInputElement>): void => {
